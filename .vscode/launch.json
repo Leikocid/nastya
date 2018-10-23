@@ -34,7 +34,7 @@
             "request": "launch",
             "program": "${fileDirname}/../bin/1_2_lab_13",
             "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_13/bin/FST.txt"
+                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_13/test/finalExample.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}/../bin",

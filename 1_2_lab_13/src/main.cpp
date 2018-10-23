@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         logIn(ctx.logger, ctx.in);
 
         // строим таблицы лексем и идентификаторов
-        bool isOk = LA::lexicalAnalysis(ctx);
+        LA::lexicalAnalysis(ctx);
 
         // writeResult(ctx.params.out, ctx.in.text);
     } catch (ERROR e) {

@@ -1,0 +1,8 @@
+----- Протокол -----  Дата: 24.10.2018 01:29:54 ----- 
+-log: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_13/test/finalExample.txt.log
+-out: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_13/test/finalExample.txt.out
+-in: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_13/test/finalExample.txt
+----- Исходные данные -----
+Количество символов: 742
+Проигнорировано:     39
+Количество строк:    40

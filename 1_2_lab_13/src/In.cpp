@@ -22,8 +22,9 @@ namespace In {
         }
         unsigned char c;
         bool readOk = true;
-        int  i = 0;
-        int  line = 0;       int  col    = 0;
+        int  i	    = 0;
+        int  line   = 1;
+        int  col    = 1;
         do {
             stream.read(((char*)&c), sizeof(unsigned char));
             readOk = !stream.fail();
@@ -43,14 +44,14 @@ namespace In {
                 }
                 if (c == IN_CODE_ENDL) {
                     line++;
-                    col = 0;
+                    col = 1;
                 } else {
                     col++;
                 }
             }
         } while (readOk && i < IN_MAX_LEN_TEXT - 1);
 
-        input.lines   = line + 1;
+        input.lines   = line;
         input.text[i] = 0;
         stream.close();
         return input;

@@ -5,7 +5,7 @@
 
 namespace LA {
     // лексический разбор входного файла ctx.in.txt и построение таблиц ctx.lt и ctx.it
-    bool lexicalAnalysis(TranslationContext &ctx);
+    void lexicalAnalysis(TranslationContext &ctx);
 }
 
 #endif // !LEXICAL_ANALYZER_H

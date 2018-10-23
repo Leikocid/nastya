@@ -46,6 +46,8 @@
                 "FST.cpp",
                 "Utils.cpp",
                 "LexicalAnalyzer.cpp",
+                "LT.cpp",
+                "IT.cpp",
                 "main.cpp",
                 "-o",
                 "../bin/1_2_lab_13"

@@ -12,7 +12,7 @@
 
 // перенос строки - ращрешен; спецсимволы - запрещены; все символы, цифры, буквы и знаки - разрешены
 #define IN_CODE_TABLE {                                                                                                                 \
-        /* 0 */ IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, /*   */ IN::F, IN::F, IN::T, IN::F, IN::F, IN::F, IN::F, IN::F, \
+        /* 0 */ IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, /*   */ IN::F, IN::F, IN::T, IN::F, IN::F, IN::I, IN::F, IN::F, \
         /* 1 */ IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, /*   */ IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, \
         /* 2 */ IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, /*   */ IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \
         /* 3 */ IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, /*   */ IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \

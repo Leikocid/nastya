@@ -20,6 +20,7 @@
 
 #include "FST.h"
 
+#include <iostream>
 
 using namespace LT;
 using namespace IT;
@@ -32,7 +33,7 @@ namespace LA {
     bool isTerminalSymbol(const char c);
 
     // лексический разбор входного файла ctx.in.txt и построение таблиц ctx.lt и ctx.it
-    bool lexicalAnalysis(TranslationContext &ctx) {
+    void lexicalAnalysis(TranslationContext &ctx) {
         // создаем пустые таблицы
         ctx.lexTable = CreateLexble(LT_MAXSIZE);
         ctx.idTable  = CreateIdTable(IT_MAXSIZE);
@@ -40,49 +41,52 @@ namespace LA {
         // разбираем входящий файл по частям
         int  i		= 0;     // инщекс текущего символа
         int  begin	= 0;     // индекс начала фрагмента текста
+        int  beginLine	= 0;     // номер строки начала фрагмента
         int  line	= 1;     // номер текущей строки
         int  col	= 1;     // номер текущей колонки
         bool stringMode = false; // это специальный режим когда мы ждем только закрывающейся кавычки '
 
         // проходим последовательно символы исходного текста, отделяя фрагменты текста с помощью
-        // терминальных символов: space ; , . { } ( ) + - * / \n \t `
-        // в случае если мы определяем границу строкового литерала то терминальный символ это хитрая кавычка: ’
-        // а начинается строковый литерал с другой хитрой кавычки: `. Кавычки разные.
+        // терминальных символов: space ; , . { } ( ) + - * / \n \t ' =
+        // в случае если мы определяем границу строкового литерала то терминальный символ это одинарная кавычка: ’
         while (i < strlen((char*)ctx.in.text)) {
             char c = ctx.in.text[i];
 
-            if (stringMode) {
-                if (!stringMode && isTerminalSymbol(c)) {
-                    analyzeFragment(ctx, begin, i - 1, line, col);
-                    begin = i + 1;
-                }
-            } else {
+            if (stringMode) { // режим строкового литерала
                 if (c == '\'') {
-                    addLexema(ctx, begin, i, line, col, LEX_LITERAL);
+                    addLexema(ctx, begin, i, beginLine, col, LEX_LITERAL);
                     stringMode = false;
                     begin      = i + 1;
+                    beginLine  = line;
                 }
-            }
+            } else { // обычный режим обработки
+                if (isTerminalSymbol(c)) {
+                    analyzeFragment(ctx, begin, i - 1, beginLine, col);
+                    begin     = i + 1;
+                    beginLine = line;
+                }
 
-            switch (c) {
-                case '`': {
-                    stringMode = true;
-                    begin      = i;
-                    break;
-                }
-                case LEX_PLUS:
-                case LEX_MINUS:
-                case LEX_STAR:
-                case LEX_DIRSLASH:
-                case LEX_COMPARE:
-                case LEX_SEMICOLON:
-                case LEX_COMMA:
-                case LEX_LEFTBRACE:
-                case LEX_RIGTHBRACE:
-                case LEX_LEFTHESIS:
-                case LEX_RIGHTHESIS: {
-                    addLexema(ctx, begin, i - 1, line, col, c);
-                    break;
+                switch (c) {
+                    case '\'': {
+                        stringMode = true;
+                        begin	   = i;
+                        beginLine  = line;
+                        break;
+                    }
+                    case LEX_PLUS:
+                    case LEX_MINUS:
+                    case LEX_STAR:
+                    case LEX_DIRSLASH:
+                    case LEX_COMPARE:
+                    case LEX_SEMICOLON:
+                    case LEX_COMMA:
+                    case LEX_LEFTBRACE:
+                    case LEX_RIGTHBRACE:
+                    case LEX_LEFTHESIS:
+                    case LEX_RIGHTHESIS: {
+                        addLexema(ctx, begin - 1, i, beginLine, col, c);
+                        break;
+                    }
                 }
             }
 
@@ -98,16 +102,17 @@ namespace LA {
             // TODO - кинуть ошибку - строковый литерал открыт и не закрыт
         }
         analyzeFragment(ctx, begin, i - 1, line, col); // обработать последний фрагмент текста
-
-        return false;
     }
 
     void analyzeFragment(const TranslationContext &ctx, const int begin, const int end, const int line, const int col) {
-        if (begin < end) {
+        if (begin <= end) {
+            char* str = new char[end - begin + 2];
+            memcpy(str, &ctx.in.text[begin], end - begin + 1);
+            str[end - begin + 1] = '\0';
+            std::cout << line << ": фрагмент [" << str << "]" << endl;
+
             // TODO
-            // char* str = new char[end - begin + 2];
-            // memcpy(str, &ctx.in.text[begin], end - begin + 1);
-            // str[end - begin + 1] = '\0';
+
 
             // недетерминированный конечный автомат start( )+((send|wait|show)( )+)*( )+stop
             // FST fst(str,
@@ -148,14 +153,18 @@ namespace LA {
         }
     }
 
-    // терминальные символы: space ; , . { } ( ) + - * / \n \t `
+    // терминальные символы: space ; , . { } ( ) + - * / \n \t ` ' =
     bool isTerminalSymbol(const char c) {
-        return c == ' ' || c == ';' || c == ',' || c == '.' || c == '\'' ||
-               c == '{' || c == '}' || c == '(' || c == ')' || c == '+' ||
-               c == '-' || c == '*' || c == '/' || c == '\n' || c == '\t' || c == '`';
+        return c == ' ' || c == ';' || c == ',' || c == '.'  || c == '\'' ||
+               c == '{' || c == '}' || c == '(' || c == ')' || c == '+' || c == '=' ||
+               c == '-' || c == '*' || c == '/' || c == '\n' || c == '\t';
     }
 
     void addLexema(const TranslationContext &ctx, const int begin, const int end, const int line, const int col, const char lexema) {
         // TODO
+        char* str = new char[end - begin + 2];
+        memcpy(str, &ctx.in.text[begin], end - begin + 1);
+        str[end - begin + 1] = '\0';
+        std::cout << line << ": " << lexema << "        [" << str << "]" << endl;
     }
 }

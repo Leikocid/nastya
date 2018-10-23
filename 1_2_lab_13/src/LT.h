@@ -23,6 +23,7 @@
 #define LEX_DIRSLASH    '/'        // лексема для /
 #define LEX_COMPARE     '='        // лексема для =
 
+
 // таблица лексем
 namespace LT {
     // строка таблицы лексем
