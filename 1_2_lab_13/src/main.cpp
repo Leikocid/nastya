@@ -13,7 +13,6 @@ using namespace Log;
 
 TranslationContext ctx;
 
-
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "rus");
 

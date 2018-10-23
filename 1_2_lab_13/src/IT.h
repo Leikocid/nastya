@@ -2,11 +2,11 @@
 #define IT_H
 
 #define ID_MAXSIZE      5         // максимальное количество сиволов в идентификаторе
-#define TI_MAXSIZE      4096      // максимальное количество строк в таблице идентификаторов
-#define TI_INT_DEFAULT 0x00000000 // значение по умолчанию для типа integer
-#define TI_STR_DEFAULT 0x00       // значение по умолчанию для типа string
-#define TI_NULLIDX 0xffffffff     // нет элемента в таблице идентификаторов
-#define TI_STR_MAXSIZE 255
+#define IT_MAXSIZE      4096      // максимальное количество строк в таблице идентификаторов
+#define IT_INT_DEFAULT 0x00000000 // значение по умолчанию для типа integer
+#define IT_STR_DEFAULT 0x00       // значение по умолчанию для типа string
+#define IT_NULLIDX 0xffffffff     // нет элемента в таблице идентификаторов
+#define IT_STR_MAXSIZE 255
 
 // таблица идентификаторов
 namespace IT {
@@ -30,43 +30,40 @@ namespace IT {
             int vint;                          // значение integer
             struct {
                 char len;                      // количесво символов в string
-                char str[TI_STR_MAXSIZE -  1]; // символы string
-            } vstr[TI_STR_MAXSIZE];            // значение string
+                char str[IT_STR_MAXSIZE -  1]; // символы string
+            } vstr[IT_STR_MAXSIZE];            // значение string
         } value;                               // значение идентификатора
     };
 
     // экземпляр таблицы идентификаторов
     struct IdTable {
-        int    maxsize; //	емкость	таблицы идентификаторов	< TI_MAXSIZE
+        int    maxsize; // емкость таблицы идентификаторов < TI_MAXSIZE
         int    size;    // текущий размер таблицы идентификаторов < maxsize
         Entry* table;   // массив строк таблицы идентификаторов
+
+        // добавить строку в таблицу идентификаторов
+        void Add(
+            Entry entry // строка таблицы идентификаторов
+            );
+
+        // получить строку таблицы идентификаторов
+        Entry GetEntry(
+            int п // номер получаемой строки
+            );
+
+        // возврат: номер строки (если есть), TI_NULLIDX(ecnH нет)
+        int Isld(
+            char id[ID_MAXSIZE] // идентификатор
+            );
+
+        // удалить таблицу лексем (освободить память)
+        void Delete(IdTable &idtable);
     };
 
     //	создать	таблицу идентификаторов
-    IdTable Create(
+    IdTable CreateIdTable(
         int size //	емкость	таблицы идентификаторов	< TI_MAXSIZE
         );
-
-    // добавить строку в таблицу идентификаторов
-    void Add(
-        IdTable &idtable, // экземпляр таблицы идентификаторов
-        Entry	entry     // строка таблицы идентификаторов
-        );
-
-    // получить строку таблицы идентификаторов
-    Entry GetEntry(
-        IdTable &idtable, // экземпляр таблицы идентификаторов
-        int	п         // номер получаемой строки
-        );
-
-    // возврат: номер строки (если есть), TI_NULLIDX(ecnH нет)
-    int Isld(
-        IdTable &idtable,      //	экземпляр таблицы идентификаторов
-        char	id[ID_MAXSIZE] // идентификатор
-        );
-
-    // удалить таблицу лексем (освободить память)
-    void Delete(IdTable &idtable);
 }
 
 #endif // !IT_H
