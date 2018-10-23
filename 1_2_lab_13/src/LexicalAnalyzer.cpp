@@ -59,7 +59,8 @@ namespace LA {
             } else {
                 if (c == '\'') {
                     addLexema(ctx, begin, i, line, col, LEX_LITERAL);
-                    begin = i + 1;
+                    stringMode = false;
+                    begin      = i + 1;
                 }
             }
 
@@ -69,17 +70,17 @@ namespace LA {
                     begin      = i;
                     break;
                 }
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                case '=':
-                case ';':
-                case ',':
-                case '{':
-                case '}':
-                case '(':
-                case ')': {
+                case LEX_PLUS:
+                case LEX_MINUS:
+                case LEX_STAR:
+                case LEX_DIRSLASH:
+                case LEX_COMPARE:
+                case LEX_SEMICOLON:
+                case LEX_COMMA:
+                case LEX_LEFTBRACE:
+                case LEX_RIGTHBRACE:
+                case LEX_LEFTHESIS:
+                case LEX_RIGHTHESIS: {
                     addLexema(ctx, begin, i - 1, line, col, c);
                     break;
                 }
