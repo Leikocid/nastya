@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "compile 1_2_lab_10",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-Wall",
+                "-I",
+                "./",
+                "Error.cpp",
+                "In.cpp",
+                "Log.cpp",
+                "Parm.cpp",
+                "main.cpp",
+                "-o",
+                "../bin/1_2_lab_10"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "compile 1_2_lab_13",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-Wall",
+                "-I",
+                "./",
+                "Error.cpp",
+                "In.cpp",
+                "Out.cpp",
+                "Log.cpp",
+                "Parm.cpp",
+                "FST.cpp",
+                "Utils.cpp",
+                "main.cpp",
+                "-o",
+                "../bin/1_2_lab_13"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

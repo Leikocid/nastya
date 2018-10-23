@@ -1,0 +1,20 @@
+main
+{
+ declare integer x = 21;
+ declare integer y = 4;
+ declare integer z;
+ declare string sa = '1234567890';
+ declare string sb = 'test';
+ declare string sc;
+ declare integer function strlen(string p);
+ x = 1;
+ y = 5;
+ sb = '1234567890'; 
+ z = (x,y);
+ sc = (sa,sb);
+ print 'контрольный пример';
+ print z;
+ print sc;
+ print strlen(sc);
+ return 0;
+};

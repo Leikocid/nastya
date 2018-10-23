@@ -1,0 +1,3 @@
+﻿  LexAnalizator.cpp
+d:\university\2 curse\яп\lab14\lab14\lexanalizator.cpp(326): warning C4244: =: преобразование "long double" в "int", возможна потеря данных
+  lab14.vcxproj -> D:\university\2 curse\яп\lab14\Debug\lab14.exe
