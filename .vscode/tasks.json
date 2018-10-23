@@ -45,6 +45,7 @@
                 "Parm.cpp",
                 "FST.cpp",
                 "Utils.cpp",
+                "LexicalAnalyzer.cpp",
                 "main.cpp",
                 "-o",
                 "../bin/1_2_lab_13"

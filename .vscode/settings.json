@@ -19,6 +19,9 @@
         "__bit_reference": "cpp",
         "iterator": "cpp",
         "system_error": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "__tree": "cpp",
+        "deque": "cpp",
+        "map": "cpp"
     }
 }
