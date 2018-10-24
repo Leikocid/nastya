@@ -3,7 +3,6 @@
 
 #include <cstdarg>
 #include <string.h>
-#include <vector>
 
 namespace Fst {
     // ребро: символ -> вершина графа переходов КА
@@ -17,6 +16,16 @@ namespace Fst {
         short	  n_relation; // количество инцидентных ребер
         RELATION* relations;  // инцидентные ребра
     };
+
+    RELATION R(char c = 0x00, short nn = 0);
+
+    NODE     N();
+    NODE     N(RELATION rel1);
+    NODE     N(RELATION rel1, RELATION rel2);
+    NODE     N(RELATION rel1, RELATION rel2, RELATION rel3);
+    NODE     N(RELATION rel1, RELATION rel2, RELATION rel3, RELATION rel4);
+    NODE     N(short n, RELATION rel, ...);
+
 
     // недетерминированный конечный автомат
     struct FST {
@@ -42,19 +51,25 @@ namespace Fst {
             rstates[0] = 0;
             position   = -1;
         }
+
+        // специальный конструктор для строки
+        FST(const char* word) {
+            string  = "";
+            nstates = strlen(word) + 1;
+            nodes   = new NODE[nstates];
+            for (int i = 0; i < nstates - 1; i++) {
+                nodes[i] = N(1, R(word[i], i + 1));
+            }
+            nodes[nstates - 1] = N();
+            rstates	       = new short[nstates];
+            memset(rstates, 0xff, sizeof(short) * nstates);
+            rstates[0] = 0;
+            position   = -1;
+        }
     };
 
     // выполнить распознование цепочки
-    bool     execute(FST &fst);
-
-    RELATION R(char c = 0x00, short nn = 0);
-
-    NODE     N();
-    NODE     N(RELATION rel1);
-    NODE     N(RELATION rel1, RELATION rel2);
-    NODE     N(RELATION rel1, RELATION rel2, RELATION rel3);
-    NODE     N(RELATION rel1, RELATION rel2, RELATION rel3, RELATION rel4);
-    NODE     N(short n, RELATION rel, ...);
+    bool execute(FST &fst);
 }
 
 #endif // !IN_FST.H

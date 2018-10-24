@@ -18,21 +18,19 @@
 #include "LT.h"
 #include "IT.h"
 
-#include "FST.h"
 
 #include <iostream>
 
 using namespace LT;
 using namespace IT;
 
-using namespace Fst;
 
 namespace LA {
     void analyzeFragment(const TranslationContext &ctx, const int begin, const int end, const int line, const int col);
     void addLexema(const TranslationContext &ctx, const int begin, const int end, const int line, const int col, const char lexema);
     bool isTerminalSymbol(const char c);
 
-    // лексический разбор входного файла ctx.in.txt и построение таблиц ctx.lt и ctx.it
+    // лексический разбор входного файла ctx.in.txt и построение таблиц ctx.lexTable и ctx.idTable
     void lexicalAnalysis(TranslationContext &ctx) {
         // создаем пустые таблицы
         ctx.lexTable = CreateLexTable(LT_MAXSIZE);
@@ -99,7 +97,7 @@ namespace LA {
             i++;
         }
         if (stringMode) {
-            // TODO - кинуть ошибку - строковый литерал открыт и не закрыт
+            throw ERROR_THROW_IN(22, line, col);
         }
         analyzeFragment(ctx, begin, i - 1, line, col); // обработать последний фрагмент текста
     }
@@ -112,44 +110,6 @@ namespace LA {
             std::cout << line << ": фрагмент [" << str << "]" << endl;
 
             // TODO
-
-
-            // недетерминированный конечный автомат start( )+((send|wait|show)( )+)*( )+stop
-            // FST fst(str,
-            //         24,
-            //         N(R('s', 1)),
-            //         N(R('t', 2)),
-            //         N(R('a', 3)),
-            //         N(R('r', 4)),
-            //         N(R('t', 5)),
-            //         N(R(' ', 5),  R(' ', 6)),
-            //         N(R('s', 7),  R('w', 8), R(' ', 9)),
-            //         N(R('e', 10), R('h', 11)),
-
-            //         N(R('a', 17)),
-            //         N(R(' ', 9),  R('s', 20)),
-            //         N(R('n', 12)),
-            //         N(R('o', 15)),
-            //         N(R('d', 13)),
-            //         N(R(' ', 14), R(' ', 6)),
-            //         N(R(' ', 14), R(' ', 9)),
-            //         N(R('w', 16)),
-
-            //         N(R(' ', 14), R(' ', 6)),
-            //         N(R('i', 18)),
-            //         N(R('t', 19)),
-            //         N(R(' ', 14), R(' ', 6)),
-            //         N(R('t', 21)),
-            //         N(R('o', 22)),
-            //         N(R('p', 23)),
-            //         N());
-            // if (execute(fst)) {
-            //     logLine(ctx.logger, "Цепочка \"", fst.string, "\" распознана", "");
-            // } else {
-            //     logLine(ctx.logger, "Цепочка \"", fst.string,		   "\" не распознана", "");
-            //     logLine(ctx.logger, "Строка: ",	  to_string(line).c_str(), ", позиция: ",
-            //             to_string(col + begin - end - 1 + fst.position).c_str(), "");
-            // }
         }
     }
 

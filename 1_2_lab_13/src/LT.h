@@ -9,7 +9,7 @@
 #define LEX_LITERAL     'l'        // лексема для литерала
 #define LEX_FUNCTION    'f'        // лексема для function
 #define LEX_DECLARE     'd'        // лексема для declare
-#define LEX_RETURN      'г'        // лексема для return
+#define LEX_RETURN      'r'        // лексема для return
 #define LEX_PRINT       'p'        // лексема для print
 #define LEX_SEMICOLON   ';'        // лексема для ;
 #define LEX_COMMA       ','        // лексема для ,
@@ -22,6 +22,7 @@
 #define LEX_STAR        '*'        // лексема для *
 #define LEX_DIRSLASH    '/'        // лексема для /
 #define LEX_COMPARE     '='        // лексема для =
+#define LEX_MAIN        'm'        // лексема для main
 
 #include <vector>
 
