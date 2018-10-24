@@ -44,7 +44,7 @@
                 "Log.cpp",
                 "Parm.cpp",
                 "FST.cpp",
-                "Utils.cpp",
+                "Utils.MacOS.cpp",
                 "LexicalAnalyzer.cpp",
                 "LT.cpp",
                 "IT.cpp",

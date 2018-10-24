@@ -17,7 +17,7 @@ namespace Log {
     // Используется для создания и открытия потокового вывода протокола.
     LOG getLog(wchar_t logfile[]) {
         LOG log = *(new LOG());
-        wcscpy(log.logfile, logfile);
+        copyWideChars(log.logfile, logfile);
 
         string fileName	 = toChars(logfile);
         ofstream* stream = new ofstream();
@@ -54,10 +54,11 @@ namespace Log {
             va_end(p);
 
             char* s = new char[len + 1];
+            s[0] = 0;
             va_start(p, c);
             cp = c;
             while (strcmp(cp, "")) {
-                strcat(s, cp);
+                appendChars(s, cp);
                 cp = va_arg(p, char*);
             }
             va_end(p);
@@ -85,7 +86,7 @@ namespace Log {
             va_start(p, c);
             cp = c;
             while (wcscmp(cp, L"")) {
-                wcsncat(ws, cp, wcslen(cp));
+                appendWideChars(ws, cp);
                 cp = va_arg(p, wchar_t*);
             }
             va_end(p);
@@ -100,9 +101,8 @@ namespace Log {
     void logLog(LOG log) {
         if (log.stream) {
             *(log.stream) << "----- Протокол -----  Дата: ";
-            time_t t  = time(NULL);
-            tm*	   tm = localtime(&t);
-            char   timeString[80];
+            tm*	 tm = getCurrentTime();
+            char timeString[80];
             strftime(timeString, 80, "%d.%m.%Y %H:%M:%S", tm);
             *(log.stream) << timeString;
             *(log.stream) << " ----- " << endl;

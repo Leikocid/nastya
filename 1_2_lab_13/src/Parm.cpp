@@ -1,9 +1,11 @@
 #include <wchar.h>
 #include "Parm.h"
 #include "Error.h"
+#include "Utils.h"
 #include <iostream>
 
 using namespace std;
+using namespace Utils;
 
 namespace Parm {
     // сформировать struct РАRM на основе параметров функции main
@@ -13,10 +15,7 @@ namespace Parm {
         wchar_t* logParam = NULL;
 
         for (int i = 0; i < argc; i++) {
-            char* c	       = argv[i];
-            const size_t cSize = strlen(c) + 1;
-            wchar_t*	 arg   = new wchar_t[cSize];
-            mbstowcs(arg, c, cSize);
+            wchar_t* arg = toWideChars(argv[i]);
 
             if (wcsncmp(arg, L"-in:", 4) == 0) {
                 if (wcslen(arg) > 4) {
@@ -42,27 +41,27 @@ namespace Parm {
         if (wcslen(inParam) - 4 > PARM_MAX_SIZE) {
             throw ERROR_THROW(104);
         } else {
-            wcscpy(p.in, &(inParam[4]));
+            copyWideChars(p.in, &(inParam[4]));
         }
         if (outParam) {
             if (wcslen(outParam) - 5 > PARM_MAX_SIZE) {
                 throw ERROR_THROW(104);
             } else {
-                wcscpy(p.out, &(outParam[5]));
+                copyWideChars(p.out, &(outParam[5]));
             }
         } else {
-            wcscpy(p.out, p.in);
-            wcsncat(p.out, L".out", 4);
+            copyWideChars(p.out, p.in);
+            appendWideChars(p.out, L".out");
         }
         if (logParam) {
             if (wcslen(logParam) - 5 > PARM_MAX_SIZE) {
                 throw ERROR_THROW(104);
             } else {
-                wcscpy(p.log, &(logParam[5]));
+                copyWideChars(p.log, &(logParam[5]));
             }
         } else {
-            wcscpy(p.log, p.in);
-            wcsncat(p.log, L".log", 4);
+            copyWideChars(p.log, p.in);
+            appendWideChars(p.log, L".log");
         }
         return p;
     }
