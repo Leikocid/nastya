@@ -8,6 +8,8 @@
 #define IT_NULLIDX 0xffffffff     // нет элемента в таблице идентификаторов
 #define IT_STR_MAXSIZE 255
 
+#include <vector>
+
 // таблица идентификаторов
 namespace IT {
     // типы данных идентификаторов: integer, string
@@ -37,33 +39,24 @@ namespace IT {
 
     // экземпляр таблицы идентификаторов
     struct IdTable {
-        int    maxsize; // емкость таблицы идентификаторов < TI_MAXSIZE
-        int    size;    // текущий размер таблицы идентификаторов < maxsize
-        Entry* table;   // массив строк таблицы идентификаторов
+        int		   maxsize; // емкость таблицы идентификаторов < TI_MAXSIZE
+        std::vector<Entry> table;   // массив строк таблицы идентификаторов
 
         // добавить строку в таблицу идентификаторов
-        void Add(
-            Entry entry // строка таблицы идентификаторов
-            );
+        void  Add(Entry entry);
 
-        // получить строку таблицы идентификаторов
-        Entry GetEntry(
-            int п // номер получаемой строки
-            );
+        // получить строку таблицы идентификаторов по номеру
+        Entry GetEntry(int п);
 
-        // возврат: номер строки (если есть), TI_NULLIDX(ecnH нет)
-        int Isld(
-            char id[ID_MAXSIZE] // идентификатор
-            );
+        // возврат: номер строки если есть, IT_NULLIDX eсли нет
+        int  IsId(char id[ID_MAXSIZE]);
 
         // удалить таблицу лексем (освободить память)
-        void Delete(IdTable &idtable);
+        void Delete();
     };
 
     //	создать	таблицу идентификаторов
-    IdTable CreateIdTable(
-        int size //	емкость	таблицы идентификаторов	< TI_MAXSIZE
-        );
+    IdTable CreateIdTable(int maxsize);
 }
 
 #endif // !IT_H

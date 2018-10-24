@@ -23,40 +23,34 @@
 #define LEX_DIRSLASH    '/'        // лексема для /
 #define LEX_COMPARE     '='        // лексема для =
 
+#include <vector>
 
 // таблица лексем
 namespace LT {
     // строка таблицы лексем
     struct Entry {
         char lexema; //	лексема
-        int  sn;     //	номер строки в исходном тексте
+        int  line;   //	номер строки в исходном тексте
         int  idxTI;  //	индекс в таблице идентификаторов или LT_TI_NULLIDX
     };
 
     // экземпляр таблицы лексем
     struct LexTable {
-        int    maxsize; //	емкость таблицы лексем < LT_MAXSIZE
-        int    size;    //	текущий размер таблицы лексем <	maxsize
-        Entry* table;   //	массив строк таблицы лексем
+        int		   maxsize; // емкость таблицы лексем < LT_MAXSIZE
+        std::vector<Entry> table;   // массив строк таблицы лексем
 
         // добавить строку в таблицу лексем
-        void Add(
-            Entry entry // строка таблицы лексем
-            );
+        void  Add(Entry entry);
 
-        // получить строку таблицы лексем
-        Entry GetEntry(
-            int п // номер получаемой строки
-            );
+        // получить строку таблицы лексем по номеру строки
+        Entry GetEntry(int n);
 
         // удалить таблицу лексем (освободить память)
-        void Delete();
+        void  Delete();
     };
 
-    // создать таблицу лексем
-    LexTable CreateLexble(
-        int size // емкость таблицы лексем < LT_MAXSIZE
-        );
+    // создать таблицу лексем (емкость таблицы лексем < LT_MAXSIZE)
+    LexTable CreateLexTable(int maxsize);
 }
 
 #endif // !LT_H
