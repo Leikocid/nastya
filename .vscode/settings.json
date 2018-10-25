@@ -22,6 +22,7 @@
         "functional": "cpp",
         "__tree": "cpp",
         "deque": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "new": "cpp"
     }
 }

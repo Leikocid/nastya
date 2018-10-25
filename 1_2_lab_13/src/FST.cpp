@@ -3,15 +3,15 @@
 
 namespace Fst {
     // один шаг автомата
-    bool step(FST &fst, short* &rstates) {
+    bool step(FST* fst, short* &rstates) {
         bool rc = false;
-        std::swap(rstates, fst.rstates); // смена массивов
-        for (short i = 0; i < fst.nstates; i++) {
-            if (rstates[i] == fst.position) {
-                for (short j = 0; j < fst.nodes[i].n_relation; j++) {
-                    if (fst.nodes[i].relations[j].symbol == fst.string[fst.position]) {
-                        fst.rstates[fst.nodes[i].relations[j].nnode] = fst.position + 1;
-                        rc					     = true;
+        std::swap(rstates, fst->rstates); // смена массивов
+        for (short i = 0; i < fst->nstates; i++) {
+            if (rstates[i] == fst->position) {
+                for (short j = 0; j < fst->nodes[i].n_relation; j++) {
+                    if (fst->nodes[i].relations[j].symbol == fst->string[fst->position]) {
+                        fst->rstates[fst->nodes[i].relations[j].nnode] = fst->position + 1;
+                        rc					       = true;
                     }
                 }
             }
@@ -19,22 +19,22 @@ namespace Fst {
         return rc;
     }
 
-    bool execute(FST &fst) {
-        fst.position = -1;
-        fst.rstates  = new short[fst.nstates];
-        memset(fst.rstates, 0xff, sizeof(short) * fst.nstates);
-        fst.rstates[0] = 0;
+    bool FST::execute() {
+        this->position = -1;
+        this->rstates  = new short[this->nstates];
+        memset(this->rstates, 0xff, sizeof(short) * this->nstates);
+        this->rstates[0] = 0;
 
-        short* rstates = new short[fst.nstates];
-        memset(rstates, 0xff, sizeof(short) * fst.nstates);
-        short lstring = strlen(fst.string);
+        short* rstates = new short[this->nstates];
+        memset(rstates, 0xff, sizeof(short) * this->nstates);
+        short lstring = strlen(this->string);
         bool  rc      = true;
         for (short i = 0; i < lstring && rc; i++) {
-            fst.position++;          // продвинули позицию
-            rc = step(fst, rstates); // один шаг автомата
+            this->position++;         // продвинули позицию
+            rc = step(this, rstates); // один шаг автомата
         }
         delete[] rstates;
-        return (rc ? (fst.rstates[fst.nstates - 1] == lstring) : rc);
+        return (rc ? (this->rstates[this->nstates - 1] == lstring) : rc);
     }
 
     RELATION R(char c, short nn) {

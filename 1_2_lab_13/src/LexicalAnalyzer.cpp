@@ -18,14 +18,14 @@
 #include "LT.h"
 #include "IT.h"
 
-
 #include <iostream>
 
 using namespace LT;
 using namespace IT;
 
-
 namespace LA {
+    Recognizers RECOGNIZERS = *(new Recognizers());
+
     void analyzeFragment(const TranslationContext &ctx, const int begin, const int end, const int line, const int col);
     void addLexema(const TranslationContext &ctx, const int begin, const int end, const int line, const int col, const char lexema);
     bool isTerminalSymbol(const char c);
@@ -104,12 +104,22 @@ namespace LA {
 
     void analyzeFragment(const TranslationContext &ctx, const int begin, const int end, const int line, const int col) {
         if (begin <= end) {
+            // TODO - сделать вырезание части строки платформонезависимым
             char* str = new char[end - begin + 2];
             memcpy(str, &ctx.in.text[begin], end - begin + 1);
             str[end - begin + 1] = '\0';
-            std::cout << line << ": фрагмент [" << str << "]" << endl;
+            std::cout << line << ": фрагмент [" << str << "] ";
 
-            // TODO
+            Recognizer* recognizer = RECOGNIZERS.recognyze(str);
+            if (!recognizer) {
+                // TODO: throw ERROR_THROW(1111); - фрагмент не распознан
+                std::cout << "-" << endl;
+            } else {
+                // TODO: заполнение таблиц
+                std::cout << recognizer->lexema << " " << recognizer->type << endl;
+            }
+
+            // TODO: логирование
         }
     }
 

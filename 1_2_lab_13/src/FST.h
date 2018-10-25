@@ -66,10 +66,10 @@ namespace Fst {
             rstates[0] = 0;
             position   = -1;
         }
-    };
 
-    // выполнить распознование цепочки
-    bool execute(FST &fst);
+        // выполнить распознование цепочки
+        bool execute();
+    };
 }
 
 #endif // !IN_FST.H
