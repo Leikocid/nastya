@@ -5,30 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch 1_2_lab_10",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/../bin/1_2_lab_10",
-            "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_10/bin/тест_CP1251.txt"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}/../bin",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
-            "preLaunchTask": "compile 1_2_lab_10",
-            //"miDebuggerPath": "gdb",
-            "targetArchitecture": "x86_64",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
             "name": "Launch 1_2_lab_13",
             "type": "cppdbg",
             "request": "launch",
@@ -42,6 +18,29 @@
             "externalConsole": true,
             "MIMode": "lldb",
             "preLaunchTask": "compile 1_2_lab_13",
+            //"miDebuggerPath": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Launch 1_2_lab_15",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/../bin/1_2_lab_15",
+            "args": [
+                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_15/test/finalExample.txt"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}/../bin",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "compile 1_2_lab_15",
             //"miDebuggerPath": "gdb",
             "setupCommands": [
                 {

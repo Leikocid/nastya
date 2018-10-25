@@ -1,0 +1,81 @@
+----- Протокол -----  Дата: 26.10.2018 00:13:14 ----- 
+-log: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_15/test/finalExample.txt.log
+-out: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_15/test/finalExample.txt.out
+-in: /Users/alexey_astakhov/Work/nastya_yp/1_2_lab_15/test/finalExample.txt
+----- Исходные данные -----
+Количество символов: 690
+Проигнорировано:     36
+Количество строк:    37
+
+Таблица лексем:
+
+01: tfi[0](ti[1],ti[2])
+02: {
+03: dti[3];
+04: i[3]=i[1]*(i[1]+i[2]);
+05: ri[3];
+06: };
+07: 
+08: tfi[4](ti[5],ti[6])
+09: {
+10: dti[7];
+11: dtfi[8](ti[9],ti[10],
+12: ti[11]);
+13: i[7]=i[8](i[5],l,l)+i[6];
+14: ri[7];
+15: };
+16: 
+17: m
+18: {
+19: dti[15];
+20: dti[16];
+21: dti[17];
+22: dti[18]=l;
+23: dti[20];
+24: dti[21];
+25: dtfi[22](ti[23]);
+26: i[15]=l;
+27: i[16]=l;
+28: i[18]=l;
+29: i[20]=l;
+30: i[17]=i[0](i[15],i[16]);
+31: i[21]=i[4](i[18],i[20]);
+32: pl;
+33: pi[17];
+34: pi[21];
+35: pi[22](i[21]);
+36: rl;
+37: };
+
+Таблица идентификаторов:
+
+00 : int fi [2] 
+01 : int fi.x [5] = <0>
+02 : int fi.y [8] = <0>
+03 : int fi.z [13] = <0>
+04 : str fs [32] 
+05 : str fs.a [35] = <> lenght = 0
+06 : str fs.b [38] = <> lenght = 0
+07 : str fs.c [43] = <> lenght = 0
+08 : str fs.subst [48] 
+09 : str fs.subst.a [51] = <> lenght = 0
+10 : int fs.subst.p [54] = <0>
+11 : int fs.subst.n [57] = <0>
+12 : int  [66] = <1>
+13 : int  [68] = <3>
+14 : int main [78] 
+15 : int x [82] = <0>
+16 : int y [86] = <0>
+17 : int z [90] = <0>
+18 : str sa [94] = <> lenght = 0
+19 : str  [96] = <'1234567890'> lenght = 12
+20 : str sb [100] = <> lenght = 0
+21 : str sc [104] = <> lenght = 0
+22 : int strle [109] 
+23 : str strle.p [112] = <> lenght = 0
+24 : int  [117] = <1>
+25 : int  [121] = <5>
+26 : str  [125] = <'1234567890'> lenght = 12
+27 : str  [129] = <'1234567890'> lenght = 12
+28 : str  [150] = <'����������� ������'> lenght = 20
+29 : int  [165] = <0>
