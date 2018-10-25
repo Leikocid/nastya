@@ -17,13 +17,13 @@ namespace LT {
         if (this->table.size() <= this->maxsize) {
             this->table.push_back(entry);
         } else {
-            throw ERROR_THROW(20);
+            throw ERROR_THROW(21);
         }
     }
 
     Entry LexTable::GetEntry(int n) {
         if ((n < 0) || (n >= this->table.size())) {
-            throw ERROR_THROW(23);
+            throw ERROR_THROW(24);
         }
         return this->table[n];
     }

@@ -14,26 +14,26 @@
 namespace IT {
     // типы данных идентификаторов: integer, string
     enum IDDATATYPE {
-        INT = 1, STR = 2
+        DT_UNKNOWN = 0, DT_INT = 1, DT_STR = 2
     };
 
     // типы идентификаторов: переменная, функция, параметр, литерал
     enum IDTYPE {
-        V = 1, F = 2, P = 3, L = 3
+        T_V = 1, T_F = 2, T_P = 3, T_L = 4
     };
 
     // строка таблицы
     struct Entry {
         int	   idxfirstLE;                 // индекс первой строки в таблице лексем
-        char	   id[ID_MAXSIZE];             //  идентификатор (автоматически усекается до ID_MAXSIZE)
+        char	   id[ID_MAXSIZE * 3 + 3];     // резервируем в 3 раза больше места так как может добавляться 2 префикса и разделители (.)
         IDDATATYPE iddatatype;                 // тип данных
-        IDTYPE	   idtype;                     // тип идентикатора
+        IDTYPE	   idtype;                     // тип идентификатора
         union {
             int vint;                          // значение integer
             struct {
-                char len;                      // количесво символов в string
+                char len;                      // количество символов в string
                 char str[IT_STR_MAXSIZE -  1]; // символы string
-            } vstr[IT_STR_MAXSIZE];            // значение string
+            } vstr;                            // значение string
         } value;                               // значение идентификатора
     };
 
@@ -49,7 +49,7 @@ namespace IT {
         Entry GetEntry(int п);
 
         // возврат: номер строки если есть, IT_NULLIDX eсли нет
-        int  IsId(char id[ID_MAXSIZE]);
+        int  IsId(char id[ID_MAXSIZE * 3 + 3]);
 
         // удалить таблицу лексем (освободить память)
         void Delete();

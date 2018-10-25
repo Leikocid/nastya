@@ -10,7 +10,8 @@ using namespace Fst;
 namespace LA {
     // тип лексемы
     enum LEXEMA_TYPE {
-        LT_KEYWORD = 0, LT_DATATYPE = 1, LT_INTEGER_LITERAL = 2, LT_STRING_LITERAL = 3, LT_IDENTIFIER = 4, LT_MAIN = 5, LT_SIGN = 6
+        LT_KEYWORD = 0, LT_INTEGER_DATATYPE = 1,  LT_STRING_DATATYPE = 2, LT_INTEGER_LITERAL = 3, LT_STRING_LITERAL = 4, LT_IDENTIFIER = 5,
+        LT_MAIN	   = 6, LT_SIGN = 7
     };
 
     struct Recognizer {
@@ -53,9 +54,9 @@ namespace LA {
 
         Recognizers() {
             recognizers.reserve(10);
-            recognizers.push_back(new Recognizer(LEX_INTEGER, LT_DATATYPE, new FST("integer")));
-            recognizers.push_back(new Recognizer(LEX_STRING, LT_DATATYPE, new FST("string")));
-            recognizers.push_back(new Recognizer(LEX_DECLARE, LT_KEYWORD, new FST("declate")));
+            recognizers.push_back(new Recognizer(LEX_INTEGER, LT_INTEGER_DATATYPE, new FST("integer")));
+            recognizers.push_back(new Recognizer(LEX_STRING, LT_STRING_DATATYPE, new FST("string")));
+            recognizers.push_back(new Recognizer(LEX_DECLARE, LT_KEYWORD, new FST("declare")));
             recognizers.push_back(new Recognizer(LEX_FUNCTION, LT_KEYWORD, new FST("function")));
             recognizers.push_back(new Recognizer(LEX_MAIN, LT_MAIN, new FST("main")));
             recognizers.push_back(new Recognizer(LEX_PRINT, LT_IDENTIFIER, new FST("print")));

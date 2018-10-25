@@ -30,9 +30,10 @@
 namespace LT {
     // строка таблицы лексем
     struct Entry {
-        char lexema; //	лексема
-        int  line;   //	номер строки в исходном тексте
-        int  idxTI;  //	индекс в таблице идентификаторов или LT_TI_NULLIDX
+        char lexema;     //	лексема
+        int  lexemaType; // тип лексемы
+        int  line;       //	номер строки в исходном тексте
+        int  idxTI;      //	индекс в таблице идентификаторов или LT_TI_NULLIDX
     };
 
     // экземпляр таблицы лексем
