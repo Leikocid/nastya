@@ -134,7 +134,7 @@ namespace LA {
         }
     }
 
-    // добавление записей в таблицы лексем и идентификаторов
+    // последовательное добавление записей в таблицы лексем и идентификаторов
     void addLexema(TranslationContext &ctx, const int begin, const int end, const int line, const int col, const char lexema,
                    const int lexemaType) {
         char* fullFragment    = subString(ctx.in.text, begin, end - begin + 1);
@@ -164,25 +164,28 @@ namespace LA {
                 }
                 break;
             };
-            case LEX_LEFTBRACE: {
-                nestingLevel++;
-                break;
-            };
             case LEX_SEMICOLON: {
                 prefixLibFunction.clear();
                 break;
             }
+            case LEX_LEFTBRACE: {
+                nestingLevel++;
+                break;
+            };
             case LEX_RIGTHBRACE: {
                 nestingLevel--;
                 if (nestingLevel == 0) {
                     prefixFunction.clear();
                 }
                 if (nestingLevel < 0) {
-                    throw ERROR_THROW_IN(27, line, col); // закрывающихся скобок } больше чем открывающихс��� {
+                    throw ERROR_THROW_IN(27, line, col); // закрывающихся скобок } больше чем открывающихся {
                 }
                 break;
             };
             case LEX_ID: {
+                char* fragment = subString(fullFragment, 0, 5);
+
+                // строим id учитывая префиксы
                 char id[ID_MAXSIZE * 3 + 2];
                 id[0] = 0;
                 if (prefixFunction.size() > 0) {
@@ -191,11 +194,13 @@ namespace LA {
                 if (prefixLibFunction.size() > 0) {
                     appendChars(id, prefixLibFunction.c_str());
                 }
-                char* fragment = subString(fullFragment, 0, 5);
                 appendChars(id, fragment);
+
                 int idIndex = ctx.idTable.IsId(id);
                 if (IT_NULLIDX == idIndex) {
                     // обнаружен новый идентификатор
+
+                    // проверяем не является ли данный идентификатор библиотечной функцией
                     bool isLibraryFunction = false;
                     int	 lIndex		   = lexemaIndex - 3;
                     if (lIndex >= 0) {
@@ -211,20 +216,18 @@ namespace LA {
                             }
                         }
                     }
+
                     if (!isLibraryFunction && (strlen(fullFragment) > ID_MAXSIZE)) {
-                        throw ERROR_THROW_IN(29, line, col); // для НЕ БИБЛИОТЕЧНЫХ функций размер идентификатора дожен быть не больше 5
-                                                             // символов
+                        // для НЕ БИБЛИОТЕЧНЫХ функций размер идентификатора дожен быть не больше 5 символов
+                        throw ERROR_THROW_IN(29, line, col);
                     }
 
+                    // создаем новую запись для идентификатора и заполняем значения
                     IT::Entry identifacator = *new IT::Entry();
+                    identifacator.idxfirstLE = lexemaIndex; // ссылка на первую лексему
+                    appendChars(identifacator.id, id);      // id
 
-                    // ссылка на первую лексему
-                    identifacator.idxfirstLE = lexemaIndex;
-
-                    // id
-                    appendChars(identifacator.id, id);
-
-                    // тип данных и тип
+                    // вычисляем тип данных и тип идентификатора
                     identifacator.idtype     = T_P;
                     identifacator.iddatatype = DT_UNKNOWN;
                     int dtLexemaIndex = lexemaIndex - 1;
@@ -240,10 +243,12 @@ namespace LA {
                             dtLexemaIndex--;
                         }
                     }
-                    if (ctx.lexTable.table[dtLexemaIndex].lexemaType == LT_INTEGER_DATATYPE) {
-                        identifacator.iddatatype = DT_INT;
-                    } else if (ctx.lexTable.table[dtLexemaIndex].lexemaType == LT_STRING_DATATYPE) {
-                        identifacator.iddatatype = DT_STR;
+                    if (dtLexemaIndex >= 0) {
+                        if (ctx.lexTable.table[dtLexemaIndex].lexemaType == LT_INTEGER_DATATYPE) {
+                            identifacator.iddatatype = DT_INT;
+                        } else if (ctx.lexTable.table[dtLexemaIndex].lexemaType == LT_STRING_DATATYPE) {
+                            identifacator.iddatatype = DT_STR;
+                        }
                     }
                     if (identifacator.iddatatype == DT_UNKNOWN) {
                         throw ERROR_THROW_IN(30, line, col); // Невозможно определить тип данных для идентификатора
@@ -256,12 +261,15 @@ namespace LA {
                             }
                         }
                     }
+
+                    // устанавливаем начальные значения для идентификатора
                     if (identifacator.iddatatype == DT_INT) {
                         identifacator.value.vint = 0;
                     } else if (identifacator.iddatatype == DT_STR) {
                         identifacator.value.vstr.len	= 0;
                         identifacator.value.vstr.str[0] = 0;
                     }
+
                     idIndex = ctx.idTable.table.size();
                     ctx.idTable.Add(identifacator);
                 } else {
@@ -282,9 +290,16 @@ namespace LA {
                 literal.idtype	   = T_L;
                 if (lexemaType == LT_INTEGER_LITERAL) {
                     literal.iddatatype = DT_INT;
+                    long long int value = atoll(fullFragment);
+                    if ((value > LONG_MAX) || (value < LONG_MIN)) {
+                        throw ERROR_THROW_IN(35, line, col); // превышение лимитов целочичленного литерала
+                    }
                     literal.value.vint = atoi(fullFragment);
                 } else if (lexemaType == LT_STRING_LITERAL) {
-                    literal.iddatatype	      = DT_STR;
+                    literal.iddatatype = DT_STR;
+                    if (strlen(fullFragment) > 256) {
+                        throw ERROR_THROW_IN(34, line, col); // превышение длины строки
+                    }
                     literal.value.vstr.len    = strlen(fullFragment);
                     literal.value.vstr.str[0] = 0;
                     appendChars(literal.value.vstr.str, fullFragment);
