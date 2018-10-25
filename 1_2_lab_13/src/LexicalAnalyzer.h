@@ -8,20 +8,21 @@
 using namespace Fst;
 
 namespace LA {
-    // тип распознавателя
-    enum RECOGNIZER_TYPE {
-        RT_KEYWORD = 0, RT_DATATYPE = 1, RT_INTEGER_LITERAL = 2, RT_STRING_LITERAL = 3, RT_IDENTIFIER = 4, RT_MAIN = 5
+    // тип лексемы
+    enum LEXEMA_TYPE {
+        LT_KEYWORD = 0, LT_DATATYPE = 1, LT_INTEGER_LITERAL = 2, LT_STRING_LITERAL = 3, LT_IDENTIFIER = 4, LT_MAIN = 5, LT_SIGN = 6
     };
+
     struct Recognizer {
         char lexema;
+        int  lexemaType;
         FST* fst;
-        int  type;
 
         // конструктор
-        Recognizer(char lexema, FST* fst, int type) {
-            this->lexema = lexema;
-            this->fst	 = fst;
-            this->type	 = type;
+        Recognizer(char lexema, int lexemaType, FST* fst) {
+            this->lexema     = lexema;
+            this->lexemaType = lexemaType;
+            this->fst	     = fst;
         }
 
         // деструктор
@@ -36,7 +37,7 @@ namespace LA {
 
     struct StringLiteralRecognizer : Recognizer {
         // конструктор
-        StringLiteralRecognizer(char lexema, int type) : Recognizer(lexema, nullptr, type) {}
+        StringLiteralRecognizer() : Recognizer(LEX_LITERAL, LT_STRING_LITERAL, nullptr) {}
 
         ~StringLiteralRecognizer() {}
 
@@ -52,42 +53,44 @@ namespace LA {
 
         Recognizers() {
             recognizers.reserve(10);
-            recognizers.push_back(new Recognizer(LEX_INTEGER, new FST("integer"), RT_DATATYPE));
-            recognizers.push_back(new Recognizer(LEX_STRING, new FST("string"), RT_DATATYPE));
-            recognizers.push_back(new Recognizer(LEX_DECLARE, new FST("declate"), RT_KEYWORD));
-            recognizers.push_back(new Recognizer(LEX_FUNCTION, new FST("function"), RT_KEYWORD));
-            recognizers.push_back(new Recognizer(LEX_MAIN, new FST("main"), RT_MAIN));
-            recognizers.push_back(new Recognizer(LEX_PRINT, new FST("print"), RT_IDENTIFIER));
-            recognizers.push_back(new Recognizer(LEX_RETURN,  new FST("return"), RT_KEYWORD));
-            recognizers.push_back(new Recognizer(LEX_LITERAL, new FST("", 2,
-                                                                      N(20,
-                                                                        R('0', 1), R('0', 0),
-                                                                        R('1', 1), R('1', 0),
-                                                                        R('2', 1), R('2', 0),
-                                                                        R('3', 1), R('3', 0),
-                                                                        R('4', 1), R('4', 0),
-                                                                        R('5', 1), R('5', 0),
-                                                                        R('6', 1), R('6', 0),
-                                                                        R('7', 1), R('7', 0),
-                                                                        R('8', 1), R('8', 0),
-                                                                        R('9', 1), R('9', 0)),
-                                                                      N()), RT_INTEGER_LITERAL));
-            recognizers.push_back(new StringLiteralRecognizer(LEX_LITERAL, RT_STRING_LITERAL));
-            recognizers.push_back(new Recognizer(LEX_ID, new FST("", 2,
-                                                                 N(52,
-                                                                   R('\x61', 0), R('\x62', 0), R('\x63', 0), R('\x64', 0), R('\x65', 0),
-                                                                   R('\x66', 0), R('\x67', 0), R('\x68', 0), R('\x69', 0), R('\x6A', 0),
-                                                                   R('\x6B', 0), R('\x6C', 0), R('\x6D', 0), R('\x6E', 0), R('\x6F', 0),
-                                                                   R('\x70', 0), R('\x71', 0), R('\x72', 0), R('\x73', 0), R('\x74', 0),
-                                                                   R('\x75', 0), R('\x76', 0), R('\x77', 0), R('\x78', 0), R('\x79', 0),
-                                                                   R('\x7A', 0),
-                                                                   R('\x61', 1), R('\x62', 1), R('\x63', 1), R('\x64', 1), R('\x65', 1),
-                                                                   R('\x66', 1), R('\x67', 1), R('\x68', 1), R('\x69', 1), R('\x6A', 1),
-                                                                   R('\x6B', 1), R('\x6C', 1), R('\x6D', 1), R('\x6E', 1), R('\x6F', 1),
-                                                                   R('\x70', 1), R('\x71', 1), R('\x72', 1), R('\x73', 1), R('\x74', 1),
-                                                                   R('\x75', 1), R('\x76', 1), R('\x77', 1), R('\x78', 1), R('\x79', 1),
-                                                                   R('\x7A', 1)),
-                                                                 N()), RT_IDENTIFIER));
+            recognizers.push_back(new Recognizer(LEX_INTEGER, LT_DATATYPE, new FST("integer")));
+            recognizers.push_back(new Recognizer(LEX_STRING, LT_DATATYPE, new FST("string")));
+            recognizers.push_back(new Recognizer(LEX_DECLARE, LT_KEYWORD, new FST("declate")));
+            recognizers.push_back(new Recognizer(LEX_FUNCTION, LT_KEYWORD, new FST("function")));
+            recognizers.push_back(new Recognizer(LEX_MAIN, LT_MAIN, new FST("main")));
+            recognizers.push_back(new Recognizer(LEX_PRINT, LT_IDENTIFIER, new FST("print")));
+            recognizers.push_back(new Recognizer(LEX_RETURN, LT_KEYWORD,  new FST("return")));
+            recognizers.push_back(new Recognizer(LEX_LITERAL, LT_INTEGER_LITERAL,
+                                                 new FST("", 2,
+                                                         N(20,
+                                                           R('0', 1), R('0', 0),
+                                                           R('1', 1), R('1', 0),
+                                                           R('2', 1), R('2', 0),
+                                                           R('3', 1), R('3', 0),
+                                                           R('4', 1), R('4', 0),
+                                                           R('5', 1), R('5', 0),
+                                                           R('6', 1), R('6', 0),
+                                                           R('7', 1), R('7', 0),
+                                                           R('8', 1), R('8', 0),
+                                                           R('9', 1), R('9', 0)),
+                                                         N())));
+            recognizers.push_back(new StringLiteralRecognizer());
+            recognizers.push_back(new Recognizer(LEX_ID, LT_IDENTIFIER,
+                                                 new FST("", 2,
+                                                         N(52, // все меленькие латинские буквы
+                                                           R('\x61', 0), R('\x62', 0), R('\x63', 0), R('\x64', 0), R('\x65', 0),
+                                                           R('\x66', 0), R('\x67', 0), R('\x68', 0), R('\x69', 0), R('\x6A', 0),
+                                                           R('\x6B', 0), R('\x6C', 0), R('\x6D', 0), R('\x6E', 0), R('\x6F', 0),
+                                                           R('\x70', 0), R('\x71', 0), R('\x72', 0), R('\x73', 0), R('\x74', 0),
+                                                           R('\x75', 0), R('\x76', 0), R('\x77', 0), R('\x78', 0), R('\x79', 0),
+                                                           R('\x7A', 0),
+                                                           R('\x61', 1), R('\x62', 1), R('\x63', 1), R('\x64', 1), R('\x65', 1),
+                                                           R('\x66', 1), R('\x67', 1), R('\x68', 1), R('\x69', 1), R('\x6A', 1),
+                                                           R('\x6B', 1), R('\x6C', 1), R('\x6D', 1), R('\x6E', 1), R('\x6F', 1),
+                                                           R('\x70', 1), R('\x71', 1), R('\x72', 1), R('\x73', 1), R('\x74', 1),
+                                                           R('\x75', 1), R('\x76', 1), R('\x77', 1), R('\x78', 1), R('\x79', 1),
+                                                           R('\x7A', 1)),
+                                                         N())));
         }
 
         // определение первого распознавателя, который узнал фрагмент

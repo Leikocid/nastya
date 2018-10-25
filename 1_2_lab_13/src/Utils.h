@@ -19,6 +19,9 @@ namespace Utils {
     // Append chars from source to destination
     void     appendChars(char* destination, const char* source);
 
+    // Get sub string
+    char*    subString(const char* source, const int begin, const int length);
+
     // Return current local time
     tm*	     getCurrentTime();
 }

@@ -40,6 +40,14 @@ namespace Utils {
         strcat(destination, source);
     }
 
+    // Get sub string
+    char* subString(const char* source, const int begin, const int length) {
+        char* result = new char[length + 1];
+        memcpy(result, &source[begin], length);
+        result[length] = '\0';
+        return result;
+    }
+
     // Return current local time
     tm*      getCurrentTime() {
         time_t t = time(NULL);

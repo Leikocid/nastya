@@ -40,16 +40,16 @@ namespace In {
             F = 2048,
             I = 4096
         };
-        int	       size;      // размер исходного кода
-        int	       lines;     // количество строк
-        int	       ignor;     // количество проигнорированных символов
-        unsigned char* text;      // исходный код (Windows - 1251)
-        int	       code[256]; // таблица проверки: Т, F, I новое значение
+        int   size;      // размер исходного кода
+        int   lines;     // количество строк
+        int   ignor;     // количество проигнорированных символов
+        char* text;      // исходный код (Windows - 1251)
+        int   code[256]; // таблица проверки: Т, F, I новое значение
 
         IN() {
             int code[256] = IN_CODE_TABLE;
             memcpy(this->code, code, 256 * sizeof(int));
-            this->text	= new unsigned char[IN_MAX_LEN_TEXT];
+            this->text	= new char[IN_MAX_LEN_TEXT];
             this->size	= 0;
             this->ignor = 0;
         }
