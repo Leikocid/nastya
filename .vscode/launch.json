@@ -28,19 +28,19 @@
             ]
         },
         {
-            "name": "Launch 1_2_lab_15",
+            "name": "Launch 1_2_lab_16",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/../bin/1_2_lab_15",
+            "program": "${fileDirname}/../bin/1_2_lab_16",
             "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_15/test/finalExample.txt"
+                "-in:/Users/alexey_astakhov/Work/nastya_yp/1_2_lab_16/test/finalExample.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}/../bin",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb",
-            "preLaunchTask": "compile 1_2_lab_15",
+            "preLaunchTask": "compile 1_2_lab_16",
             //"miDebuggerPath": "gdb",
             "setupCommands": [
                 {
