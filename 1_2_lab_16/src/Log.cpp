@@ -32,16 +32,16 @@ namespace Log {
     }
 
     // закрыть протокол
-    void closeLog(LOG log) {
-        if (log.stream) {
-            log.stream->close();
-            log.stream = NULL;
+    void LOG::closeLog() {
+        if (stream) {
+            stream->close();
+            stream = NULL;
         }
     }
 
     // вывести в протокол конкатенацию строк
-    void logLine(LOG log, const char* c, ...) {
-        if (log.stream) {
+    void LOG::logLine(const char* c, ...) {
+        if (stream) {
             va_list p;
             va_start(p, c);
 
@@ -63,13 +63,13 @@ namespace Log {
             }
             va_end(p);
 
-            *(log.stream) << s << endl;
+            *stream << s << endl;
         }
     }
 
     // вывести в протокол конкатенацию строк
-    void logLine(LOG log, const wchar_t* c, ...) {
-        if (log.stream) {
+    void LOG::logLine(const wchar_t* c, ...) {
+        if (stream) {
             va_list p;
             va_start(p, c);
 
@@ -92,59 +92,121 @@ namespace Log {
             va_end(p);
 
             char* s = toChars(ws);
-            *(log.stream) << s << endl;
+            *stream << s << endl;
             delete s;
         }
     }
 
     // вывести в протокол заголовок: ---- Протокол -----  Дата: 21.04.2015 22:18:04 ---------
-    void logLog(LOG log) {
-        if (log.stream) {
-            *(log.stream) << "----- Протокол -----  Дата: ";
+    void LOG::logLog() {
+        if (stream) {
+            *stream << "----- Протокол -----  Дата: ";
             tm*	 tm = getCurrentTime();
             char timeString[80];
             strftime(timeString, 80, "%d.%m.%Y %H:%M:%S", tm);
-            *(log.stream) << timeString;
-            *(log.stream) << " ----- " << endl;
+            *stream << timeString;
+            *stream << " ----- " << endl;
         }
     }
 
     // вывести в пртокол информацию о входных параметрах
-    void logParm(LOG log, PARM parm) {
-        if (log.stream) {
-            *(log.stream) << "-log: ";
+    void LOG::logParm(PARM parm) {
+        if (stream) {
+            *stream << "-log: ";
             char* str = toChars(parm.log);
-            *(log.stream) << str << endl;
+            *stream << str << endl;
             delete str;
-            *(log.stream) << "-out: ";
+            *stream << "-out: ";
             str = toChars(parm.out);
-            *(log.stream) << str << endl;
+            *stream << str << endl;
             delete str;
-            *(log.stream) << "-in: ";
+            *stream << "-in: ";
             str = toChars(parm.in);
-            *(log.stream) << str << endl;
+            *stream << str << endl;
             delete str;
         }
     }
 
     // вывести в протокол информацию o входном потоке
-    void logIn(LOG log, IN in) {
-        if (log.stream) {
-            *(log.stream) << "----- Исходные данные -----" << endl;
-            *(log.stream) << "Количество символов: " << in.size << endl;
-            *(log.stream) << "Проигнорировано:     " << in.ignor << endl;
-            *(log.stream) << "Количество строк:    " << in.lines << endl;
+    void LOG::logIn(IN in) {
+        if (stream) {
+            *stream << "----- Исходные данные -----" << endl;
+            *stream << "Количество символов: " << in.size << endl;
+            *stream << "Проигнорировано:     " << in.ignor << endl;
+            *stream << "Количество строк:    " << in.lines << endl;
         }
     }
 
     // вывести в протокол инфомацию об ошибке
-    void logError(LOG log, ERROR error) {
-        if (log.stream) {
-            *(log.stream) << "Ошибка " << error.id << ": " << error.message;
+    void LOG::logError(ERROR error) {
+        if (stream) {
+            *stream << "Ошибка " << error.id << ": " << error.message;
             if (error.hasInext) {
-                *(log.stream) << ", строка "  << error.inext.line << ", позиция " << error.inext.col << endl << endl;
+                *stream << ", строка "  << error.inext.line << ", позиция " << error.inext.col << endl << endl;
             }
-            *(log.stream) << endl;
+            *stream << endl;
+        }
+    }
+
+    void LOG::logLexemTables(LT::LexTable lextable, IT::IdTable idtable) {
+        *stream << "\nТаблица лексем:\n";
+        for (int i = 0; i < lextable.table.size(); i++) {
+            LT::Entry e	 = lextable.table[i];
+            int prevLine = 0;
+            if (i > 0) {
+                prevLine = lextable.table[i - 1].line;
+            }
+            if (e.line != prevLine) {
+                for (int l = prevLine + 1; l <= e.line; l++) {
+                    *stream << std::endl;
+                    if (l < 10) {
+                        *stream << "0";
+                    }
+                    *stream << l << ": ";
+                }
+            }
+            *stream << e.lexema;
+            if (e.lexema == 'i') {
+                *stream << "[" << e.idxTI << "]";
+            }
+        }
+        *stream << "\n\nТаблица идентификаторов:\n\n";
+        for (int i = 0; i < idtable.table.size(); i++) {
+            if (i < 10) {
+                *stream << "0";
+            }
+            *stream << i << " : ";
+
+            switch (idtable.table[i].iddatatype) {
+                case IT::DT_STR: {
+                    *stream << "str";
+                    break;
+                }; case IT::DT_INT: {
+                    *stream << "int";
+                    break;
+                }; case IT::DT_UNKNOWN: {
+                    *stream << "<unknown>";
+                    break;
+                };
+            }
+            *stream << " " << idtable.table[i].id << " [" << idtable.table[i].idxfirstLE << "] ";
+
+            switch (idtable.table[i].idtype) {
+                case IT::T_F: {
+                    break;
+                }
+                case IT::T_P:
+                case IT::T_V:
+                case IT::T_L: {
+                    if (idtable.table[i].iddatatype == IT::DT_STR) {
+                        *stream << "= <" << idtable.table[i].value.vstr.str << "> lenght = " << (int)idtable.table[i].value.vstr.len;
+                    } else if (idtable.table[i].iddatatype == IT::DT_INT) {
+                        *stream << "= <" << (int)idtable.table[i].value.vint << ">";
+                    }
+                    break;
+                }
+            }
+            *stream << endl;
         }
     }
 }
