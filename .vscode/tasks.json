@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "compile 1_2_lab_16",
+            "label": "compile 2_1_lab_16",
             "options": {
                 "cwd": "${fileDirname}"
             },
@@ -25,7 +25,7 @@
                 "IT.cpp",
                 "main.cpp",
                 "-o",
-                "../bin/1_2_lab_16"
+                "../bin/2_1_lab_16"
             ],
             "group": {
                 "kind": "build",
@@ -33,7 +33,7 @@
             }
         },
         {
-            "label": "compile 1_2_lab_13",
+            "label": "compile 2_1_lab_14",
             "options": {
                 "cwd": "${fileDirname}"
             },
@@ -56,7 +56,7 @@
                 "IT.cpp",
                 "main.cpp",
                 "-o",
-                "../bin/1_2_lab_13"
+                "../bin/2_1_lab_14"
             ],
             "group": {
                 "kind": "build",

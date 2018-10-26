@@ -13,7 +13,6 @@ using namespace Log;
 
 TranslationContext ctx;
 
-
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "rus");
 
@@ -35,8 +34,6 @@ int main(int argc, char* argv[]) {
         // строим таблицы лексем и идентификаторов
         LA::lexicalAnalysis(ctx);
         ctx.logger.logLexemTables(ctx.lexTable, ctx.idTable);
-
-        // writeResult(ctx.params.out, ctx.in.text);
     } catch (ERROR e) {
         ctx.logger.logError(e);
     }
