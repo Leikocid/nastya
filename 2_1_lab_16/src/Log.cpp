@@ -175,7 +175,26 @@ namespace Log {
             if (i < 10) {
                 *stream << "0";
             }
-            *stream << i << " : ";
+            *stream << i << ": ";
+
+            switch (idtable.table[i].idtype) {
+                case IT::T_F: {
+                    *stream << "f ";
+                    break;
+                }
+                case IT::T_P: {
+                    *stream << "p ";
+                    break;
+                }
+                case IT::T_V: {
+                    *stream << "v ";
+                    break;
+                }
+                case IT::T_L: {
+                    *stream << "l ";
+                    break;
+                }
+            }
 
             switch (idtable.table[i].iddatatype) {
                 case IT::DT_STR: {

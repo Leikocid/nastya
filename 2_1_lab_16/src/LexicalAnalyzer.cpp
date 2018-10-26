@@ -48,12 +48,13 @@ namespace LA {
         nestingLevel	  = 0;
 
         // разбираем входящий файл по частям
-        int  i		= 0;     // инщекс текущего символа
-        int  begin	= 0;     // индекс начала фрагмента текста
-        int  beginLine	= 0;     // номер строки начала фрагмента
-        int  line	= 1;     // номер текущей строки
-        int  col	= 1;     // номер текущей колонки
-        bool stringMode = false; // это специальный режим когда мы ждем только закрывающейся кавычки '
+        int  i		     = 0;     // инщекс текущего символа
+        int  begin	     = 0;     // индекс начала фрагмента текста
+        int  beginStringLine = 0;     // номер строки начала строковаого литерала
+        int  beginStringCol  = 0;     // номер колонки начала строковаого литерала
+        int  line	     = 1;     // номер текущей строки
+        int  col	     = 1;     // номер текущей колонки
+        bool stringMode	     = false; // это специальный режим когда мы ждем только закрывающейся кавычки '
 
         // проходим последовательно символы исходного текста, отделяя фрагменты текста с помощью
         // терминальных символов: space ; , . { } ( ) + - * / \n \t ' =
@@ -63,7 +64,7 @@ namespace LA {
 
             if (stringMode) { // режим строкового литерала
                 if (c == '\'') {
-                    addLexema(ctx, begin, i, beginLine, col, LEX_LITERAL, LT_STRING_LITERAL);
+                    addLexema(ctx, begin, i, beginStringLine, beginStringCol, LEX_LITERAL, LT_STRING_LITERAL);
                     stringMode = false;
                     begin      = i + 1;
                 }
@@ -75,9 +76,10 @@ namespace LA {
 
                 switch (c) {
                     case '\'': {
-                        stringMode = true;
-                        begin	   = i;
-                        beginLine  = line;
+                        stringMode	= true;
+                        begin		= i;
+                        beginStringLine = line;
+                        beginStringCol	= col;
                         break;
                     }
                     case LEX_PLUS:
@@ -127,7 +129,7 @@ namespace LA {
             char* fragment	   = subString(ctx.in.text, begin, end - begin + 1);
             Recognizer* recognizer = RECOGNIZERS.recognyze(fragment);
             if (!recognizer) {
-                throw ERROR_THROW_IN(25, line, col);
+                throw ERROR_THROW_IN(20, line, col); // Недопустимый синтаксис
             } else {
                 addLexema(ctx, begin, end, line, col, recognizer->lexema, recognizer->lexemaType);
             }
@@ -141,7 +143,6 @@ namespace LA {
         LT::Entry lexemaEntry = { lexema, lexemaType, line, (int)LT_TI_NULLIDX };
         int lexemaIndex	      = ctx.lexTable.table.size();
 
-        // TODO: добавление записей
         switch (lexema) {
             case LEX_MAIN: {
                 if ((nestingLevel != 0) || (prefixFunction.size() > 0)) {
@@ -159,6 +160,7 @@ namespace LA {
                     identifacator.iddatatype = DT_INT;
                     identifacator.value.vint = 0;
                     ctx.idTable.Add(identifacator);
+                    lexemaEntry.idxTI = idIndex;
                 } else {
                     throw ERROR_THROW_IN(32, line, col); // функция main объявляется во второй раз
                 }

@@ -45,7 +45,7 @@ namespace LA {
         // проверяем что первый и последний символы это апострофы
         bool recognized(const char* fragment) {
             int size = strlen(fragment);
-            return size > 2 && fragment[0] == '\'' && fragment[size - 1] == '\'';
+            return size >= 2 && fragment[0] == '\'' && fragment[size - 1] == '\'';
         }
     };
 
