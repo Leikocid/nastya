@@ -49,8 +49,8 @@ namespace Utils {
     }
 
     // Return current local time
-    tm*      getCurrentTime() {
+    void getCurrentTime(tm &tm) {
         time_t t = time(NULL);
-        return localtime(&t);
+        tm = *localtime(&t);
     }
 }

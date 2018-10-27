@@ -29,32 +29,30 @@ namespace Utils {
 
     // Copy wide chars
     void     copyWideChars(wchar_t* destination, const wchar_t* source) {
-        wcscpy_s(destination, source);
+        wcscpy_s(destination, wcslen(source) + 1, source);
     }
 
     // Append wide chars from source to destination
     void appendWideChars(wchar_t* destination, const wchar_t* source) {
-        wcsncat_s(destination, source, wcslen(source));
+        wcsncat_s(destination, wcslen(destination) + wcslen(source) + 1, source, wcslen(source));
     }
 
     // Append chars from source to destination
     void     appendChars(char* destination, const char* source) {
-        strcat_s(destination, strlen(source) + 1, source);
+        strcat_s(destination, strlen(destination) + strlen(source) + 1, source);
     }
 
     // Get sub string
     char* subString(const char* source, const int begin, const int length) {
         char* result = new char[length + 1];
-        memcpy_s(result, length, &source[begin], length);
+        memcpy_s(result, length + 1, &source[begin], length);
         result[length] = '\0';
         return result;
     }
 
     // Return current local time
-    tm*      getCurrentTime() {
+    void getCurrentTime(tm &tm) {
         time_t t = time(NULL);
-        tm*    tm;
-        localtime_s(tm, &t);
-        return tm;
+        localtime_s(&tm, &t);
     }
 }

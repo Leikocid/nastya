@@ -23,7 +23,8 @@ namespace Utils {
     char*    subString(const char* source, const int begin, const int length);
 
     // Return current local time
-    tm*	     getCurrentTime();
+    // tm*	     getCurrentTime();
+    void getCurrentTime(tm &tm);
 }
 
 #endif // !UTILS_H

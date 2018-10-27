@@ -101,9 +101,10 @@ namespace Log {
     void LOG::logLog() {
         if (stream) {
             *stream << "----- Протокол -----  Дата: ";
-            tm*	 tm = getCurrentTime();
+            tm tm;
+            getCurrentTime(tm);
             char timeString[80];
-            strftime(timeString, 80, "%d.%m.%Y %H:%M:%S", tm);
+            strftime(timeString, 80, "%d.%m.%Y %H:%M:%S", &tm);
             *stream << timeString;
             *stream << " ----- " << endl;
         }
