@@ -30,6 +30,11 @@ namespace Utils {
         wcscpy(destination, source);
     }
 
+    // Copy chars
+    void     copyChars(char* destination, const char* source) {
+        strcpy(destination, source);
+    }
+
     // Append wide chars from source to destination
     void appendWideChars(wchar_t* destination, const wchar_t* source) {
         wcsncat(destination, source, wcslen(source));

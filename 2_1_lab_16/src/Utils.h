@@ -13,6 +13,9 @@ namespace Utils {
     // Copy wide chars
     void     copyWideChars(wchar_t* destination, const wchar_t* source);
 
+    // Copy chars
+    void     copyChars(char* destination, const char* source);
+
     // Append wide chars from source to destination
     void     appendWideChars(wchar_t* destination, const wchar_t* source);
 

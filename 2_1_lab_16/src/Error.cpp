@@ -1,5 +1,7 @@
 #include "Error.h"
-#include <string.h>
+#include "Utils.h"
+
+using namespace Utils;
 
 namespace Error {
     // серии ошибок:   0 - 99  - системные ошибки
@@ -45,13 +47,13 @@ namespace Error {
             int	 i     = 0;
             while (i < ERROR_MAX_ID - 1 && !found) {
                 if (errors[i].id == id) {
-                    strcpy(e.message, errors[i].message);
+                    copyChars(e.message, errors[i].message);
                     found = true;
                 }
                 i++;
             }
             if (!found) {
-                strcpy(e.message, errors[ERROR_UNDEFINED_INDEX].message);
+                copyChars(e.message, errors[ERROR_UNDEFINED_INDEX].message);
             }
         } else {
             e.id = 0;
