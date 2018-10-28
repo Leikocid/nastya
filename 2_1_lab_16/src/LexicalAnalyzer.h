@@ -30,7 +30,7 @@ namespace LA {
         virtual ~Recognizer() {}
 
         // применяем недетерменированный конечный автомат для распознания фрагмента
-        virtual bool recognized(const char* fragment) {
+        virtual bool isRecognized(const char* fragment) {
             fst->string = fragment;
             return fst->execute();
         }
@@ -43,7 +43,7 @@ namespace LA {
         ~StringLiteralRecognizer() {}
 
         // проверяем что первый и последний символы это апострофы
-        bool recognized(const char* fragment) {
+        bool isRecognized(const char* fragment) {
             int size = strlen(fragment);
             return size >= 2 && fragment[0] == '\'' && fragment[size - 1] == '\'';
         }
@@ -99,7 +99,7 @@ namespace LA {
             Recognizer* result = nullptr;
             int i	       = 0;
             while (i < recognizers.size() && !result) {
-                if (recognizers[i]->recognized(fragment)) {
+                if (recognizers[i]->isRecognized(fragment)) {
                     result = recognizers[i];
                 }
                 i++;

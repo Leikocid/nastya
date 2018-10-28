@@ -188,7 +188,7 @@ namespace LA {
                 char* fragment = subString(fullFragment, 0, 5);
 
                 // строим id учитывая префиксы
-                char id[ID_MAXSIZE * 3 + 2];
+                char id[ID_MAXSIZE * 3 + 3];
                 id[0] = 0;
                 if (prefixFunction.size() > 0) {
                     appendChars(id, prefixFunction.c_str());
