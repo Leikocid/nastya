@@ -23,6 +23,9 @@
         "__tree": "cpp",
         "deque": "cpp",
         "map": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "stack": "cpp",
+        "algorithm": "cpp",
+        "chrono": "cpp"
     }
 }
