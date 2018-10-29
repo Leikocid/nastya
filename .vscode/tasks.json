@@ -21,6 +21,7 @@
                 "FST.cpp",
                 "Utils.MacOS.cpp",
                 "LexicalAnalyzer.cpp",
+                "PolishNotation.cpp",
                 "LT.cpp",
                 "IT.cpp",
                 "main.cpp",

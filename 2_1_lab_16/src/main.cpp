@@ -7,6 +7,7 @@
 
 #include "TranslationContext.h"
 #include "LexicalAnalyzer.h"
+#include "PolishNotation.h"
 
 // using namespace Out;
 using namespace Log;
@@ -36,6 +37,7 @@ int main(int argc, char* argv[]) {
         ctx.logger.logLexemTables(ctx.lexTable, ctx.idTable);
 
         // применение польской нотации
+        PolishNotation::testPolishNotations(ctx);
 
         ctx.lexTable.Delete();
         ctx.idTable.Delete();
