@@ -34,6 +34,11 @@ int main(int argc, char* argv[]) {
         // строим таблицы лексем и идентификаторов
         LA::lexicalAnalysis(ctx);
         ctx.logger.logLexemTables(ctx.lexTable, ctx.idTable);
+
+        // применение польской нотации
+
+        ctx.lexTable.Delete();
+        ctx.idTable.Delete();
     } catch (ERROR e) {
         ctx.logger.logError(e);
     }

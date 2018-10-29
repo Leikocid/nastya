@@ -133,6 +133,7 @@ namespace LA {
             } else {
                 addLexema(ctx, begin, end, line, col, recognizer->lexema, recognizer->lexemaType);
             }
+            delete[] fragment;
         }
     }
 
@@ -162,7 +163,7 @@ namespace LA {
                     ctx.idTable.Add(identifacator);
                     lexemaEntry.idxTI = idIndex;
                 } else {
-                    throw ERROR_THROW_IN(32, line, col); // функция main объявляется во второй раз
+                    throw ERROR_THROW_IN(32, line, col); //  функция main объявляется второй раз
                 }
                 break;
             };
@@ -284,6 +285,7 @@ namespace LA {
                     }
                 }
                 lexemaEntry.idxTI = idIndex;
+                delete[] fragment;
                 break;
             };
             case LEX_LITERAL: {
@@ -313,5 +315,7 @@ namespace LA {
             };
         }
         ctx.lexTable.Add(lexemaEntry);
+
+        delete[] fullFragment;
     }
 }

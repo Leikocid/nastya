@@ -28,6 +28,8 @@ namespace Log {
         void logError(ERROR error);                                      // вывести в протокол инфомацию об ошибке
         void logLexemTables(LT::LexTable lextable, IT::IdTable idtable); // вывести в протокол таблице лексем и идентификаторов
         void closeLog();                                                 // закрыть протокол
+        LOG  operator<<(const char* string);                             // вывести в лог строку
+        LOG  operator<<(const wchar_t* wideString);                      // вывести в лог строку
     };
 
     static const LOG INITLOG = { L"", NULL };                            // начальная инициализация лога, который никуда не пишет

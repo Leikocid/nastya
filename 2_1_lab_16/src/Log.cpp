@@ -14,6 +14,23 @@ using namespace Utils;
 
 // Работа с протоколом
 namespace Log {
+    // вывести в лог строку
+    LOG LOG::operator<<(const char* string) {
+        if (stream) {
+            *stream << string;
+        }
+        return *this;
+    }
+
+    // вывести в лог строку
+    LOG LOG::operator<<(const wchar_t* wideString) {
+        if (stream) {
+            char* string = toChars(wideString);
+            *stream << string;
+        }
+        return *this;
+    }
+
     // Используется для создания и открытия потокового вывода протокола.
     LOG getLog(wchar_t logfile[]) {
         LOG log = *(new LOG());

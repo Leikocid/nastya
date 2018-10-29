@@ -12,7 +12,7 @@ using namespace Utils;
 namespace In {
     // ввести и проверить входной поток
     IN getin(wchar_t infile[]) {
-        IN input = *(new IN());
+        IN input = *new IN();
 
         string	 fileName = toChars(infile);
         ifstream stream;
