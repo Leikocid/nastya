@@ -46,7 +46,6 @@ namespace PolishNotation {
         cout << endl;
     }
 
-    // приоритет операций
     int priority(char c) {
         if ((c == LEX_PLUS) || (c == LEX_MINUS)) {
             return 10;
@@ -62,11 +61,10 @@ namespace PolishNotation {
         printExpression(start, lexTable);
         cout << "----------------------------------" << endl;
 
-        // построение польской нотации
         bool result = true;
         stack<char> stack;
         int i = start;
-        int r = start; // индек позиции для переноса результата
+        int r = start; // result index
         while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON && result) {
             char c = lexTable.table[i].lexema;
 
@@ -81,6 +79,7 @@ namespace PolishNotation {
                 case LEX_MINUS:
                 case LEX_STAR:
                 case LEX_DIRSLASH: {
+                    // extract all operations from stack with high or equal priority and move them to result
                     bool extractOperation = !stack.empty();
                     while (extractOperation) {
                         char o = stack.top();
@@ -103,9 +102,10 @@ namespace PolishNotation {
                 case LEX_ID:
                 case LEX_LITERAL: {
                     if ((i + 1 < lexTable.table.size()) && (lexTable.table[i + 1].lexema == LEX_LEFTHESIS)) {
+                        // start of function. push "["
                         stack.push(LEX_LEFT_BRACKET);
                     } else {
-                        // операнды переносятся в результирующую строку в порядке их следования
+                        // move operand to result position
                         lexTable.table[r] = lexTable.table[i];
                         r++;
                     }
@@ -116,8 +116,8 @@ namespace PolishNotation {
                     break;
                 }
                 case LEX_RIGHTHESIS: {
-                    // закрывающая скобка выталкивает все операции до открывающей скобки, после чего обе скобки уничтожаются
-                    int	 paramsCount	  = 1;
+                    // extract all operations from stack while find open bracket or paranthesys and move them to result
+                    int	 paramsCount	  = 1; // number of function parameters
                     bool extractOperation = !stack.empty();
                     char o		  = LEX_LEFTHESIS;
                     while (extractOperation) {
@@ -140,8 +140,7 @@ namespace PolishNotation {
                         }
                     }
 
-                    // квадратная закрывающая скобка выталкивает все до открывающей и генерирует @n (индекс n указывает число операндов,
-                    // разделенных запятыми)
+                    // for close bracket geterate @ sign (function placeholder)
                     if (o == LEX_LEFT_BRACKET) {
                         lexTable.table[r].lexema     = LEX_FUNCTION_REF;
                         lexTable.table[r].lexemaType = LA::LT_SIGN;
@@ -149,7 +148,7 @@ namespace PolishNotation {
                         r++;
                     } else {
                         if (paramsCount > 1) {
-                            result = false; // внутри круглых скобок встретили запятую
+                            result = false; // found comma inside paranthesys => stop parsing (syntax error)
                         }
                     }
                     break;
@@ -158,7 +157,7 @@ namespace PolishNotation {
                     break;
                 }
                 default: {
-                    result = false; // обнаружена неправильная лексема - ошибка
+                    result = false; // found wrong lexema => stop parsing (syntax error)
                 }
             }
             i++;
@@ -181,7 +180,6 @@ namespace PolishNotation {
         }
         printStep(' ', start, r, lexTable, stack);
 
-        // вывод результата
         cout << "----------------------------------" << endl;
         if (result) {
             cout << "польская запись построена:" << endl;
