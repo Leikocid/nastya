@@ -5,7 +5,7 @@
 
 #define EXP1 17
 #define EXP2 62
-#define EXP3 133
+#define EXP3 151
 #define LEX_FUNCTION_REF '@'
 #define LEX_EMPTY ' '
 

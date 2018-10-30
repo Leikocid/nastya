@@ -1,11 +1,11 @@
------ Протокол -----  Дата: 30.10.2018 09:01:51 ----- 
--log: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/finalExample.txt.log
--out: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/finalExample.txt.out
--in: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/finalExample.txt
+----- Протокол -----  Дата: 30.10.2018 09:10:25 ----- 
+-log: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt.log
+-out: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt.out
+-in: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt
 ----- Исходные данные -----
-Количество символов: 690
-Проигнорировано:     36
-Количество строк:    37
+Количество символов: 730
+Проигнорировано:     37
+Количество строк:    38
 
 Таблица лексем:
 
@@ -40,12 +40,13 @@
 29: i[20]=l;
 30: i[17]=i[0](i[15],i[16]);
 31: i[21]=i[4](i[18],i[20]);
-32: pl;
-33: pi[17];
-34: pi[21];
-35: pi[22](i[21]);
-36: rl;
-37: };
+32: i[15]=i[15]*(i[16]+i[0](i[22](i[18])+i[16],i[17]))-i[17]/i[0](i[15],i[16]);
+33: pl;
+34: pi[17];
+35: pi[21];
+36: pi[22](i[21]);
+37: rl;
+38: };
 
 Таблица идентификаторов:
 
@@ -77,5 +78,5 @@
 25: l int  [121] = <5>
 26: l str  [125] = <'1234567890'> lenght = 12
 27: l str  [129] = <'1234567890'> lenght = 12
-28: l str  [150] = <'����������� ������'> lenght = 20
-29: l int  [165] = <0>
+28: l str  [179] = <'����������� ������'> lenght = 20
+29: l int  [194] = <0>

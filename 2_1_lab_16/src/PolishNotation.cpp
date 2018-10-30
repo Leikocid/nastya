@@ -21,20 +21,13 @@ namespace PolishNotation {
     }
 
     void printStep(char c, int start, int r, LT::LexTable &lexTable, stack<char> stack) {
-        cout << c << ":       ";
-        for (int j = start; j < r; j++) {
-            char o = lexTable.table[j].lexema;
-            cout << o;
-            if ((lexTable.table[j].lexema == LEX_ID) || (lexTable.table[j].lexema == LEX_FUNCTION_REF)) {
-                cout << lexTable.table[j].idxTI;
-            }
-            cout << " ";
-        }
-        cout << "   :::   ";
+        cout << c << ": ";
         std::stack<char> temp;
+        int count = 0;
         while (!stack.empty()) {
             char o = stack.top();
             cout << o;
+            count++;
             temp.push(o);
             stack.pop();
         }
@@ -42,6 +35,17 @@ namespace PolishNotation {
             char o = temp.top();
             stack.push(o);
             temp.pop();
+        }
+        for (int i = count; i < 10; i++) {
+            cout << ' ';
+        }
+        for (int j = start; j < r; j++) {
+            char o = lexTable.table[j].lexema;
+            cout << o;
+            if ((lexTable.table[j].lexema == LEX_ID) || (lexTable.table[j].lexema == LEX_FUNCTION_REF)) {
+                cout << lexTable.table[j].idxTI;
+            }
+            cout << ' ';
         }
         cout << endl;
     }

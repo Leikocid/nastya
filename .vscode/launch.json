@@ -33,7 +33,7 @@
             "request": "launch",
             "program": "${fileDirname}/../bin/2_1_lab_16",
             "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/finalExample.txt"
+                "-in:/Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}/../bin",
