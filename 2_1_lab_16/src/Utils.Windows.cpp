@@ -34,7 +34,7 @@ namespace Utils {
 
     // Copy chars
     void     copyChars(char* destination, const char* source) {
-        strcpy_s(destination, source);
+        strcpy_s(destination, strlen(source) + 1, source);
     }
 
     // Append wide chars from source to destination

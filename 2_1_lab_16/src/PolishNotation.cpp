@@ -3,30 +3,28 @@
 #include <iostream>
 #include <stack>
 
-#define LEX_LEFT_BRACKET '['
-
 using namespace std;
 
 namespace PolishNotation {
-    void printExpression(int start, LT::LexTable &lexTable) {
+    void printExpression(Log::LOG &logger, int start, LT::LexTable &lexTable) {
         int i = start;
         while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON) {
-            cout << i << ": " << lexTable.table[i].lexema;
+            logger << i << ": " << lexTable.table[i].lexema;
             if ((lexTable.table[i].lexema == LEX_ID) || (lexTable.table[i].lexema == LEX_FUNCTION_REF)) {
-                cout << lexTable.table[i].idxTI;
+                logger << lexTable.table[i].idxTI;
             }
-            cout << endl;
+            logger << endl;
             i++;
         }
     }
 
-    void printStep(char c, int start, int r, LT::LexTable &lexTable, stack<char> stack) {
-        cout << c << ": ";
+    void printStep(Log::LOG &logger, char c, int start, int r, LT::LexTable &lexTable, stack<char> stack) {
+        logger << c << ": ";
         std::stack<char> temp;
         int count = 0;
         while (!stack.empty()) {
             char o = stack.top();
-            cout << o;
+            logger << o;
             count++;
             temp.push(o);
             stack.pop();
@@ -37,17 +35,17 @@ namespace PolishNotation {
             temp.pop();
         }
         for (int i = count; i < 10; i++) {
-            cout << ' ';
+            logger << ' ';
         }
         for (int j = start; j < r; j++) {
             char o = lexTable.table[j].lexema;
-            cout << o;
+            logger << o;
             if ((lexTable.table[j].lexema == LEX_ID) || (lexTable.table[j].lexema == LEX_FUNCTION_REF)) {
-                cout << lexTable.table[j].idxTI;
+                logger << lexTable.table[j].idxTI;
             }
-            cout << ' ';
+            logger << ' ';
         }
-        cout << endl;
+        logger << endl;
     }
 
     int priority(char c) {
@@ -60,10 +58,12 @@ namespace PolishNotation {
         return 0;
     }
 
-    bool PolishNotation(int start, LT::LexTable &lexTable, IT::IdTable &idTable) {
-        cout << "\nPolishNotation from " << start << ":" << endl;
-        printExpression(start, lexTable);
-        cout << "----------------------------------" << endl;
+    bool PolishNotation(int start, TranslationContext &ctx) {
+        LT::LexTable lexTable = ctx.lexTable;
+        IT::IdTable  idTable  = ctx.idTable;
+        *ctx.logger << "\nTry to build polish notation from " << start << " position:" << endl;
+        printExpression(*ctx.logger, start, lexTable);
+        *ctx.logger << "----------------------------------" << endl;
 
         bool result = true;
         stack<char> stack;
@@ -144,7 +144,11 @@ namespace PolishNotation {
                         }
                     }
 
-                    // for close bracket geterate @ sign (function placeholder)
+                    if ((paramsCount == 1) && (i > start) && (lexTable.table[i - 1].lexema == LEX_LEFTHESIS)) {
+                        paramsCount = 0;
+                    }
+
+                    // for close bracket generate @ sign (function placeholder)
                     if (o == LEX_LEFT_BRACKET) {
                         lexTable.table[r].lexema     = LEX_FUNCTION_REF;
                         lexTable.table[r].lexemaType = LA::LT_SIGN;
@@ -166,7 +170,7 @@ namespace PolishNotation {
             }
             i++;
 
-            printStep(c, start, r, lexTable, stack);
+            printStep(*ctx.logger, c, start, r, lexTable, stack);
         }
         while (!stack.empty()) {
             char o = stack.top();
@@ -182,22 +186,22 @@ namespace PolishNotation {
             lexTable.table[r].idxTI	 = LT_TI_NULLIDX;
             r++;
         }
-        printStep(' ', start, r, lexTable, stack);
+        printStep(*ctx.logger, ' ', start, r, lexTable, stack);
 
-        cout << "----------------------------------" << endl;
+        *ctx.logger << "----------------------------------" << endl;
         if (result) {
-            cout << "польская запись построена:" << endl;
-            printExpression(start, lexTable);
+            *ctx.logger << "польская запись построена:" << endl;
+            printExpression(*ctx.logger, start, lexTable);
         } else {
-            cout << "польская запиcь не построена" << endl;
+            *ctx.logger << "польская запиcь не построена" << endl;
         }
-        cout << "=================================" << endl;
+        *ctx.logger << "=================================" << endl;
         return result;
     }
 
     void testPolishNotations(TranslationContext &ctx) {
-        PolishNotation(EXP1, ctx.lexTable, ctx.idTable);
-        PolishNotation(EXP2, ctx.lexTable, ctx.idTable);
-        PolishNotation(EXP3, ctx.lexTable, ctx.idTable);
+        PolishNotation(EXP1, ctx);
+        PolishNotation(EXP2, ctx);
+        PolishNotation(EXP3, ctx);
     }
 }

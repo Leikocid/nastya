@@ -12,9 +12,10 @@
 namespace Parm {
     // входные параметры
     struct PARM {
-        wchar_t in[PARM_MAX_SIZE];        // -in: имя файла исходного кода
-        wchar_t out[PARM_MAX_SIZE + 4];   // -out: имя файла объектного кода
-        wchar_t log[PARM_MAX_SIZE + 4];   // -log: имя файла протокола
+        wchar_t in[PARM_MAX_SIZE];      // -in: имя файла исходного кода
+        wchar_t out[PARM_MAX_SIZE + 4]; // -out: имя файла объектного кода
+        wchar_t log[PARM_MAX_SIZE + 4]; // -log: имя файла протокола
+        bool	logToConsole;
     };
 
     PARM getparm(int argc, char* argv[]); // сфрмировать struct РАRM на основе параметров функции main

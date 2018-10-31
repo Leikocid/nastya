@@ -13,7 +13,7 @@ struct TranslationContext {
     Parm::PARM params;
 
     // логгер
-    Log::LOG logger;
+    Log::LOG* logger;
 
     // входной текст
     In::IN in;

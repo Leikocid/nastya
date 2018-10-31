@@ -10,9 +10,10 @@ using namespace Utils;
 namespace Parm {
     // сформировать struct РАRM на основе параметров функции main
     PARM getparm(int argc, char* argv[]) {
-        wchar_t* inParam  = NULL;
-        wchar_t* outParam = NULL;
-        wchar_t* logParam = NULL;
+        wchar_t* inParam      = NULL;
+        wchar_t* outParam     = NULL;
+        wchar_t* logParam     = NULL;
+        bool	 logToConsole = false;
 
         for (int i = 0; i < argc; i++) {
             wchar_t* arg = toWideChars(argv[i]);
@@ -30,6 +31,11 @@ namespace Parm {
             if (wcsncmp(arg, L"-log:", 5) == 0) {
                 if (wcslen(arg) > 5) {
                     logParam = arg;
+                }
+            }
+            if (wcsncmp(arg, L"-logToConsole", 13) == 0) {
+                if (wcslen(arg)  == 13) {
+                    logToConsole = true;
                 }
             }
         }
@@ -63,6 +69,7 @@ namespace Parm {
             copyWideChars(p.log, p.in);
             appendWideChars(p.log, L".log");
         }
+        p.logToConsole = logToConsole;
         return p;
     }
 }

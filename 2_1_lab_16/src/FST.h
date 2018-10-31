@@ -1,5 +1,5 @@
-#ifndef IN_FST
-#define IN_FST
+#ifndef FST_H
+#define FST_H
 
 #include <cstdarg>
 #include <string.h>
@@ -72,4 +72,4 @@ namespace Fst {
     };
 }
 
-#endif // !IN_FST.H
+#endif // !FST_H
