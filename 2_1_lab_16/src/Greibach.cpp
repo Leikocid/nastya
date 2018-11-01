@@ -5,57 +5,42 @@
 using namespace Utils;
 
 namespace GRB {
-    Rule createRule(char pnn, int piderror, const char* rule) {
-        Rule  result =  *new Rule(Chain::N(pnn), piderror);
-        int   size   = strlen(rule);
-        char* chain  = new char[size];
-        int   i	     = 0;
-        int   r	     = 0;
-        while (i < size) {
-            char c = rule[i];
-            if (c == '|') {
-                chain[r] = 0;
-                result.chains.push_back(*new Chain(chain));
-                r = 0;
-            } else if (c != ' ') {
-                chain[r] = c;
-                r++;
-            }
-        }
-        chain[r] = 0;
-        result.chains.push_back(*new Chain(chain));
-        return result;
-    }
-
     Greibach* greibach = nullptr;
 
     void createGreibach() {
         greibach = new Greibach(Chain::N('S'), Chain::T('$'));
+
         greibach->rules.reserve(6);
 
         // S -> m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};
-        greibach->rules.push_back(createRule('S', 600, // Неверная структура программы
-                                             "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};"));
+        greibach->rules.push_back(*new Rule('S', "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};",
+                                            600 // Неверная структура программы
+                                            ));
 
         // N -> dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N
-        greibach->rules.push_back(createRule('N', 601, // Ошибочный оператор
-                                             "dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N"));
+        greibach->rules.push_back(*new Rule('N', "dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N",
+                                            601 // Ошибочный оператор
+                                            ));
 
         // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
-        greibach->rules.push_back(createRule('E', 602, // Ошибка в выражении
-                                             "ii | l | (E) | i(W) | iM | lM | (E)M | i(W)M"));
+        greibach->rules.push_back(*new Rule('E', "ii | l | (E) | i(W) | iM | lM | (E)M | i(W)M",
+                                            602 // Ошибка в выражении
+                                            ));
 
         // M -> +E | +EM | -E | -EM | *E | *EM | /E | /EM
-        greibach->rules.push_back(createRule('M', 602, // Ошибка в выражении
-                                             "+E | +EM | -E | -EM | *E | *EM | /E | /EM"));
+        greibach->rules.push_back(*new Rule('M', "+E | +EM | -E | -EM | *E | *EM | /E | /EM",
+                                            602 // Ошибка в выражении
+                                            ));
 
         // F -> ti | ti,F
-        greibach->rules.push_back(createRule('F', 603, // Ошибка в параметрах функции
-                                             "ti | ti,F"));
+        greibach->rules.push_back(*new Rule('F', "ti | ti,F",
+                                            603 // Ошибка в параметрах функции
+                                            ));
 
         // W -> i | l | i,W | l,W
-        greibach->rules.push_back(createRule('W', 604, // Ошибка в параметрах вызываемой функции
-                                             "i | l | i,W | l,W"));
+        greibach->rules.push_back(*new Rule('W', "i | l | i,W | l,W",
+                                            604 // Ошибка в параметрах вызываемой функции
+                                            ));
     }
 
     Greibach getGreibach() {

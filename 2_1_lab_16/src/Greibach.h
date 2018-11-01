@@ -65,9 +65,26 @@ namespace GRB {
             nn = 0;
         }
 
-        Rule(const GRBALPHABET nn, const int iderror) {
+        Rule(const GRBALPHABET nn, const char* rule, const int iderror) {
             this->nn	  = nn;
             this->iderror = iderror;
+            int	  size	= strlen(rule);
+            char* chain = new char[size];
+            int	  i	= 0;
+            int	  r	= 0;
+            while (i < size) {
+                char c = rule[i];
+                if (c == '|') {
+                    chain[r] = 0;
+                    chains.push_back(*new Chain(chain));
+                    r = 0;
+                } else if (c != ' ') {
+                    chain[r] = c;
+                    r++;
+                }
+            }
+            chain[r] = 0;
+            chains.push_back(*new Chain(chain));
         }
 
         // получить правило в виде "N -> цепочка для распечатки"
@@ -89,6 +106,8 @@ namespace GRB {
         GRBALPHABET  startN;    // стартовый символ
         GRBALPHABET  stbottomT; // дно стека
         vector<Rule> rules;     // множестов правил
+
+        Greibach() {}
 
         Greibach(const GRBALPHABET pstartN, const GRBALPHABET pstbottomT) {
             startN    = pstartN;

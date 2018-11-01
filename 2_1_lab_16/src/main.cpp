@@ -8,9 +8,11 @@
 #include "TranslationContext.h"
 #include "LexicalAnalyzer.h"
 #include "PolishNotation.h"
+#include "MFST.h"
 
 // using namespace Out;
 using namespace Log;
+using namespace std;
 
 TranslationContext ctx;
 
@@ -43,8 +45,8 @@ int main(int argc, char* argv[]) {
         MFST_TRACE_START
         MFST::Mfst mfst(ctx.lexTable, GRB::getGreibach());
         mfst.start();
-        mfst.savededucation();
-        mfst.printrules();
+        mfst.savededucation(); // сохранить и вывести правила вывода
+        mfst.printrules();     // отладка: вывести правила вывода
 
         ctx.lexTable.Delete();
         ctx.idTable.Delete();
