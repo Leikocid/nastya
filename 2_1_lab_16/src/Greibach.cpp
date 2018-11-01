@@ -1,101 +1,86 @@
 
 #include "Greibach.h"
+#include "Utils.h"
 
-#define GRB_ERROR_SERIES 600
-#define NS(n) Rule::Chain::N(n)
-#define TS(n) Rule::Chain::T(n)
-#define ISNS(n) Rule::Chain::isN(n)
+using namespace Utils;
 
 namespace GRB {
-    Greibach greibach(NS('S'), TS('$'),
-                      3,
-                      Rule(NS('S'), GRB_ERROR_SERIES + 0,
-                           3,
-                           Rule::Chain(8, TS('m'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), TS(';')),
-                           Rule::Chain(14,
-                                       TS('t'),
-                                       TS('i'),
-                                       TS('f'),
-                                       TS('('),
-                                       NS('F'),
-                                       TS(')'),
-                                       TS('{'),
-                                       NS('N'),
-                                       TS('r'),
-                                       NS('E'),
-                                       TS(';'),
-                                       TS('}')),
-                           Rule::Chain(9, TS('m'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), TS(';'), NS('S'))
-                           ),
-                      Rule(NS('N'), GRB_ERROR_SERIES + 1,
-                           8,
-                           Rule::Chain(4, TS('d'), TS('t'), TS('i'), TS(';')),
-                           Rule::Chain(3, TS('r'), NS('E'), TS(';')),
-                           Rule::Chain(4, TS('i'), TS('='), NS('E'), TS(';')),
-                           Rule::Chain(8, TS('d'), TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS(';')),
-                           Rule::Chain(5, TS('d'), TS('t'), TS('i'), TS(';'), NS('N')),
-                           Rule::Chain(4, TS('r'), NS('E'), TS(';'), NS('N')),
-                           Rule::Chain(5, TS('i'), TS('='), NS('E'), TS(';'), NS('N')),
-                           Rule::Chain(9, TS('d'), TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS(';'), NS('N'))
-                           ),
-                      Rule(NS('E'), GRB_ERROR_SERIES + 2,
-                           8,
-                           Rule::Chain(1, TS('i')),
-                           Rule::Chain(1, TS('l')),
-                           Rule::Chain(3, TS('i('), NS('E'), TS(')')),
-                           Rule::Chain(4, TS('i'),  TS('('), NS('w'), TS(')')),
-                           Rule::Chain(2, TS('i'),  TS('M')),
-                           Rule::Chain(2, TS('l'),  NS('M')),
-                           Rule::Chain(4, TS('('),  NS('E'), TS(')'), NS('M')),
-                           Rule::Chain(5, TS('i'),  TS('('), NS('w'), TS(')'), NS('M'))
-                           )
-                      );
-
-    Rule::Chain::Chain(short psize, GRBALPHABET s, ...) {
-        nt = new GRBALPHABET[size = psize];
-        int* p = (int*)&s;
-        for (short i = 0; i < psize; i++) {
-            nt[i] = (GRBALPHABET)p[i];
+    Rule createRule(char pnn, int piderror, const char* rule) {
+        Rule  result =  *new Rule(Chain::N(pnn), piderror);
+        int   size   = strlen(rule);
+        char* chain  = new char[size];
+        int   i	     = 0;
+        int   r	     = 0;
+        while (i < size) {
+            char c = rule[i];
+            if (c == '|') {
+                chain[r] = 0;
+                result.chains.push_back(*new Chain(chain));
+                r = 0;
+            } else if (c != ' ') {
+                chain[r] = c;
+                r++;
+            }
         }
+        chain[r] = 0;
+        result.chains.push_back(*new Chain(chain));
+        return result;
     }
 
-    Rule::Rule(GRBALPHABET pnn, int piderror, short psize, Chain c, ...) {
-        nn	= pnn;
-        iderror = piderror;
-        chains	= new Chain[size = psize];
-        Chain* p = &c;
-        for (int i = 0; i < size; i++) {
-            chains[i] = p[i];
-        }
-    }
+    Greibach* greibach = nullptr;
 
-    Greibach::Greibach(GRBALPHABET pstartN, GRBALPHABET pstbottom, short psize, Rule r, ...) {
-        startN	  = pstartN;
-        stbottomT = pstbottom;
-        rules	  = new Rule[size = psize];
-        Rule* p = &r;
-        for (int i = 0; i < size; i++) {
-            rules[i] = p[i];
-        }
+    void createGreibach() {
+        greibach = new Greibach(Chain::N('S'), Chain::T('$'));
+        greibach->rules.reserve(6);
+
+        // S -> m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};
+        greibach->rules.push_back(createRule('S', 600, // Неверная структура программы
+                                             "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};"));
+
+        // N -> dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N
+        greibach->rules.push_back(createRule('N', 601, // Ошибочный оператор
+                                             "dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N"));
+
+        // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
+        greibach->rules.push_back(createRule('E', 602, // Ошибка в выражении
+                                             "ii | l | (E) | i(W) | iM | lM | (E)M | i(W)M"));
+
+        // M -> +E | +EM | -E | -EM | *E | *EM | /E | /EM
+        greibach->rules.push_back(createRule('M', 602, // Ошибка в выражении
+                                             "+E | +EM | -E | -EM | *E | *EM | /E | /EM"));
+
+        // F -> ti | ti,F
+        greibach->rules.push_back(createRule('F', 603, // Ошибка в параметрах функции
+                                             "ti | ti,F"));
+
+        // W -> i | l | i,W | l,W
+        greibach->rules.push_back(createRule('W', 604, // Ошибка в параметрах вызываемой функции
+                                             "i | l | i,W | l,W"));
     }
 
     Greibach getGreibach() {
-        return greibach;
+        if (!greibach) {
+            createGreibach();
+        }
+        return *greibach;
     }
 
     short Greibach::getRule(GRBALPHABET pnn, Rule &prule) {
         short rc = -1;
         short k	 = 0;
-        while (k < size && rules[k].nn != pnn) k++;
-        if (k < size) {
-            prule = rules[rc = k];
+        while (k < rules.size() && rc == -1) {
+            if (rules[k].nn == pnn) {
+                prule = rules[k];
+                rc    = k;
+            }
+            k++;
         }
         return rc;
     }
 
     Rule Greibach::getRule(short n) {
         Rule rc;
-        if (n < size) {
+        if (n < rules.size()) {
             rc = rules[n];
         }
         return rc;
@@ -106,27 +91,29 @@ namespace GRB {
         b[0] = Chain::alphabet_to_char(nn);
         b[1] = '-';
         b[2] = '>';
-        b[3] = 0x00;
+        b[3] = 0;
         chains[nchain].getCChain(bchain);
-        strcat_s(b, sizeof(bchain) + 5, bchain);
+        appendChars(b, bchain);
         return b;
     }
 
-    short Rule::getNextChain(GRBALPHABET t, Rule::Chain &pchain, short j) {
+    short Rule::getNextChain(GRBALPHABET t, Chain &pchain, short j) {
         short rc = -1;
-        while (j < size && chains[j].nt[0] != t) ++j;
-        rc = (j < size ? j : -1);
-        if (rc >= 0) {
-            pchain = chains[rc];
+        while (j < chains.size() && rc == -1) {
+            if (chains[j].lexems[0] == t) {
+                pchain = chains[j];
+                rc     = j;
+            }
+            j++;
         }
         return rc;
     }
 
-    char* Rule::Chain::getCChain(char* b) {
-        for (int i = 0; i < size; i++) {
-            b[i] = Chain::alphabet_to_char(nt[i]);
+    char* Chain::getCChain(char* b) {
+        for (int i = 0; i < lexems.size(); i++) {
+            b[i] = Chain::alphabet_to_char(lexems[i]);
         }
-        b[size] = 0x00;
+        b[lexems.size()] = 0;
         return b;
     }
 }

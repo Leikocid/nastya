@@ -40,6 +40,11 @@ int main(int argc, char* argv[]) {
         PolishNotation::testPolishNotations(ctx);
 
         // syntax analysis
+        MFST_TRACE_START
+        MFST::Mfst mfst(ctx.lexTable, GRB::getGreibach());
+        mfst.start();
+        mfst.savededucation();
+        mfst.printrules();
 
         ctx.lexTable.Delete();
         ctx.idTable.Delete();
