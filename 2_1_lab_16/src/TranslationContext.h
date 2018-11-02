@@ -6,6 +6,7 @@
 #include "In.h"
 #include "LT.h"
 #include "IT.h"
+#include "Greibach.h"
 
 // контекст работы транслятора
 struct TranslationContext {
@@ -23,6 +24,9 @@ struct TranslationContext {
 
     // таблица идентификаторов
     IT::IdTable idTable;
+
+    // грамматика для синтаксического анализатора
+    GR::Greibach* grammar;
 };
 
 #endif // !TRANSTATION_CONTEXT_H

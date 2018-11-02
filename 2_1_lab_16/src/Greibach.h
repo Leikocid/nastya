@@ -2,22 +2,26 @@
 #define GREIBACH_H
 
 #include <vector>
+#include "Utils.h"
 
 typedef short GRBALPHABET; //  символы алфавита грамматики. терминалы > 0 а нетерминалы < 0
 
 using namespace std;
+using namespace Utils;
 
-namespace GRB {
+namespace GR {
     struct Chain {
         // цепочка лексем для правила
         vector<GRBALPHABET> lexems; // цепочка терминалов (>0) и нетерминалов (<0)
-
-        Chain() {}
+        char*		    info;   // описание цепочки
 
         Chain(const char* chain) {
-            int size = strlen(chain);
-            lexems.reserve(size);
-            for (int i  = 0; i < size; i++) {
+            int len = strlen(chain);
+            info = new char[len + 5];
+            copyChars(info, chain);
+
+            lexems.reserve(len);
+            for (int i  = 0; i < len; i++) {
                 char c = chain[i];
                 if (isupper(c)) {
                     lexems.push_back(N(c));
@@ -26,8 +30,6 @@ namespace GRB {
                 }
             }
         }
-
-        char* getCChain(char* b); // пролучить правую сторону правила
 
         // терминал
         static GRBALPHABET T(char t) {
@@ -60,19 +62,24 @@ namespace GRB {
         GRBALPHABET   nn;      // нетерминал, левый символ правила < 0
         int	      iderror; // идентификатор сообщения об ошибке
         vector<Chain> chains;  // множество цепочек - правых частей правила
+        char*	      info;    // описание правила
 
-        Rule() {
-            nn = 0;
-        }
-
-        Rule(const GRBALPHABET nn, const char* rule, const int iderror) {
-            this->nn	  = nn;
+        Rule(const char nn, const char* rule, const int iderror) {
+            this->nn	  = Chain::N(nn);
             this->iderror = iderror;
-            int	  size	= strlen(rule);
-            char* chain = new char[size];
+            int len = strlen(rule);
+            info    = new char[len + 5];
+            info[0] = nn;
+            info[1] = ' ';
+            info[2] = '-';
+            info[3] = '>';
+            info[4] = ' ';
+            appendChars(info, rule);
+
+            char* chain = new char[len];
             int	  i	= 0;
             int	  r	= 0;
-            while (i < size) {
+            while (i < len) {
                 char c = rule[i];
                 if (c == '|') {
                     chain[r] = 0;
@@ -86,12 +93,6 @@ namespace GRB {
             chain[r] = 0;
             chains.push_back(*new Chain(chain));
         }
-
-        // получить правило в виде "N -> цепочка для распечатки"
-        char* getCRule(
-            char* b,     // буфер
-            short nchain // номер цепочки (правой части) в правиле
-            );
 
         // получить следующую за j подходящую цепочку, вернуть ее номер или -1
         short getNextChain(
@@ -118,10 +119,10 @@ namespace GRB {
         short getRule(GRBALPHABET pnn, Rule &prule);
 
         // получить правило по номеру
-        Rule getRule(short n);
+        Rule* getRule(short n);
     };
 
-    Greibach getGreibach();
+    Greibach* getGrammar();
 }
 
 #endif // !GREIBACH_H

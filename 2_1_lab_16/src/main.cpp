@@ -38,15 +38,18 @@ int main(int argc, char* argv[]) {
         LA::lexicalAnalysis(ctx);
         ctx.logger->logLexemTables(ctx.lexTable, ctx.idTable);
 
-        // применение польской нотации
-        PolishNotation::testPolishNotations(ctx);
+        // синтаксический анализ
+        ctx.grammar = GR::getGrammar();
 
-        // syntax analysis
         MFST_TRACE_START
-        MFST::Mfst mfst(ctx.lexTable, GRB::getGreibach());
+
+        SA::SyntaxAnalyzer mfst(ctx);
         mfst.start();
         mfst.savededucation(); // сохранить и вывести правила вывода
         mfst.printrules();     // отладка: вывести правила вывода
+
+        // применение польской нотации
+        PolishNotation::testPolishNotations(ctx);
 
         ctx.lexTable.Delete();
         ctx.idTable.Delete();

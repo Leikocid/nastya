@@ -4,11 +4,10 @@
 
 using namespace Utils;
 
-namespace GRB {
-    Greibach* greibach = nullptr;
-
-    void createGreibach() {
-        greibach = new Greibach(Chain::N('S'), Chain::T('$'));
+namespace GR {
+    // построить правила синтаксиса
+    Greibach* getGrammar() {
+        Greibach* greibach = new Greibach(Chain::N('S'), Chain::T('$'));
 
         greibach->rules.reserve(6);
 
@@ -41,13 +40,7 @@ namespace GRB {
         greibach->rules.push_back(*new Rule('W', "i | l | i,W | l,W",
                                             604 // Ошибка в параметрах вызываемой функции
                                             ));
-    }
-
-    Greibach getGreibach() {
-        if (!greibach) {
-            createGreibach();
-        }
-        return *greibach;
+        return greibach;
     }
 
     short Greibach::getRule(GRBALPHABET pnn, Rule &prule) {
@@ -63,23 +56,12 @@ namespace GRB {
         return rc;
     }
 
-    Rule Greibach::getRule(short n) {
-        Rule rc;
+    Rule* Greibach::getRule(short n) {
+        Rule* result;
         if (n < rules.size()) {
-            rc = rules[n];
+            result = &rules[n];
         }
-        return rc;
-    }
-
-    char* Rule::getCRule(char* b, short nchain) {
-        char bchain[200];
-        b[0] = Chain::alphabet_to_char(nn);
-        b[1] = '-';
-        b[2] = '>';
-        b[3] = 0;
-        chains[nchain].getCChain(bchain);
-        appendChars(b, bchain);
-        return b;
+        return result;
     }
 
     short Rule::getNextChain(GRBALPHABET t, Chain &pchain, short j) {
@@ -92,13 +74,5 @@ namespace GRB {
             j++;
         }
         return rc;
-    }
-
-    char* Chain::getCChain(char* b) {
-        for (int i = 0; i < lexems.size(); i++) {
-            b[i] = Chain::alphabet_to_char(lexems[i]);
-        }
-        b[lexems.size()] = 0;
-        return b;
     }
 }
