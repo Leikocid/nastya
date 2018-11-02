@@ -1,5 +1,5 @@
-#ifndef MFST_H
-#define MFST_H
+#ifndef SA_H
+#define SA_H
 
 #include "TranslationContext.h"
 #include <stack>
@@ -8,26 +8,6 @@
 #define MFST_DIAGN_MAXSIZE      2 * ERROR_MAXSIZE_MESSAGE
 #define MFST_DIAGN_NUMBER       3
 
-#define MFST_TRACE_START *ctx.logger << setw(4) << left << "Шаг:"            \
-                                     << setw(20) << left << " Правило"       \
-                                     << setw(30) << left << " Входная лента" \
-                                     << setw(20) << left << " Стек" << endl;
-#define MFST_TRACE1     cout << setw(4) << left << ++FST_TRACE_n << ": "            \
-                             << setw(20) << left << rule->info                      \
-                             << setw(30) << left << getCLenta(lbuf, lenta_position) \
-                             << setw(20) << left << getCSt(sbuf) << endl;
-#define MFST_TRACE2     cout << setw(4) << left << FST_TRACE_n << ": "              \
-                             << setw(20) << left << " "                             \
-                             << setw(30) << left << getCLenta(lbuf, lenta_position) \
-                             << setw(20) << left << getCSt(sbuf) << endl;
-#define MFST_TRACE3     cout << setw(4) << left << ++FST_TRACE_n << ": "            \
-                             << setw(20) << left << " "                             \
-                             << setw(30) << left << getCLenta(lbuf, lenta_position) \
-                             << setw(20) << left << getCSt(sbuf) << endl;
-#define MFST_TRACE4(c) cout << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << c << endl;
-#define MFST_TRACE5(c) cout << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << c << endl;
-#define MFST_TRACE6(c, k) cout << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << c << k << endl;
-#define MFST_TRACE7 cout << setw(4) << left << state->lenta_position << ": " << setw(20) << left << rule->info << endl;
 
 using namespace GR;
 
@@ -92,17 +72,17 @@ namespace SA {
             nrulechain = -1;
         }
 
-        bool	start();                                       // запустить автомат
-        void	printrules();                                  // вывести последовательность правил
+        bool	    start();                                       // запустить автомат
+        void	    printrules();                                  // вывести последовательность правил
 
-        RC_STEP step();                                        // выполнить шаг автомата
-        char*	getCSt(char* buf);                             // получить содержание стека
-        char*	getCLenta(char* buf, short pos, short n = 25); // лента: n символов начиная с pos
-        char*	getDiagnosis(short n, char* buf);              // полдучить n-ую строку диагностики или 0
-        bool	savestate();                                   // сохранить состояние автомата
-        bool	reststate();                                   // восстановить состояние автомата
-        bool	push_chain(Chain chain);                       // поместить цепочку правила в стек
-        bool	savediagnosis(RC_STEP pprc_step);
+        RC_STEP	    step();                                        // выполнить шаг автомата
+        char*	    getCSt(char* buf);                             // получить содержание стека
+        char*	    getCLenta(char* buf, short pos, short n = 25); // лента: n символов начиная с pos
+        const char* getDiagnosis(short n);                         // получить n-ую строку диагностики или 0
+        bool	    savestate();                                   // сохранить состояние автомата
+        bool	    reststate();                                   // восстановить состояние автомата
+        bool	    push_chain(Chain chain);                       // поместить цепочку правила в стек
+        bool	    savediagnosis(RC_STEP pprc_step);
 
         // диагностика
         struct MfstDiagnosis {
@@ -130,7 +110,7 @@ namespace SA {
         // вывод
         struct Deducation {
             short  size;        // количество шагов в выводе
-            short* nrules;      // номера правил граммат���������ки
+            short* nrules;      // номера правил грам��ат���������ки
             short* nrulechains; // номера купочек правил грамматики
             Deducation() {
                 size = 0; nrules = 0; nrulechains = 0;
@@ -141,4 +121,4 @@ namespace SA {
     };
 }
 
-#endif // !MFST_H
+#endif // !SA_H

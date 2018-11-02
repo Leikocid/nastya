@@ -43,36 +43,42 @@ namespace GR {
         return greibach;
     }
 
-    short Greibach::getRule(GRBALPHABET pnn, Rule &prule) {
-        short rc = -1;
-        short k	 = 0;
-        while (k < rules.size() && rc == -1) {
+    short Greibach::getRuleNumber(GRBALPHABET pnn) {
+        short result = -1;
+        short k	     = 0;
+        while (k < rules.size() && result == -1) {
             if (rules[k].nn == pnn) {
-                prule = rules[k];
-                rc    = k;
+                result = k;
             }
             k++;
         }
-        return rc;
+        return result;
     }
 
     Rule* Greibach::getRule(short n) {
-        Rule* result;
+        Rule* result = nullptr;
         if (n < rules.size()) {
             result = &rules[n];
         }
         return result;
     }
 
-    short Rule::getNextChain(GRBALPHABET t, Chain &pchain, short j) {
+    short Rule::getNextChainNumber(GRBALPHABET t, short j) {
         short rc = -1;
         while (j < chains.size() && rc == -1) {
             if (chains[j].lexems[0] == t) {
-                pchain = chains[j];
-                rc     = j;
+                rc = j;
             }
             j++;
         }
         return rc;
+    }
+
+    Chain* Rule::getChain(short n) {
+        Chain* result = nullptr;
+        if (n < chains.size()) {
+            result = &chains[n];
+        }
+        return result;
     }
 }

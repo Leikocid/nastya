@@ -77,9 +77,8 @@ namespace GR {
             appendChars(info, rule);
 
             char* chain = new char[len];
-            int	  i	= 0;
             int	  r	= 0;
-            while (i < len) {
+            for (int i = 0; i < len; i++) {
                 char c = rule[i];
                 if (c == '|') {
                     chain[r] = 0;
@@ -95,11 +94,13 @@ namespace GR {
         }
 
         // получить следующую за j подходящую цепочку, вернуть ее номер или -1
-        short getNextChain(
-            GRBALPHABET t,       // первый символ цепочки
-            Chain	&pchain, // возвращаемая цепочка
-            short	j        // номер цепочки
+        short getNextChainNumber(
+            GRBALPHABET t, // первый символ цепочки
+            short	j  // номер цепочки
             );
+
+        // получить цепочку по номеру
+        Chain* getChain(short n);
     };
 
     // грамматика Гребах
@@ -115,8 +116,8 @@ namespace GR {
             stbottomT = pstbottomT;
         }
 
-        // получить правило по левому симваолу. Возвращается номер правила или -1
-        short getRule(GRBALPHABET pnn, Rule &prule);
+        // получить номер правила по левому символу. Возвращается номер правила или -1
+        short getRuleNumber(GRBALPHABET pnn);
 
         // получить правило по номеру
         Rule* getRule(short n);

@@ -1,17 +1,21 @@
-#include "MFST.h"
+#include "SyntaxAnalyzer.h"
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 using namespace GR;
 
-int  FST_TRACE_n = -1;
+int FST_TRACE_n = -1;
+
 char rbuf[205], sbuf[205], lbuf[1024];
 namespace SA {
     // запуск процедуры синтаксического анализа
     bool SyntaxAnalyzer::start() {
+        *ctx.logger << setw(4) << left << "Шаг:" << setw(20) << left << " Правило" \
+                    << setw(30) << left << " Входная лента"  << setw(20) << left << " Стек" << endl;
+
         bool rc		= false;
         RC_STEP rc_step = SURPRISE;
-        char	buf[MFST_DIAGN_MAXSIZE];
         rc_step = step();
         while (rc_step == NS_OK || rc_step == NS_NORULECHAIN || rc_step == TS_OK || rc_step == TS_NOK) {
             rc_step = step();
@@ -20,31 +24,30 @@ namespace SA {
         // вывод результата
         switch (rc_step) {
             case NS_NORULE: {
-                MFST_TRACE4("-------> NS_NORULE")
-                cout << "--------------------------------------------------------------" << endl;
-                cout << getDiagnosis(0, buf) << endl;
-                cout << getDiagnosis(1, buf) << endl;
-                cout << getDiagnosis(2, buf) << endl;
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "-------> NS_NORULE" << endl;
+                *ctx.logger << "--------------------------------------------------------------" << endl;
+                *ctx.logger << getDiagnosis(0) << endl;
+                *ctx.logger << getDiagnosis(1) << endl;
+                *ctx.logger << getDiagnosis(2) << endl;
                 break;
             }
             case NS_NORULECHAIN: {
-                MFST_TRACE4("------> NS_NORULECHAIN")
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "------> NS_NORULECHAIN" << endl;
                 break;
             }
             case NS_ERROR:  {
-                MFST_TRACE4("------> NS_ERROR")
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "------> NS_ERROR" << endl;
                 break;
             }
             case LENTA_END: {
-                MFST_TRACE4("-------> NS_LENTA_END")
-                cout << "--------------------------------------------------------------" << endl;
-                sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: всего строк %d, синтаксический анализ выполнен без ошибок", 0, lenta_size);
-                cout << setw(4) << left << ": всего строк " << lenta_size << ", синтаксический анализ выполнен без ошибок" << endl;
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "-------> NS_LENTA_END" << endl;
+                *ctx.logger << "--------------------------------------------------------------" << endl;
+                *ctx.logger << setw(4) << left << ": всего строк " << lenta_size << ", синтаксический анализ выполнен без ошибок" << endl;
                 rc = true;
                 break;
             }
             case SURPRISE: {
-                MFST_TRACE4("------> SURPRISE")
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "------> SURPRISE" << endl;
                 break;
             }
             default: {}
@@ -57,18 +60,25 @@ namespace SA {
         RC_STEP rc = SURPRISE;
         if (lenta_position < lenta_size) {
             if (Chain::isN(st.top())) {
-                Rule* rule;
-                if ((nrule = grammar.getRule(st.top(), *rule)) >= 0) {
-                    Chain* chain;
-                    if ((nrulechain = rule->getNextChain(lenta[lenta_position], *chain, nrulechain + 1)) >= 0) {
-                        MFST_TRACE1
-                            savestate();
+                nrule = grammar.getRuleNumber(st.top());
+                if (nrule  >= 0) {
+                    Rule* rule = grammar.getRule(nrule);
+                    nrulechain = rule->getNextChainNumber(lenta[lenta_position], nrulechain + 1);
+                    if (nrulechain >= 0) {
+                        Chain* chain = rule->getChain(nrulechain);
+
+                        *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << rule->info \
+                                    << setw(30) << left << getCLenta(lbuf, lenta_position) << setw(20) << left << getCSt(sbuf) << endl;
+
+                        savestate();
                         st.pop();
                         push_chain(*chain);
                         rc = NS_OK;
-                        MFST_TRACE2
+
+                        *ctx.logger << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << " " \
+                                    << setw(30) << left << getCLenta(lbuf, lenta_position) << setw(20) << left << getCSt(sbuf) << endl;
                     } else {
-                        MFST_TRACE4("TNS_NORULECHAIN/NS_NORULE")
+                        *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "TNS_NORULECHAIN/NS_NORULE" << endl;
                         savediagnosis(NS_NORULECHAIN);
                         rc = reststate() ? NS_NORULECHAIN : NS_NORULE;
                     }
@@ -80,14 +90,16 @@ namespace SA {
                 st.pop();
                 nrulechain = -1;
                 rc	   = TS_OK;
-                MFST_TRACE3
+
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": "  << setw(20) << left << " " \
+                            << setw(30) << left << getCLenta(lbuf, lenta_position) << setw(20) << left << getCSt(sbuf) << endl;
             } else {
-                MFST_TRACE4("TS_NOK/NS_NORULECHAIN")
+                *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "TS_NOK/NS_NORULECHAIN" << endl;
                 rc = reststate() ? TS_NOK : NS_NORULECHAIN;
             }
         } else {
             rc = LENTA_END;
-            MFST_TRACE4("LENTA_END")
+            *ctx.logger << setw(4) << left << ++FST_TRACE_n << ": " << setw(20) << left << "LENTA_END" << endl;
         }
         return rc;
     }
@@ -101,7 +113,8 @@ namespace SA {
 
     bool SyntaxAnalyzer::savestate() {
         storestate.push(MfstState(lenta_position, st, nrule, nrulechain));
-        MFST_TRACE6("SAVESTATE:", storestate.size());
+
+        *ctx.logger << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << "SAVESTATE:" << storestate.size() << endl;
         return true;
     }
 
@@ -115,8 +128,10 @@ namespace SA {
             nrule	   = state->nrule;
             nrulechain	   = state->nrulechain;
             storestate.pop();
-            MFST_TRACE5("RESSTATE")
-            MFST_TRACE2
+
+            *ctx.logger << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << "RESSTATE" << endl;
+            *ctx.logger << setw(4) << left << FST_TRACE_n << ": " << setw(20) << left << " " \
+                        << setw(30) << left << getCLenta(lbuf, lenta_position) << setw(20) << left << getCSt(sbuf) << endl;
         }
         return rc;
     }
@@ -154,15 +169,18 @@ namespace SA {
         return buf;
     }
 
-    char* SyntaxAnalyzer::getDiagnosis(short n, char* buf) {
-        char* rc    = { 0 };
-        int   errid = 0;
-        int   lpos  = -1;
-        if ((n < MFST_DIAGN_NUMBER) && ((lpos = diagnosis[n].lenta_position) >= 0)) {
-            errid = grammar.getRule(diagnosis[n].nrule)->iderror;
-            Error::ERROR err = Error::geterror(errid);
-            sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: строка %d, %s", err.id, lexTable.table[lpos].lexema, err.message);
-            rc = buf;
+    const char* SyntaxAnalyzer::getDiagnosis(short n) {
+        char* rc = { 0 };
+        if (n < MFST_DIAGN_NUMBER) {
+            int errid = 0;
+            int lpos  = diagnosis[n].lenta_position;
+            if (lpos >= 0) {
+                errid = grammar.getRule(diagnosis[n].nrule)->iderror;
+                Error::ERROR  err = Error::geterror(errid);
+                ostringstream stream;
+                stream <<  err.id << ": строка " << lexTable.table[lpos].line << ", " << err.message;
+                return stream.str().c_str();
+            }
         }
         return rc;
     }
@@ -173,13 +191,13 @@ namespace SA {
         for (unsigned short i = 0; i < storestate.size(); i++) {
             state = &storestate.c[i];
             rule  = grammar.getRule(state->nrule);
-            MFST_TRACE7
+
+            *ctx.logger << setw(4) << left << state->lenta_position << ": " << setw(20) << left << rule->info << endl;
         }
     }
 
     bool SyntaxAnalyzer::savededucation() {
         MfstState* state;
-        Rule* rule;
         deducation.nrules      = new short[deducation.size = storestate.size()];
         deducation.nrulechains = new short[deducation.size];
         for (unsigned short i = 0; i < storestate.size(); i++) {

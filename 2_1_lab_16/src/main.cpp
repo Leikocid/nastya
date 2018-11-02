@@ -8,7 +8,7 @@
 #include "TranslationContext.h"
 #include "LexicalAnalyzer.h"
 #include "PolishNotation.h"
-#include "MFST.h"
+#include "SyntaxAnalyzer.h"
 
 // using namespace Out;
 using namespace Log;
@@ -40,8 +40,6 @@ int main(int argc, char* argv[]) {
 
         // синтаксический анализ
         ctx.grammar = GR::getGrammar();
-
-        MFST_TRACE_START
 
         SA::SyntaxAnalyzer mfst(ctx);
         mfst.start();

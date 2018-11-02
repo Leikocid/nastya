@@ -24,6 +24,8 @@
                 "PolishNotation.cpp",
                 "LT.cpp",
                 "IT.cpp",
+                "Greibach.cpp",
+                "SyntaxAnalyzer.cpp",
                 "main.cpp",
                 "-o",
                 "../bin/2_1_lab_16"
