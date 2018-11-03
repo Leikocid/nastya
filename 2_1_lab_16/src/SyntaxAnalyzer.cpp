@@ -49,9 +49,7 @@ namespace SA {
             case NS_NORULE: {
                 logRow("-------> NS_NORULE");
                 *ctx.logger << "--------------------------------------------------------------" << endl;
-                *ctx.logger << getDiagnosis(0) << endl;
-                *ctx.logger << getDiagnosis(1) << endl;
-                *ctx.logger << getDiagnosis(2) << endl;
+                printDiagnosis();
                 break;
             }
             case NS_NORULECHAIN: {
@@ -101,7 +99,7 @@ namespace SA {
                     } else {
                         logRow("TNS_NORULECHAIN/NS_NORULE");
 
-                        savediagnosis(NS_NORULECHAIN);
+                        saveDiagnosis(NS_NORULECHAIN);
                         rc = restoreState() ? NS_NORULECHAIN : NS_NORULE;
                     }
                 } else {
@@ -162,38 +160,6 @@ namespace SA {
         return true;
     }
 
-    bool SyntaxAnalyzer::savediagnosis(RC_STEP prc_step) {
-        short k = 0;
-        while (k < MFST_DIAGN_NUMBER && lentaPosition <= diagnosis[k].lenta_position) {
-            k++;
-        }
-        bool result = k < MFST_DIAGN_NUMBER;
-        if (result) {
-            diagnosis[k] = MfstDiagnosis(lentaPosition, prc_step, ruleIdx, chainIdx);
-            for (short j = k + 1; j < MFST_DIAGN_NUMBER; j++) {
-                diagnosis[j].lenta_position = -1;
-            }
-        }
-        return result;
-    }
-
-    const char* SyntaxAnalyzer::getDiagnosis(short n) {
-        char* rc = { 0 };
-        if (n < MFST_DIAGN_NUMBER) {
-            int errid = 0;
-            int lpos  = diagnosis[n].lenta_position;
-            if (lpos >= 0) {
-                errid = ctx.grammar->getRule(diagnosis[n].nrule)->errorId;
-                Error::ERROR err = Error::geterror(errid);
-
-                ostringstream stream;
-                stream <<  err.id << ": строка " << ctx.lexTable.table[lpos].line << ", " << err.message;
-                return stream.str().c_str();
-            }
-        }
-        return rc;
-    }
-
     void SyntaxAnalyzer::printRules() {
         stack<MfstState> temp;
         while (!statesStack.empty()) {
@@ -208,6 +174,38 @@ namespace SA {
                         << info(rule->ruleSymbol, rule->getChain(s.chainIdx)) << endl;
             statesStack.push(s);
             temp.pop();
+        }
+    }
+
+    bool SyntaxAnalyzer::saveDiagnosis(RC_STEP rc_step) {
+        short k = 0;
+        while (k < MFST_DIAGN_NUMBER && lentaPosition <= diagnosis[k].lentaPosition) {
+            k++;
+        }
+        bool result = k < MFST_DIAGN_NUMBER;
+        if (result) {
+            diagnosis[k] = MfstDiagnosis(lentaPosition, rc_step, ruleIdx, chainIdx);
+            for (short j = k + 1; j < MFST_DIAGN_NUMBER; j++) {
+                diagnosis[j].lentaPosition = -1;
+            }
+
+            int errid	     = ctx.grammar->getRule(diagnosis[k].ruleIdx)->errorId;
+            Error::ERROR err = Error::geterror(errid);
+            *ctx.logger <<  "Регистрация ошибки: " << k << " (" << lentaPosition << ") строка " << ctx.lexTable.table[lentaPosition].line
+                        << ", [" << errid << "] " << err.message << endl;
+        }
+        return result;
+    }
+
+    void SyntaxAnalyzer::printDiagnosis() {
+        for (int n = 0; n < MFST_DIAGN_NUMBER; n++) {
+            int errid = 0;
+            int lpos  = diagnosis[n].lentaPosition;
+            if (lpos >= 0) {
+                errid = ctx.grammar->getRule(diagnosis[n].ruleIdx)->errorId;
+                Error::ERROR err = Error::geterror(errid);
+                *ctx.logger <<  err.id << ": строка " << ctx.lexTable.table[lpos].line << ", " << err.message << endl;
+            }
         }
     }
 }

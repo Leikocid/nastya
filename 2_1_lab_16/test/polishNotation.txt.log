@@ -1,4 +1,4 @@
------ Протокол -----  Дата: 03.11.2018 17:43:58 ----- 
+----- Протокол -----  Дата: 03.11.2018 19:14:43 ----- 
 -log: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt.log
 -out: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt.out
 -in: /Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt
@@ -327,10 +327,13 @@
 150 : TS_NOK/NS_NORULECHAIN         );i=i(i,l,l)+i;ri;};m{dti;dti;dti;dti   ,F);rE;};S$
 150 : RESSTATE: 19                  ti);i=i(i,l,l)+i;ri;};m{dti;dti;dti;d   F);rE;};S$
 151 : TNS_NORULECHAIN/NS_NORULE     ti);i=i(i,l,l)+i;ri;};m{dti;dti;dti;d   F);rE;};S$
+Регистрация ошибки: 0 (56) строка 12, [603] Ошибка в параметрах функции
 151 : RESSTATE: 18                  ti,ti);i=i(i,l,l)+i;ri;};m{dti;dti;dt   F);rE;};S$
 152 : TNS_NORULECHAIN/NS_NORULE     ti,ti);i=i(i,l,l)+i;ri;};m{dti;dti;dt   F);rE;};S$
+Регистрация ошибки: 1 (53) строка 11, [603] Ошибка в параметрах функции
 152 : RESSTATE: 17                  ti,ti,ti);i=i(i,l,l)+i;ri;};m{dti;dti   F);rE;};S$
 153 : TNS_NORULECHAIN/NS_NORULE     ti,ti,ti);i=i(i,l,l)+i;ri;};m{dti;dti   F);rE;};S$
+Регистрация ошибки: 2 (50) строка 11, [603] Ошибка в параметрах функции
 153 : RESSTATE: 16                  dtfi(ti,ti,ti);i=i(i,l,l)+i;ri;};m{dt   NrE;};S$
 154 : N -> dti;N                    dtfi(ti,ti,ti);i=i(i,l,l)+i;ri;};m{dt   NrE;};S$
 154 : SAVESTATE: 17                 dtfi(ti,ti,ti);i=i(i,l,l)+i;ri;};m{dt   NrE;};S$
@@ -443,14 +446,17 @@
 217 :                               l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   lM);rE;};S$
 218 :                               )+i;ri;};m{dti;dti;dti;dti=l;dti;dti;   M);rE;};S$
 219 : TNS_NORULECHAIN/NS_NORULE     )+i;ri;};m{dti;dti;dti;dti=l;dti;dti;   M);rE;};S$
+Регистрация ошибки: 0 (69) строка 13, [602] Ошибка в выражении
 219 : RESSTATE: 24                  l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   W);rE;};S$
 220 : W -> lM,W                     l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   W);rE;};S$
 220 : SAVESTATE: 25                 l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   W);rE;};S$
 220 :                               l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   lM,W);rE;};S$
 221 :                               )+i;ri;};m{dti;dti;dti;dti=l;dti;dti;   M,W);rE;};S$
 222 : TNS_NORULECHAIN/NS_NORULE     )+i;ri;};m{dti;dti;dti;dti=l;dti;dti;   M,W);rE;};S$
+Регистрация ошибки: 1 (69) строка 13, [602] Ошибка в выражении
 222 : RESSTATE: 24                  l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   W);rE;};S$
 223 : TNS_NORULECHAIN/NS_NORULE     l)+i;ri;};m{dti;dti;dti;dti=l;dti;dti   W);rE;};S$
+Регистрация ошибки: 2 (68) строка 13, [604] Ошибка в параметрах вызываемой функции
 223 : RESSTATE: 23                  l,l)+i;ri;};m{dti;dti;dti;dti=l;dti;d   W);rE;};S$
 224 : W -> lM                       l,l)+i;ri;};m{dti;dti;dti;dti=l;dti;d   W);rE;};S$
 224 : SAVESTATE: 24                 l,l)+i;ri;};m{dti;dti;dti;dti=l;dti;d   W);rE;};S$
@@ -684,8 +690,10 @@
 359 :                               l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=l;i=   lM;rE;};$
 360 :                               ;dti;dti;dtfi(ti);i=l;i=l;i=l;i=l;i=i   M;rE;};$
 361 : TNS_NORULECHAIN/NS_NORULE     ;dti;dti;dtfi(ti);i=l;i=l;i=l;i=l;i=i   M;rE;};$
+Регистрация ошибки: 0 (97) строка 22, [602] Ошибка в выражении
 361 : RESSTATE: 33                  l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=l;i=   E;rE;};$
 362 : TNS_NORULECHAIN/NS_NORULE     l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=l;i=   E;rE;};$
+Регистрация ошибки: 1 (96) строка 22, [602] Ошибка в выражении
 362 : RESSTATE: 32                  dti=l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=   NrE;};$
 363 : N -> dtfi(F);                 dti=l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=   NrE;};$
 363 : SAVESTATE: 33                 dti=l;dti;dti;dtfi(ti);i=l;i=l;i=l;i=   NrE;};$
@@ -815,6 +823,7 @@
 443 : TS_NOK/NS_NORULECHAIN         );i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i   ,F);rE;};$
 443 : RESSTATE: 37                  ti);i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i)   F);rE;};$
 444 : TNS_NORULECHAIN/NS_NORULE     ti);i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i)   F);rE;};$
+Регистрация ошибки: 0 (111) строка 25, [603] Ошибка в параметрах функции
 444 : RESSTATE: 36                  dtfi(ti);i=l;i=l;i=l;i=l;i=i(i,i);i=i   NrE;};$
 445 : N -> dti;N                    dtfi(ti);i=l;i=l;i=l;i=l;i=i(i,i);i=i   NrE;};$
 445 : SAVESTATE: 37                 dtfi(ti);i=l;i=l;i=l;i=l;i=i(i,i);i=i   NrE;};$
@@ -862,8 +871,10 @@
 471 :                               l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(   lM;rE;};$
 472 :                               ;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i   M;rE;};$
 473 : TNS_NORULECHAIN/NS_NORULE     ;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i   M;rE;};$
+Регистрация ошибки: 0 (118) строка 26, [602] Ошибка в выражении
 473 : RESSTATE: 39                  l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(   E;rE;};$
 474 : TNS_NORULECHAIN/NS_NORULE     l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(   E;rE;};$
+Регистрация ошибки: 1 (117) строка 26, [602] Ошибка в выражении
 474 : RESSTATE: 38                  i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i   NrE;};$
 475 : N -> i(W);                    i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i   NrE;};$
 475 : SAVESTATE: 39                 i=l;i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i   NrE;};$
@@ -898,8 +909,10 @@
 491 :                               l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(   lM;rE;};$
 492 :                               ;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i   M;rE;};$
 493 : TNS_NORULECHAIN/NS_NORULE     ;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i   M;rE;};$
+Регистрация ошибки: 0 (122) строка 27, [602] Ошибка в выражении
 493 : RESSTATE: 41                  l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(   E;rE;};$
 494 : TNS_NORULECHAIN/NS_NORULE     l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(   E;rE;};$
+Регистрация ошибки: 1 (121) строка 27, [602] Ошибка в выражении
 494 : RESSTATE: 40                  i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+   NrE;};$
 495 : N -> i(W);                    i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+   NrE;};$
 495 : SAVESTATE: 41                 i=l;i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+   NrE;};$
@@ -934,8 +947,10 @@
 511 :                               l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)   lM;rE;};$
 512 :                               ;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+   M;rE;};$
 513 : TNS_NORULECHAIN/NS_NORULE     ;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+   M;rE;};$
+Регистрация ошибки: 0 (126) строка 28, [602] Ошибка в выражении
 513 : RESSTATE: 43                  l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)   E;rE;};$
 514 : TNS_NORULECHAIN/NS_NORULE     l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)   E;rE;};$
+Регистрация ошибки: 1 (125) строка 28, [602] Ошибка в выражении
 514 : RESSTATE: 42                  i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(   NrE;};$
 515 : N -> i(W);                    i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(   NrE;};$
 515 : SAVESTATE: 43                 i=l;i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(   NrE;};$
@@ -970,8 +985,10 @@
 531 :                               l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i,i   lM;rE;};$
 532 :                               ;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i,i)   M;rE;};$
 533 : TNS_NORULECHAIN/NS_NORULE     ;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i,i)   M;rE;};$
+Регистрация ошибки: 0 (130) строка 29, [602] Ошибка в выражении
 533 : RESSTATE: 45                  l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i,i   E;rE;};$
 534 : TNS_NORULECHAIN/NS_NORULE     l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i,i   E;rE;};$
+Регистрация ошибки: 1 (129) строка 29, [602] Ошибка в выражении
 534 : RESSTATE: 44                  i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i   NrE;};$
 535 : N -> i(W);                    i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i   NrE;};$
 535 : SAVESTATE: 45                 i=l;i=i(i,i);i=i(i,i);i=i*(i+i(i(i)+i   NrE;};$
@@ -1041,6 +1058,7 @@
 570 :                               i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   iM);rE;};$
 571 :                               );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M);rE;};$
 572 : TNS_NORULECHAIN/NS_NORULE     );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M);rE;};$
+Регистрация ошибки: 0 (138) строка 30, [602] Ошибка в выражении
 572 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
 573 : W -> i(W)M                    i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
 573 : SAVESTATE: 50                 i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
@@ -1059,6 +1077,7 @@
 579 :                               i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   iM,W);rE;};$
 580 :                               );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M,W);rE;};$
 581 : TNS_NORULECHAIN/NS_NORULE     );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M,W);rE;};$
+Регистрация ошибки: 1 (138) строка 30, [602] Ошибка в выражении
 581 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
 582 : W -> i(W)M,W                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
 582 : SAVESTATE: 50                 i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
@@ -1067,6 +1086,7 @@
 584 : TS_NOK/NS_NORULECHAIN         );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   (W)M,W);rE;};$
 584 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
 585 : TNS_NORULECHAIN/NS_NORULE     i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W);rE;};$
+Регистрация ошибки: 2 (137) строка 30, [604] Ошибка в параметрах вызываемой функции
 585 : RESSTATE: 48                  i,i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i   W);rE;};$
 586 : W -> i(W)                     i,i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i   W);rE;};$
 586 : SAVESTATE: 49                 i,i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i   W);rE;};$
@@ -1134,6 +1154,7 @@
 618 :                               );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   )M;rE;};$
 619 :                               ;i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,i   M;rE;};$
 620 : TNS_NORULECHAIN/NS_NORULE     ;i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,i   M;rE;};$
+Регистрация ошибки: 0 (139) строка 30, [602] Ошибка в выражении
 620 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 621 : W -> i,W                      i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 621 : SAVESTATE: 50                 i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
@@ -1152,6 +1173,7 @@
 627 :                               i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   iM)M;rE;};$
 628 :                               );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M)M;rE;};$
 629 : TNS_NORULECHAIN/NS_NORULE     );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M)M;rE;};$
+Регистрация ошибки: 1 (138) строка 30, [602] Ошибка в выражении
 629 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 630 : W -> i(W)M                    i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 630 : SAVESTATE: 50                 i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
@@ -1170,6 +1192,7 @@
 636 :                               i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   iM,W)M;rE;};$
 637 :                               );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M,W)M;rE;};$
 638 : TNS_NORULECHAIN/NS_NORULE     );i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i,   M,W)M;rE;};$
+Регистрация ошибки: 2 (138) строка 30, [602] Ошибка в выражении
 638 : RESSTATE: 49                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 639 : W -> i(W)M,W                  i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
 639 : SAVESTATE: 50                 i);i=i(i,i);i=i*(i+i(i(i)+i,i))-i/i(i   W)M;rE;};$
@@ -1310,6 +1333,7 @@
 711 :                               i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   iM);rE;};$
 712 :                               );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M);rE;};$
 713 : TNS_NORULECHAIN/NS_NORULE     );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M);rE;};$
+Регистрация ошибки: 0 (147) строка 31, [602] Ошибка в выражении
 713 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
 714 : W -> i(W)M                    i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
 714 : SAVESTATE: 54                 i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
@@ -1328,6 +1352,7 @@
 720 :                               i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   iM,W);rE;};$
 721 :                               );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M,W);rE;};$
 722 : TNS_NORULECHAIN/NS_NORULE     );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M,W);rE;};$
+Регистрация ошибки: 1 (147) строка 31, [602] Ошибка в выражении
 722 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
 723 : W -> i(W)M,W                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
 723 : SAVESTATE: 54                 i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
@@ -1336,6 +1361,7 @@
 725 : TS_NOK/NS_NORULECHAIN         );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   (W)M,W);rE;};$
 725 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
 726 : TNS_NORULECHAIN/NS_NORULE     i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W);rE;};$
+Регистрация ошибки: 2 (146) строка 31, [604] Ошибка в параметрах вызываемой функции
 726 : RESSTATE: 52                  i,i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;   W);rE;};$
 727 : W -> i(W)                     i,i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;   W);rE;};$
 727 : SAVESTATE: 53                 i,i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;   W);rE;};$
@@ -1403,6 +1429,7 @@
 759 :                               );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   )M;rE;};$
 760 :                               ;i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;p   M;rE;};$
 761 : TNS_NORULECHAIN/NS_NORULE     ;i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;p   M;rE;};$
+Регистрация ошибки: 0 (148) строка 31, [602] Ошибка в выражении
 761 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 762 : W -> i,W                      i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 762 : SAVESTATE: 54                 i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
@@ -1421,6 +1448,7 @@
 768 :                               i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   iM)M;rE;};$
 769 :                               );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M)M;rE;};$
 770 : TNS_NORULECHAIN/NS_NORULE     );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M)M;rE;};$
+Регистрация ошибки: 1 (147) строка 31, [602] Ошибка в выражении
 770 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 771 : W -> i(W)M                    i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 771 : SAVESTATE: 54                 i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
@@ -1439,6 +1467,7 @@
 777 :                               i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   iM,W)M;rE;};$
 778 :                               );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M,W)M;rE;};$
 779 : TNS_NORULECHAIN/NS_NORULE     );i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi;   M,W)M;rE;};$
+Регистрация ошибки: 2 (147) строка 31, [602] Ошибка в выражении
 779 : RESSTATE: 53                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 780 : W -> i(W)M,W                  i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
 780 : SAVESTATE: 54                 i);i=i*(i+i(i(i)+i,i))-i/i(i,i);pl;pi   W)M;rE;};$
@@ -1628,6 +1657,7 @@
 876 :                               i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   iM)));rE;};$
 877 :                               )+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};   M)));rE;};$
 878 : TNS_NORULECHAIN/NS_NORULE     )+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};   M)));rE;};$
+Регистрация ошибки: 0 (161) строка 32, [602] Ошибка в выражении
 878 : RESSTATE: 62                  i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
 879 : W -> i(W)M                    i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
 879 : SAVESTATE: 63                 i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
@@ -1646,6 +1676,7 @@
 885 :                               i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   iM,W)));rE;};$
 886 :                               )+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};   M,W)));rE;};$
 887 : TNS_NORULECHAIN/NS_NORULE     )+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};   M,W)));rE;};$
+Регистрация ошибки: 1 (161) строка 32, [602] Ошибка в выражении
 887 : RESSTATE: 62                  i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
 888 : W -> i(W)M,W                  i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
 888 : SAVESTATE: 63                 i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
@@ -1654,6 +1685,7 @@
 890 : TS_NOK/NS_NORULECHAIN         )+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};   (W)M,W)));rE;};$
 890 : RESSTATE: 62                  i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
 891 : TNS_NORULECHAIN/NS_NORULE     i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;}   W)));rE;};$
+Регистрация ошибки: 2 (160) строка 32, [604] Ошибка в параметрах вызываемой функции
 891 : RESSTATE: 61                  i(i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl   W));rE;};$
 892 : W -> iM                       i(i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl   W));rE;};$
 892 : SAVESTATE: 62                 i(i)+i,i))-i/i(i,i);pl;pi;pi;pi(i);rl   W));rE;};$
@@ -1692,6 +1724,7 @@
 909 :                               i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     iM));rE;};$
 910 :                               ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      M));rE;};$
 911 : TNS_NORULECHAIN/NS_NORULE     ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      M));rE;};$
+Регистрация ошибки: 0 (164) строка 32, [602] Ошибка в выражении
 911 : RESSTATE: 64                  i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E));rE;};$
 912 : E -> i(W)M                    i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E));rE;};$
 912 : SAVESTATE: 65                 i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E));rE;};$
@@ -1700,6 +1733,7 @@
 914 : TS_NOK/NS_NORULECHAIN         ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      (W)M));rE;};$
 914 : RESSTATE: 64                  i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E));rE;};$
 915 : TNS_NORULECHAIN/NS_NORULE     i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E));rE;};$
+Регистрация ошибки: 1 (163) строка 32, [602] Ошибка в выражении
 915 : RESSTATE: 63                  +i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};    M));rE;};$
 916 : M -> +EM                      +i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};    M));rE;};$
 916 : SAVESTATE: 64                 +i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};    M));rE;};$
@@ -1710,6 +1744,7 @@
 918 :                               i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     iM));rE;};$
 919 :                               ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      M));rE;};$
 920 : TNS_NORULECHAIN/NS_NORULE     ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      M));rE;};$
+Регистрация ошибки: 1 (164) строка 32, [602] Ошибка в выражении
 920 : RESSTATE: 64                  i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
 921 : E -> i(W)                     i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
 921 : SAVESTATE: 65                 i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
@@ -1722,6 +1757,7 @@
 924 :                               i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     iMM));rE;};$
 925 :                               ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      MM));rE;};$
 926 : TNS_NORULECHAIN/NS_NORULE     ,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};      MM));rE;};$
+Регистрация ошибки: 2 (164) строка 32, [602] Ошибка в выражении
 926 : RESSTATE: 64                  i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
 927 : E -> i(W)M                    i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
 927 : SAVESTATE: 65                 i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     EM));rE;};$
@@ -1883,6 +1919,7 @@
 1008:                               i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       iM));rE;};$
 1009:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M));rE;};$
 1010: TNS_NORULECHAIN/NS_NORULE     ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M));rE;};$
+Регистрация ошибки: 0 (166) строка 32, [602] Ошибка в выражении
 1010: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
 1011: W -> i(W)M                    i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
 1011: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
@@ -1901,6 +1938,7 @@
 1017:                               i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       iM,W));rE;};$
 1018:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M,W));rE;};$
 1019: TNS_NORULECHAIN/NS_NORULE     ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M,W));rE;};$
+Регистрация ошибки: 1 (166) строка 32, [602] Ошибка в выражении
 1019: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
 1020: W -> i(W)M,W                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
 1020: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
@@ -1909,6 +1947,7 @@
 1022: TS_NOK/NS_NORULECHAIN         ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        (W)M,W));rE;};$
 1022: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
 1023: TNS_NORULECHAIN/NS_NORULE     i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W));rE;};$
+Регистрация ошибки: 2 (165) строка 32, [604] Ошибка в параметрах вызываемой функции
 1023: RESSTATE: 64                  i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E,W));rE;};$
 1024: E -> i(W)                     i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E,W));rE;};$
 1024: SAVESTATE: 65                 i,i))-i/i(i,i);pl;pi;pi;pi(i);rl;};     E,W));rE;};$
@@ -2296,6 +2335,7 @@
 1220:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        )M);rE;};$
 1221:                               )-i/i(i,i);pl;pi;pi;pi(i);rl;};         M);rE;};$
 1222: TNS_NORULECHAIN/NS_NORULE     )-i/i(i,i);pl;pi;pi;pi(i);rl;};         M);rE;};$
+Регистрация ошибки: 0 (167) строка 32, [602] Ошибка в выражении
 1222: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1223: W -> i,W                      i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1223: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
@@ -2314,6 +2354,7 @@
 1229:                               i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       iM)M);rE;};$
 1230:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M)M);rE;};$
 1231: TNS_NORULECHAIN/NS_NORULE     ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M)M);rE;};$
+Регистрация ошибки: 1 (166) строка 32, [602] Ошибка в выражении
 1231: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1232: W -> i(W)M                    i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1232: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
@@ -2332,6 +2373,7 @@
 1238:                               i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       iM,W)M);rE;};$
 1239:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M,W)M);rE;};$
 1240: TNS_NORULECHAIN/NS_NORULE     ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M,W)M);rE;};$
+Регистрация ошибки: 2 (166) строка 32, [602] Ошибка в выражении
 1240: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1241: W -> i(W)M,W                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1241: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
@@ -2733,6 +2775,7 @@
 1444:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        )M);rE;};$
 1445:                               )-i/i(i,i);pl;pi;pi;pi(i);rl;};         M);rE;};$
 1446: TNS_NORULECHAIN/NS_NORULE     )-i/i(i,i);pl;pi;pi;pi(i);rl;};         M);rE;};$
+Регистрация ошибки: 1 (167) строка 32, [602] Ошибка в выражении
 1446: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1447: W -> i,W                      i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1447: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
@@ -2751,6 +2794,7 @@
 1453:                               i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       iM)M);rE;};$
 1454:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M)M);rE;};$
 1455: TNS_NORULECHAIN/NS_NORULE     ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        M)M);rE;};$
+Регистрация ошибки: 2 (166) строка 32, [602] Ошибка в выражении
 1455: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1456: W -> i(W)M                    i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
 1456: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)M);rE;};$
@@ -3164,6 +3208,7 @@
 1665:                               ))-i/i(i,i);pl;pi;pi;pi(i);rl;};        )MM);rE;};$
 1666:                               )-i/i(i,i);pl;pi;pi;pi(i);rl;};         MM);rE;};$
 1667: TNS_NORULECHAIN/NS_NORULE     )-i/i(i,i);pl;pi;pi;pi(i);rl;};         MM);rE;};$
+Регистрация ошибки: 2 (167) строка 32, [602] Ошибка в выражении
 1667: RESSTATE: 65                  i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)MM);rE;};$
 1668: W -> i,W                      i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)MM);rE;};$
 1668: SAVESTATE: 66                 i))-i/i(i,i);pl;pi;pi;pi(i);rl;};       W)MM);rE;};$
@@ -3702,6 +3747,7 @@
 1942:                               i);pl;pi;pi;pi(i);rl;};                 iM);rE;};$
 1943:                               );pl;pi;pi;pi(i);rl;};                  M);rE;};$
 1944: TNS_NORULECHAIN/NS_NORULE     );pl;pi;pi;pi(i);rl;};                  M);rE;};$
+Регистрация ошибки: 0 (176) строка 32, [602] Ошибка в выражении
 1944: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
 1945: W -> i(W)M                    i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
 1945: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
@@ -3720,6 +3766,7 @@
 1951:                               i);pl;pi;pi;pi(i);rl;};                 iM,W);rE;};$
 1952:                               );pl;pi;pi;pi(i);rl;};                  M,W);rE;};$
 1953: TNS_NORULECHAIN/NS_NORULE     );pl;pi;pi;pi(i);rl;};                  M,W);rE;};$
+Регистрация ошибки: 1 (176) строка 32, [602] Ошибка в выражении
 1953: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
 1954: W -> i(W)M,W                  i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
 1954: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
@@ -3728,6 +3775,7 @@
 1956: TS_NOK/NS_NORULECHAIN         );pl;pi;pi;pi(i);rl;};                  (W)M,W);rE;};$
 1956: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
 1957: TNS_NORULECHAIN/NS_NORULE     i);pl;pi;pi;pi(i);rl;};                 W);rE;};$
+Регистрация ошибки: 2 (175) строка 32, [604] Ошибка в параметрах вызываемой функции
 1957: RESSTATE: 70                  i,i);pl;pi;pi;pi(i);rl;};               W);rE;};$
 1958: W -> i(W)                     i,i);pl;pi;pi;pi(i);rl;};               W);rE;};$
 1958: SAVESTATE: 71                 i,i);pl;pi;pi;pi(i);rl;};               W);rE;};$
@@ -3795,6 +3843,7 @@
 1990:                               );pl;pi;pi;pi(i);rl;};                  )M;rE;};$
 1991:                               ;pl;pi;pi;pi(i);rl;};                   M;rE;};$
 1992: TNS_NORULECHAIN/NS_NORULE     ;pl;pi;pi;pi(i);rl;};                   M;rE;};$
+Регистрация ошибки: 0 (177) строка 32, [602] Ошибка в выражении
 1992: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 1993: W -> i,W                      i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 1993: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
@@ -3813,6 +3862,7 @@
 1999:                               i);pl;pi;pi;pi(i);rl;};                 iM)M;rE;};$
 2000:                               );pl;pi;pi;pi(i);rl;};                  M)M;rE;};$
 2001: TNS_NORULECHAIN/NS_NORULE     );pl;pi;pi;pi(i);rl;};                  M)M;rE;};$
+Регистрация ошибки: 1 (176) строка 32, [602] Ошибка в выражении
 2001: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2002: W -> i(W)M                    i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2002: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
@@ -3831,6 +3881,7 @@
 2008:                               i);pl;pi;pi;pi(i);rl;};                 iM,W)M;rE;};$
 2009:                               );pl;pi;pi;pi(i);rl;};                  M,W)M;rE;};$
 2010: TNS_NORULECHAIN/NS_NORULE     );pl;pi;pi;pi(i);rl;};                  M,W)M;rE;};$
+Регистрация ошибки: 2 (176) строка 32, [602] Ошибка в выражении
 2010: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2011: W -> i(W)M,W                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2011: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
@@ -3912,6 +3963,7 @@
 2050:                               );pl;pi;pi;pi(i);rl;};                  )M;rE;};$
 2051:                               ;pl;pi;pi;pi(i);rl;};                   M;rE;};$
 2052: TNS_NORULECHAIN/NS_NORULE     ;pl;pi;pi;pi(i);rl;};                   M;rE;};$
+Регистрация ошибки: 1 (177) строка 32, [602] Ошибка в выражении
 2052: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2053: W -> i,W                      i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2053: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
@@ -3930,6 +3982,7 @@
 2059:                               i);pl;pi;pi;pi(i);rl;};                 iM)M;rE;};$
 2060:                               );pl;pi;pi;pi(i);rl;};                  M)M;rE;};$
 2061: TNS_NORULECHAIN/NS_NORULE     );pl;pi;pi;pi(i);rl;};                  M)M;rE;};$
+Регистрация ошибки: 2 (176) строка 32, [602] Ошибка в выражении
 2061: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2062: W -> i(W)M                    i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
 2062: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)M;rE;};$
@@ -4023,6 +4076,7 @@
 2107:                               );pl;pi;pi;pi(i);rl;};                  )MM;rE;};$
 2108:                               ;pl;pi;pi;pi(i);rl;};                   MM;rE;};$
 2109: TNS_NORULECHAIN/NS_NORULE     ;pl;pi;pi;pi(i);rl;};                   MM;rE;};$
+Регистрация ошибки: 2 (177) строка 32, [602] Ошибка в выражении
 2109: RESSTATE: 71                  i);pl;pi;pi;pi(i);rl;};                 W)MM;rE;};$
 2110: W -> i,W                      i);pl;pi;pi;pi(i);rl;};                 W)MM;rE;};$
 2110: SAVESTATE: 72                 i);pl;pi;pi;pi(i);rl;};                 W)MM;rE;};$
@@ -15561,8 +15615,10 @@
 8025:                               l;pi;pi;pi(i);rl;};                     lM;rE;};$
 8026:                               ;pi;pi;pi(i);rl;};                      M;rE;};$
 8027: TNS_NORULECHAIN/NS_NORULE     ;pi;pi;pi(i);rl;};                      M;rE;};$
+Регистрация ошибки: 0 (180) строка 33, [602] Ошибка в выражении
 8027: RESSTATE: 73                  l;pi;pi;pi(i);rl;};                     E;rE;};$
 8028: TNS_NORULECHAIN/NS_NORULE     l;pi;pi;pi(i);rl;};                     E;rE;};$
+Регистрация ошибки: 1 (179) строка 33, [602] Ошибка в выражении
 8028: RESSTATE: 72                  pl;pi;pi;pi(i);rl;};                    NrE;};$
 8029: N -> pE;N                     pl;pi;pi;pi(i);rl;};                    NrE;};$
 8029: SAVESTATE: 73                 pl;pi;pi;pi(i);rl;};                    NrE;};$
@@ -15595,6 +15651,7 @@
 8043:                               i;pi;pi(i);rl;};                        iM;rE;};$
 8044:                               ;pi;pi(i);rl;};                         M;rE;};$
 8045: TNS_NORULECHAIN/NS_NORULE     ;pi;pi(i);rl;};                         M;rE;};$
+Регистрация ошибки: 0 (183) строка 34, [602] Ошибка в выражении
 8045: RESSTATE: 75                  i;pi;pi(i);rl;};                        E;rE;};$
 8046: E -> i(W)M                    i;pi;pi(i);rl;};                        E;rE;};$
 8046: SAVESTATE: 76                 i;pi;pi(i);rl;};                        E;rE;};$
@@ -15603,6 +15660,7 @@
 8048: TS_NOK/NS_NORULECHAIN         ;pi;pi(i);rl;};                         (W)M;rE;};$
 8048: RESSTATE: 75                  i;pi;pi(i);rl;};                        E;rE;};$
 8049: TNS_NORULECHAIN/NS_NORULE     i;pi;pi(i);rl;};                        E;rE;};$
+Регистрация ошибки: 1 (182) строка 34, [602] Ошибка в выражении
 8049: RESSTATE: 74                  pi;pi;pi(i);rl;};                       NrE;};$
 8050: N -> pE;N                     pi;pi;pi(i);rl;};                       NrE;};$
 8050: SAVESTATE: 75                 pi;pi;pi(i);rl;};                       NrE;};$
@@ -15635,6 +15693,7 @@
 8064:                               i;pi(i);rl;};                           iM;rE;};$
 8065:                               ;pi(i);rl;};                            M;rE;};$
 8066: TNS_NORULECHAIN/NS_NORULE     ;pi(i);rl;};                            M;rE;};$
+Регистрация ошибки: 0 (186) строка 35, [602] Ошибка в выражении
 8066: RESSTATE: 77                  i;pi(i);rl;};                           E;rE;};$
 8067: E -> i(W)M                    i;pi(i);rl;};                           E;rE;};$
 8067: SAVESTATE: 78                 i;pi(i);rl;};                           E;rE;};$
@@ -15643,6 +15702,7 @@
 8069: TS_NOK/NS_NORULECHAIN         ;pi(i);rl;};                            (W)M;rE;};$
 8069: RESSTATE: 77                  i;pi(i);rl;};                           E;rE;};$
 8070: TNS_NORULECHAIN/NS_NORULE     i;pi(i);rl;};                           E;rE;};$
+Регистрация ошибки: 1 (185) строка 35, [602] Ошибка в выражении
 8070: RESSTATE: 76                  pi;pi(i);rl;};                          NrE;};$
 8071: N -> pE;N                     pi;pi(i);rl;};                          NrE;};$
 8071: SAVESTATE: 77                 pi;pi(i);rl;};                          NrE;};$

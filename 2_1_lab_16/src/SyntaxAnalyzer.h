@@ -65,39 +65,39 @@ namespace SA {
             symbolStack.push(ctx.grammar->startSymbol);
         }
 
-        bool		start();                             // запустить автомат
-        void		printRules();                        // вывести последовательность правил
-        bool		saveDeduction();                     // сохранить дерево вывода
+        bool	    start();                          // запустить автомат
+        void	    printRules();                     // вывести последовательность правил
+        bool	    saveDeduction();                  // сохранить дерево вывода
 
         private:
-            RC_STEP	step();                              // выполнить шаг автомата
-            void	logRow(const char* message);         // вывести строку отладки
-            bool	saveState();                         // сохранить состояние автомата
-            bool	restoreState();                      // восстановить состояние автомата
-            bool	addChainSymbolsToStack(Chain chain); // поместить цепочку правила в стек
+            RC_STEP step();                           // выполнить шаг автомата
+            void logRow(const char* message);         // вывести строку отладки
+            bool saveState();                         // сохранить состояние автомата
+            bool restoreState();                      // восстановить состояние автомата
+            bool addChainSymbolsToStack(Chain chain); // поместить цепочку правила в стек
 
-            const char* getDiagnosis(short n);               // получить n-ую строку диагностики или 0
-            bool	savediagnosis(RC_STEP pprc_step);
+            bool saveDiagnosis(RC_STEP pprc_step);    // зарегистрировать диагностическое сообщение
+            void printDiagnosis();                    // вывести диагностические сообщения
 
             // диагностика
             struct MfstDiagnosis {
-                short	lenta_position; // позиция на ленте
-                RC_STEP rc_step;        // код завершения шага
-                short	nrule;          // номер правила
-                short	nrule_chain;    // номер цепочки
+                short	lentaPosition; // позиция на ленте
+                RC_STEP rc_step;       // код завершения шага
+                short	ruleIdx;       // номер правила
+                short	chainIdx;      // номер цепочки
 
                 MfstDiagnosis() {
-                    lenta_position = -1;
-                    rc_step	   = SURPRISE;
-                    nrule	   = -1;
-                    nrule_chain	   = -1;
+                    lentaPosition = -1;
+                    rc_step	  = SURPRISE;
+                    ruleIdx	  = -1;
+                    chainIdx	  = -1;
                 }
 
-                MfstDiagnosis(short plenta_position, RC_STEP prc_step, short pnrule, short pnrule_chain) {
-                    lenta_position = plenta_position;
-                    rc_step	   = prc_step;
-                    nrule	   = pnrule;
-                    nrule_chain	   = pnrule_chain;
+                MfstDiagnosis(short lentaPosition, RC_STEP rc_step, short ruleIdx, short chainIdx) {
+                    this->lentaPosition = lentaPosition;
+                    this->rc_step	= rc_step;
+                    this->ruleIdx	= ruleIdx;
+                    this->chainIdx	= chainIdx;
                 }
             } diagnosis[MFST_DIAGN_NUMBER]; // последние самые глубокие диагностические сообщения
     };
