@@ -4,72 +4,55 @@
 #include <vector>
 #include "Utils.h"
 
-typedef short GRBALPHABET; //  символы алфавита грамматики. терминалы > 0 а нетерминалы < 0
+typedef short TN_SYMBOL; //  символы алфавита грамматики. терминалы > 0 а нетерминалы < 0
 
 using namespace std;
 using namespace Utils;
 
 namespace GR {
+    TN_SYMBOL charToT(char c);           // char -> терминал
+    TN_SYMBOL charToN(char c);           // char -> не терминал
+    bool      isT(TN_SYMBOL s);          // проверка: терминал?
+    bool      isN(TN_SYMBOL s);          // проверка: нетерминал?
+    char      symbolToChar(TN_SYMBOL s); // TN_SYMBOL -> char
+
     struct Chain {
-        // цепочка лексем для правила
-        vector<GRBALPHABET> lexems; // цепочка терминалов (>0) и нетерминалов (<0)
-        char*		    info;   // описание цепочки
+        vector<TN_SYMBOL> symbols;       // цепочка терминалов (>0) и нетерминалов (<0)
+        char*		  info;          // описание цепочки
 
         Chain(const char* chain) {
             int len = strlen(chain);
             info = new char[len + 5];
             copyChars(info, chain);
 
-            lexems.reserve(len);
+            symbols.reserve(len);
             for (int i  = 0; i < len; i++) {
                 char c = chain[i];
                 if (isupper(c)) {
-                    lexems.push_back(N(c));
+                    symbols.push_back(charToN(c));
                 } else {
-                    lexems.push_back(T(c));
+                    symbols.push_back(charToT(c));
                 }
             }
         }
-
-        // терминал
-        static GRBALPHABET T(char t) {
-            return GRBALPHABET(t);
-        }
-
-        // не терминал
-        static GRBALPHABET N(char n) {
-            return -GRBALPHABET(n);
-        }
-
-        // проверка: терминал?
-        static bool isT(GRBALPHABET s) {
-            return s > 0;
-        }
-
-        // проверка: нетерминал?
-        static bool isN(GRBALPHABET s) {
-            return !isT(s);
-        }
-
-        // GRBALPHABET -> char
-        static char alphabet_to_char(GRBALPHABET s) {
-            return isT(s) ? char(s) : char(-s);
-        }
     };
 
-    //  правило в грамматик  Грейбах
-    struct Rule {
-        GRBALPHABET   nn;      // нетерминал, левый символ правила < 0
-        int	      iderror; // идентификатор сообщения об ошибке
-        vector<Chain> chains;  // множество цепочек - правых частей правила
-        char*	      info;    // описание правила
+    char* info(TN_SYMBOL ruleSymbol, Chain* chain); // напечетать информацию по цепочке
 
-        Rule(const char nn, const char* rule, const int iderror) {
-            this->nn	  = Chain::N(nn);
-            this->iderror = iderror;
+
+    //  правило в грамматике Грейбах
+    struct Rule {
+        TN_SYMBOL     ruleSymbol; // нетерминал, левый символ правила < 0
+        int	      errorId;    // идентификатор сообщения об ошибке
+        vector<Chain> chains;     // множество цепочек - правых частей правила
+        char*	      info;       // описание правила
+
+        Rule(const char ruleSymbol, const char* rule, const int errorId) {
+            this->ruleSymbol = charToN(ruleSymbol);
+            this->errorId    = errorId;
             int len = strlen(rule);
             info    = new char[len + 5];
-            info[0] = nn;
+            info[0] = ruleSymbol;
             info[1] = ' ';
             info[2] = '-';
             info[3] = '>';
@@ -93,37 +76,34 @@ namespace GR {
             chains.push_back(*new Chain(chain));
         }
 
-        // получить следующую за j подходящую цепочку, вернуть ее номер или -1
-        short getNextChainNumber(
-            GRBALPHABET t, // первый символ цепочки
-            short	j  // номер цепочки
-            );
+        // получить следующую после idx подходящую цепочку (начинающуюся с symbol), вернуть ее индекс или -1
+        short  getNextChainIndex(TN_SYMBOL symbol, short idx);
 
-        // получить цепочку по номеру
+        // получить цепочку по индексу
         Chain* getChain(short n);
     };
 
     // грамматика Гребах
-    struct Greibach {
-        GRBALPHABET  startN;    // стартовый символ
-        GRBALPHABET  stbottomT; // дно стека
-        vector<Rule> rules;     // множестов правил
+    struct Grammar {
+        TN_SYMBOL    startSymbol;  // стартовый символ
+        TN_SYMBOL    bottomSymbol; // дно стека
+        vector<Rule> rules;        // множестов правил
 
-        Greibach() {}
+        Grammar() {}
 
-        Greibach(const GRBALPHABET pstartN, const GRBALPHABET pstbottomT) {
-            startN    = pstartN;
-            stbottomT = pstbottomT;
+        Grammar(const TN_SYMBOL startSymbol, const TN_SYMBOL bottomSymbol) {
+            this->startSymbol  = startSymbol;
+            this->bottomSymbol = bottomSymbol;
         }
 
-        // получить номер правила по левому символу. Возвращается номер правила или -1
-        short getRuleNumber(GRBALPHABET pnn);
+        // получить индекс правила по левому символу. Возвращается номер правила или -1
+        short getRuleIndex(TN_SYMBOL s);
 
-        // получить правило по номеру
-        Rule* getRule(short n);
+        // получить правило по индексу
+        Rule* getRule(short idx);
     };
 
-    Greibach* getGrammar();
+    Grammar*  getGrammar();
 }
 
 #endif // !GREIBACH_H

@@ -12,22 +12,20 @@
 using namespace GR;
 
 namespace SA {
-    struct MfstStack : public std::stack<short> {
-        using std::stack<short>::c; // открываем закрытое поле "c" из класса-предка для прямого доступа к нему
-    };
+    struct SymbolStack : public std::stack<TN_SYMBOL> {};
 
     // состояние автомата для сохранения
     struct MfstState {
-        short	  lenta_position; // позиция на ленте
-        short	  nrule;          // номер текущего правила
-        short	  nrulechain;     // номер текущей цепочки текущего правила
-        MfstStack st;             // стек автомата
+        short	    lentaPosition; // позиция на ленте
+        short	    ruleIdx;       // индекс текущего правила
+        short	    chainIdx;      // индекс текущей цепочки текущего правила
+        SymbolStack stack;         // стек автомата
 
-        MfstState(short pposition, MfstStack pst, short pnrule, short pnrulechain) {
-            lenta_position = pposition;
-            st		   = pst;
-            nrule	   = pnrule;
-            nrulechain	   = pnrulechain;
+        MfstState(short pposition, SymbolStack pst, short pnrule, short pnrulechain) {
+            lentaPosition = pposition;
+            stack	  = pst;
+            ruleIdx	  = pnrule;
+            chainIdx	  = pnrulechain;
         }
     };
 
@@ -35,89 +33,73 @@ namespace SA {
     struct SyntaxAnalyzer {
         // код возврата функции step
         enum RC_STEP {
-            NS_OK,                          // найдено правило и цепочка, цепочка записана в стек
-            NS_NORULE,                      // не найдено правило в грамматике (ошибка в грамматике)
-            NS_NORULECHAIN,                 // не найдена подходящая цепочка правила (ошибка в исходном коде)
-            NS_ERROR,                       // нейзвестный нетерминальный символ грамматики
-            TS_OK,                          // тек. символ ленты == вершине стека => пробвинулась лента, pop стека
-            TS_NOK,                         // тек. символ ленты != вершине стека => восстановлено состояние
-            LENTA_END,                      // текущая позиция ленты >= lemnta_size
-            SURPRISE                        // неожиданный код возврата (ошибка в step)
+            NS_OK,                        // найдено правило и цепочка, цепочка записана в стек
+            NS_NORULE,                    // не найдено правило в грамматике (ошибка в грамматике)
+            NS_NORULECHAIN,               // не найдена подходящая цепочка правила (ошибка в исходном коде)
+            NS_ERROR,                     // нейзвестный нетерминальный символ грамматики
+            TS_OK,                        // тек. символ ленты == вершине стека => пробвинулась лента, pop стека
+            TS_NOK,                       // тек. символ ленты != вершине стека => восстановлено состояние
+            LENTA_END,                    // текущая позиция ленты >= lemnta_size
+            SURPRISE                      // неожиданный код возврата (ошибка в step)
         };
 
-        TranslationContext ctx;             // контекст
-        GRBALPHABET*	   lenta;           // перекодированная  (TS/NS) лента
-        short		   lenta_position;  // текущая позиция на ленте
-        short		   nrule;           // номер текущего правила
-        short		   nrulechain;      // ногмер текущей цепочки
-        short		   lenta_size;      // размер ленты
-        Greibach	   grammar;         // грамматика
-        LT::LexTable	   lexTable;        // таблица лексем - результат работы лексического анализатора
-        MfstStack	   st;              // стек автомата]
-        struct MfstStack : public std::stack<MfstState> {
-            using std::stack<MfstState>::c; // открываем закрытое поле "c" из класса-предка для прямого доступа к нему
-        } storestate;                       // стек для сохранения состояний
+        TranslationContext ctx;           // контекст
+        int		   stepNumber;    // номер шага
+        TN_SYMBOL*	   lenta;         // перекодированная  в (TS/NS) входная лента
+        short		   lentaSize;     // размер ленты
+        short		   lentaPosition; // текущая позиция на ленте
+        short		   ruleIdx;       // индекс текущего правила
+        short		   chainIdx;      // индекс текущей цепочки
+        SymbolStack	   symbolStack;   // стек автомата
+        stack<MfstState>   statesStack;   // стек для сохранения состояний
 
         SyntaxAnalyzer(TranslationContext &ctx) {
             this->ctx = ctx;
-            grammar   = *ctx.grammar;
-            lexTable  = ctx.lexTable;
-            lenta     = new short[lenta_size = lexTable.table.size()];
-            for (int i = 0; i < lenta_size; i++) {
-                lenta[i] = Chain::T(lexTable.table[i].lexema);
+            lenta     = new short[lentaSize = ctx.lexTable.table.size()];
+            for (int i = 0; i < lentaSize; i++) {
+                lenta[i] = charToT(ctx.lexTable.table[i].lexema);
             }
-            lenta_position = 0;
-            st.push(grammar.stbottomT);
-            st.push(grammar.startN);
-            nrulechain = -1;
+            lentaPosition = 0;
+            stepNumber	  = 0;
+            symbolStack.push(ctx.grammar->bottomSymbol);
+            symbolStack.push(ctx.grammar->startSymbol);
         }
 
-        bool	    start();                                       // запустить автомат
-        void	    printrules();                                  // вывести последовательность правил
+        bool		start();                             // запустить автомат
+        void		printRules();                        // вывести последовательность правил
+        bool		saveDeduction();                     // сохранить дерево вывода
 
-        RC_STEP	    step();                                        // выполнить шаг автомата
-        char*	    getCSt(char* buf);                             // получить содержание стека
-        char*	    getCLenta(char* buf, short pos, short n = 25); // лента: n символов начиная с pos
-        const char* getDiagnosis(short n);                         // получить n-ую строку диагностики или 0
-        bool	    savestate();                                   // сохранить состояние автомата
-        bool	    reststate();                                   // восстановить состояние автомата
-        bool	    push_chain(Chain chain);                       // поместить цепочку правила в стек
-        bool	    savediagnosis(RC_STEP pprc_step);
+        private:
+            RC_STEP	step();                              // выполнить шаг автомата
+            void	logRow(const char* message);         // вывести строку отладки
+            bool	saveState();                         // сохранить состояние автомата
+            bool	restoreState();                      // восстановить состояние автомата
+            bool	addChainSymbolsToStack(Chain chain); // поместить цепочку правила в стек
 
-        // диагностика
-        struct MfstDiagnosis {
-            short   lenta_position; // позиция на ленте
-            RC_STEP rc_step;        // код завершения шага
-            short   nrule;          // номер правила
-            short   nrule_chain;    // номер цепочки
+            const char* getDiagnosis(short n);               // получить n-ую строку диагностики или 0
+            bool	savediagnosis(RC_STEP pprc_step);
 
-            MfstDiagnosis() {
-                lenta_position = -1;
-                rc_step	       = SURPRISE;
-                nrule	       = -1;
-                nrule_chain    = -1;
-            }
+            // диагностика
+            struct MfstDiagnosis {
+                short	lenta_position; // позиция на ленте
+                RC_STEP rc_step;        // код завершения шага
+                short	nrule;          // номер правила
+                short	nrule_chain;    // номер цепочки
 
-            MfstDiagnosis(short plenta_position, RC_STEP prc_step, short pnrule, short pnrule_chain) {
-                lenta_position = plenta_position;
-                rc_step	       = prc_step;
-                nrule	       = pnrule;
-                nrule_chain    = pnrule_chain;
-            }
-        } diagnosis[MFST_DIAGN_NUMBER]; // последние самые глубокие диагностические сообщения
+                MfstDiagnosis() {
+                    lenta_position = -1;
+                    rc_step	   = SURPRISE;
+                    nrule	   = -1;
+                    nrule_chain	   = -1;
+                }
 
-
-        // вывод
-        struct Deducation {
-            short  size;        // количество шагов в выводе
-            short* nrules;      // номера правил грам��ат���������ки
-            short* nrulechains; // номера купочек правил грамматики
-            Deducation() {
-                size = 0; nrules = 0; nrulechains = 0;
-            }
-        } deducation;
-
-        bool savededucation(); // сохранить дерево вывода
+                MfstDiagnosis(short plenta_position, RC_STEP prc_step, short pnrule, short pnrule_chain) {
+                    lenta_position = plenta_position;
+                    rc_step	   = prc_step;
+                    nrule	   = pnrule;
+                    nrule_chain	   = pnrule_chain;
+                }
+            } diagnosis[MFST_DIAGN_NUMBER]; // последние самые глубокие диагностические сообщения
     };
 }
 

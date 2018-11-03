@@ -26,7 +26,7 @@ struct TranslationContext {
     IT::IdTable idTable;
 
     // грамматика для синтаксического анализатора
-    GR::Greibach* grammar;
+    GR::Grammar* grammar;
 };
 
 #endif // !TRANSTATION_CONTEXT_H

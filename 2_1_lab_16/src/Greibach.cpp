@@ -6,48 +6,50 @@ using namespace Utils;
 
 namespace GR {
     // построить правила синтаксиса
-    Greibach* getGrammar() {
-        Greibach* greibach = new Greibach(Chain::N('S'), Chain::T('$'));
+    Grammar* getGrammar() {
+        Grammar* grammar = new Grammar(charToN('S'), charToT('$'));
 
-        greibach->rules.reserve(6);
+        grammar->rules.reserve(6);
 
         // S -> m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};
-        greibach->rules.push_back(*new Rule('S', "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};",
-                                            600 // Неверная структура программы
-                                            ));
+        grammar->rules.push_back(*new Rule('S', "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};",
+                                           600 // Неверная структура программы
+                                           ));
 
-        // N -> dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N
-        greibach->rules.push_back(*new Rule('N', "dti; | rE; | i=E; | dtfi(F); | dti;N | rE;N | i=E;N | dtfi(F);N",
-                                            601 // Ошибочный оператор
-                                            ));
+        // N -> dti; | dti=E; | rE; | i=E; | dtfi(F); | i(W); | pE; | dti;N | dti=E;N | rE;N | i=E;N | dtfi(F);N | i(W);N | pE;N
+        grammar->rules.push_back(*new Rule('N',
+                                           "dti; | dti=E; | rE; | i=E; | dtfi(F); | i(W); | pE; | dti;N | dti=E;N | rE;N | i=E;N | dtfi(F);N | i(W);N | pE;N",
+                                           601 // Ошибочный оператор
+                                           ));
 
         // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
-        greibach->rules.push_back(*new Rule('E', "ii | l | (E) | i(W) | iM | lM | (E)M | i(W)M",
-                                            602 // Ошибка в выражении
-                                            ));
+        grammar->rules.push_back(*new Rule('E', "i | l | (E) | i(W) | iM | lM | (E)M | i(W)M",
+                                           602 // Ошибка в выражении
+                                           ));
 
         // M -> +E | +EM | -E | -EM | *E | *EM | /E | /EM
-        greibach->rules.push_back(*new Rule('M', "+E | +EM | -E | -EM | *E | *EM | /E | /EM",
-                                            602 // Ошибка в выражении
-                                            ));
+        grammar->rules.push_back(*new Rule('M', "+E | +EM | -E | -EM | *E | *EM | /E | /EM",
+                                           602 // Ошибка в выражении
+                                           ));
 
         // F -> ti | ti,F
-        greibach->rules.push_back(*new Rule('F', "ti | ti,F",
-                                            603 // Ошибка в параметрах функции
-                                            ));
+        grammar->rules.push_back(*new Rule('F', "ti | ti,F",
+                                           603 // Ошибка в параметрах функции
+                                           ));
 
-        // W -> i | l | i,W | l,W
-        greibach->rules.push_back(*new Rule('W', "i | l | i,W | l,W",
-                                            604 // Ошибка в параметрах вызываемой функции
-                                            ));
-        return greibach;
+        // W -> i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W
+        grammar->rules.push_back(*new Rule('W',
+                                           "i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W",
+                                           604 // Ошибка в параметрах вызываемой функции
+                                           ));
+        return grammar;
     }
 
-    short Greibach::getRuleNumber(GRBALPHABET pnn) {
+    short Grammar::getRuleIndex(TN_SYMBOL ruleSymbol) {
         short result = -1;
         short k	     = 0;
         while (k < rules.size() && result == -1) {
-            if (rules[k].nn == pnn) {
+            if (rules[k].ruleSymbol == ruleSymbol) {
                 result = k;
             }
             k++;
@@ -55,30 +57,65 @@ namespace GR {
         return result;
     }
 
-    Rule* Greibach::getRule(short n) {
+    Rule* Grammar::getRule(short idx) {
         Rule* result = nullptr;
-        if (n < rules.size()) {
-            result = &rules[n];
+        if ((idx >= 0) && (idx < rules.size())) {
+            result = &rules[idx];
         }
         return result;
     }
 
-    short Rule::getNextChainNumber(GRBALPHABET t, short j) {
+    short Rule::getNextChainIndex(TN_SYMBOL symbol, short idx) {
         short rc = -1;
-        while (j < chains.size() && rc == -1) {
-            if (chains[j].lexems[0] == t) {
-                rc = j;
+        idx++;
+        while (idx < chains.size() && rc == -1) {
+            if (chains[idx].symbols[0] == symbol) {
+                rc = idx;
             }
-            j++;
+            idx++;
         }
         return rc;
     }
 
-    Chain* Rule::getChain(short n) {
+    Chain* Rule::getChain(short idx) {
         Chain* result = nullptr;
-        if (n < chains.size()) {
-            result = &chains[n];
+        if ((idx >= 0) && (idx < chains.size())) {
+            result = &chains[idx];
         }
+        return result;
+    }
+
+    // терминал
+    TN_SYMBOL charToT(char c) {
+        return TN_SYMBOL(c);
+    }
+
+    // не терминал
+    TN_SYMBOL charToN(char c) {
+        return -TN_SYMBOL(c);
+    }
+
+    // проверка: терминал?
+    bool isT(TN_SYMBOL s) {
+        return s > 0;
+    }
+
+    // проверка: нетерминал?
+    bool isN(TN_SYMBOL s) {
+        return !isT(s);
+    }
+
+    // TN_SYMBOL -> char
+    char symbolToChar(TN_SYMBOL s) {
+        return isT(s) ? char(s) : char(-s);
+    }
+
+    char* info(TN_SYMBOL ruleSymbol, Chain* chain) {
+        char* result = new char[strlen(chain->info) + 5];
+        result[0] = symbolToChar(ruleSymbol);
+        result[1] = 0;
+        appendChars(result, " -> ");
+        appendChars(result, chain->info);
         return result;
     }
 }

@@ -41,10 +41,9 @@ int main(int argc, char* argv[]) {
         // синтаксический анализ
         ctx.grammar = GR::getGrammar();
 
-        SA::SyntaxAnalyzer mfst(ctx);
-        mfst.start();
-        mfst.savededucation(); // сохранить и вывести правила вывода
-        mfst.printrules();     // отладка: вывести правила вывода
+        SA::SyntaxAnalyzer syntaxAnalyzer(ctx);
+        syntaxAnalyzer.start();
+        syntaxAnalyzer.printRules(); // отладка: вывести правила вывода
 
         // применение польской нотации
         PolishNotation::testPolishNotations(ctx);
