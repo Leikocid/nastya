@@ -57,6 +57,7 @@ namespace GR {
             info[2] = '-';
             info[3] = '>';
             info[4] = ' ';
+            info[5] = 0;
             appendChars(info, rule);
 
             char* chain = new char[len];

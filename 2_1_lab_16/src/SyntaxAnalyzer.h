@@ -63,6 +63,7 @@ namespace SA {
             stepNumber	  = 0;
             symbolStack.push(ctx.grammar->bottomSymbol);
             symbolStack.push(ctx.grammar->startSymbol);
+            chainIdx = -1;
         }
 
         bool	    start();                          // запустить автомат
