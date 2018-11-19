@@ -2,6 +2,21 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build 2_1_oop_04",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "build",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "compile 2_1_lab_16",
             "options": {
                 "cwd": "${fileDirname}"
