@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace _2_1_oop_04 {
     class Program {
         static void Main(string[] args) {
+            // инициализация
             Console.WriteLine("Vectors:");
             List<Vector> vectors = new List<Vector>();
 

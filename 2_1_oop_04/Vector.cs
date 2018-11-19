@@ -3,14 +3,12 @@ using System.Collections;
 
 namespace _2_1_oop_04 {
     class Vector {
-        protected readonly int size;
-        public float Size {
-            get
-            {
-                return size;
-            }
+        // размер вектора
+        public int Size {
+            get;
         }
 
+        // элементы вектора
         protected int[] data;
 
         // индексатор
@@ -26,42 +24,43 @@ namespace _2_1_oop_04 {
             }
         }
 
-        private int status = 0;
-        public float Status {
-            get
-            {
-                return status;
-            }
+        // поле статуса.
+        public int Status {
+            get;
         }
 
-
+        // конструктор
         public Vector(int size) {
-            this.size = size;
+            this.Size = size;
             this.data = new int[size];
         }
 
+        // добавить значение ко всем элементам
         public void add(int value) {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < Size; i++) {
                 data[i] = data[i] + value;
             }
         }
 
+        // умножить все элементы на значение
         public void mul(int value) {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < Size; i++) {
                 data[i] = data[i] * value;
             }
         }
 
+        // посчитать модуль
         public double module() {
             double result = 0;
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < Size; i++) {
                 result += data[i] * data[i];
             }
             return Math.Sqrt(result);
         }
 
+        // содержит 0 ?
         public bool hasZero() {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < Size; i++) {
                 if (data[i] == 0) {
                     return true;
                 }
@@ -69,9 +68,10 @@ namespace _2_1_oop_04 {
             return false;
         }
 
+        // респечатать вевтор в вконсоль
         public void print() {
-            Console.WriteLine("Vecor [size = {0}]:", size);
-            for (int i = 0; i < size; i++) {
+            Console.WriteLine("Vecor [size = {0}]:", Size);
+            for (int i = 0; i < Size; i++) {
                 Console.WriteLine("{0} = {1}", i, this[i]);
             }
         }
