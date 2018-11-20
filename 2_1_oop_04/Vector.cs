@@ -1,9 +1,18 @@
 using System;
-using System.Collections;
+using System.Text;
 
 namespace _2_1_oop_04 {
-    class Vector {
-        // размер вектора
+    partial class Vector {
+        // константа
+        public static string classDysplayName = "Vector";
+
+        // Статический счетчик созданных объектов. Доступ к set ограничен
+        public static int Counter {
+            get;
+            private set;
+        } = 0;
+
+        // автоматичесоке свойство: размер вектора. Доступ по set убран
         public int Size {
             get;
         }
@@ -11,16 +20,21 @@ namespace _2_1_oop_04 {
         // элементы вектора
         protected int[] data;
 
-        // индексатор
-        public int this[int i]
-        {
+        // индексатор c set и get
+        public int this[int i] {
             get
             {
-                return data[i];
+                if ((i >= 0) && (i < data.Length)) {
+                    return data[i];
+                } else {
+                    return 0;
+                }
             }
             set
             {
-                data[i] = value;
+                if ((i >= 0) && (i < data.Length)) {
+                    data[i] = value;
+                }
             }
         }
 
@@ -29,10 +43,20 @@ namespace _2_1_oop_04 {
             get;
         }
 
-        // конструктор
-        public Vector(int size) {
+        // поле только для чтения
+        public readonly int id;
+
+        // конструкторы
+        public Vector(int size = 10) {
+            Counter++;
             this.Size = size;
             this.data = new int[size];
+            Random rnd = new Random();
+            this.id = rnd.Next(int.MinValue, int.MaxValue);
+        }
+
+        public Vector(params int[] integers) : this(integers.Length) {
+            data = integers;
         }
 
         // добавить значение ко всем элементам
@@ -68,12 +92,43 @@ namespace _2_1_oop_04 {
             return false;
         }
 
-        // респечатать вевтор в вконсоль
-        public void print() {
-            Console.WriteLine("Vecor [size = {0}]:", Size);
+        // метод для работы с ref/out параметрами
+        public void decreaseFirst(ref int value, out int index) {
+            index = -1;
             for (int i = 0; i < Size; i++) {
-                Console.WriteLine("{0} = {1}", i, this[i]);
+                if (this[i] == value) {
+                    index = i;
+                    this[i]--;
+                    value--;
+                    return;
+                }
             }
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj) {
+            if ((obj == null) || (GetType() != obj.GetType())) {
+                return false;
+            }
+            return ((Vector)obj).id == id;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode() {
+            return id.GetHashCode();
+        }
+
+        public override string ToString() {
+            StringBuilder result = new StringBuilder();
+            result.Append(classDysplayName).Append(" [size = ").Append(Size).Append(", id = ").Append(id).Append("]: {");
+            for (int i = 0; i < Size; i++) {
+                if (i != 0) {
+                    result.Append(", ");
+                }
+                result.Append(i).Append(": ").Append(this[i]);
+            }
+            result.Append("}");
+            return result.ToString();
         }
     }
 }

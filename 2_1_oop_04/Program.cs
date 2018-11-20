@@ -12,25 +12,33 @@ namespace _2_1_oop_04 {
             v.add(3);
             v.mul(5);
             v[3] = 0;
-            v.print();
+            int value = 15;
+            v.decreaseFirst(ref value, out int index);
             vectors.Add(v);
+            Console.WriteLine(v);
+            Console.WriteLine($"value = {value}, index = {index}");
 
-            v = new Vector(10);
+
+            v = new Vector(10, 20, 30, 40, 50, 60);
+            vectors.Add(v);
+            Console.WriteLine(v);
+
+            v = new Vector();
             v.add(2);
             v.mul(2);
-            v.print();
             vectors.Add(v);
+            Console.WriteLine(v);
 
             v = new Vector(10);
             v.add(-2);
             v.mul(3);
-            v.print();
             vectors.Add(v);
+            Console.WriteLine(v);
 
             Console.WriteLine("Vectors with 0:");
             foreach (Vector vec in vectors) {
                 if (vec.hasZero()) {
-                    vec.print();
+                    Console.WriteLine(vec);
                 }
             }
 
@@ -44,7 +52,7 @@ namespace _2_1_oop_04 {
                 }
             }
             if (ind >= 0) {
-                vectors[ind].print();
+                Console.WriteLine(vectors[ind]);
             }
         }
     }
