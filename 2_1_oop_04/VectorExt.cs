@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace _2_1_oop_04 {
+namespace ns_2_1_oop_04 {
     partial class Vector {
         // статтический конструктор
         static Vector() {

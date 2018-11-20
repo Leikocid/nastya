@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _2_1_oop_04 {
+namespace ns_2_1_oop_04 {
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine("*********** LAB 03 ***********");
+
             // инициализация
             Console.WriteLine("Vectors:");
             List<Vector> vectors = new List<Vector>();
@@ -54,6 +56,40 @@ namespace _2_1_oop_04 {
             if (ind >= 0) {
                 Console.WriteLine(vectors[ind]);
             }
+
+
+            Console.WriteLine("*********** LAB 04 ***********");
+            Console.WriteLine("Arrays:");
+            Array a111	 = new Array(1, 1, 1);
+            Array a222	 = new Array(2, 2, 2);
+            Array a11	 = new Array(1, 1);
+            Array a222_2 = new Array(2, 2, 2);
+            Array a_neg	 = new Array(2, -1, 2);
+
+            Console.WriteLine($"a111: {a111}");
+            Console.WriteLine($"a222: {a222}");
+            Console.WriteLine($"a11: {a11}");
+            Console.WriteLine($"a222_2: {a222_2}");
+            Console.WriteLine($"a_neg: {a_neg}");
+
+            Console.WriteLine($"a111 * a222 = {a111 * a222}");
+            Console.WriteLine($"a111 ? = {(a111?true:false)}");
+            Console.WriteLine($"a_neg ? = {(a_neg?true:false)}");
+            Console.WriteLine($"a222 == a222_2 ? = {(a222==a222_2?true:false)}");
+            Console.WriteLine($"a111 > a_neg ? = {(a111>a_neg?true:false)}");
+
+            Array.Owner o = new Array.Owner();
+            Console.WriteLine($"Array.Owner o.Id = {o.Id}");
+            Array.Date d = new Array.Date();
+            Console.WriteLine($"Array.Owner d = {d.CreationDate}");
+
+            Console.WriteLine($"MathOperation.count(a111) = {MathOperation.count(a111)}");
+            Console.WriteLine($"MathOperation.max(a11) = {MathOperation.max(a11)}");
+            Console.WriteLine($"MathOperation.min(a_neg) = {MathOperation.min(a_neg)}");
+
+            Console.WriteLine($"\"Text\".Contains(\"T\") = {"Text".Contains("T")}");
+            a_neg.RemoveNegative();
+            Console.WriteLine($"a_neg after a_neg.RemoveNegative(): {a_neg}");
         }
     }
 }

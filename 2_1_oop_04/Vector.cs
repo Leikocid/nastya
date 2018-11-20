@@ -1,37 +1,29 @@
 using System;
 using System.Text;
 
-namespace _2_1_oop_04 {
+namespace ns_2_1_oop_04 {
     partial class Vector {
         // константа
         public static string classDysplayName = "Vector";
 
         // Статический счетчик созданных объектов. Доступ к set ограничен
-        public static int Counter {
-            get;
-            private set;
-        } = 0;
+        public static int Counter { get; private set; } = 0;
 
         // автоматичесоке свойство: размер вектора. Доступ по set убран
-        public int Size {
-            get;
-        }
+        public int Size { get; }
 
         // элементы вектора
         protected int[] data;
 
         // индексатор c set и get
         public int this[int i] {
-            get
-            {
+            get {
                 if ((i >= 0) && (i < data.Length)) {
                     return data[i];
                 } else {
                     return 0;
                 }
-            }
-            set
-            {
+            } set {
                 if ((i >= 0) && (i < data.Length)) {
                     data[i] = value;
                 }
@@ -39,9 +31,7 @@ namespace _2_1_oop_04 {
         }
 
         // поле статуса.
-        public int Status {
-            get;
-        }
+        public int Status { get; }
 
         // поле только для чтения
         public readonly int id;
