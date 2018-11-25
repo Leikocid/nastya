@@ -9,6 +9,8 @@ namespace ns_2_1_oop_04 {
         // Статический счетчик созданных объектов. Доступ к set ограничен
         public static int Counter { get; private set; } = 0;
 
+        private static Random rnd = new Random();
+
         // автоматичесоке свойство: размер вектора. Доступ по set убран
         public int Size { get; }
 
@@ -41,8 +43,7 @@ namespace ns_2_1_oop_04 {
             Counter++;
             this.Size = size;
             this.data = new int[size];
-            Random rnd = new Random();
-            this.id = rnd.Next(int.MinValue, int.MaxValue);
+            this.id   = rnd.Next(int.MinValue, int.MaxValue);
         }
 
         public Vector(params int[] integers) : this(integers.Length) {
