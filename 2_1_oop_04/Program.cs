@@ -37,6 +37,8 @@ namespace ns_2_1_oop_04 {
             vectors.Add(v);
             Console.WriteLine(v);
 
+            Vector.printClassInfo();
+
             Console.WriteLine("Vectors with 0:");
             foreach (Vector vec in vectors) {
                 if (vec.hasZero()) {

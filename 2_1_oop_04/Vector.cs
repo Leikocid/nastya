@@ -4,7 +4,7 @@ using System.Text;
 namespace ns_2_1_oop_04 {
     partial class Vector {
         // константа
-        public static string classDysplayName = "Vector";
+        public const string classDysplayName = "Vector";
 
         // Статический счетчик созданных объектов. Доступ к set ограничен
         public static int Counter { get; private set; } = 0;
