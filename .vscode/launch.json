@@ -8,7 +8,7 @@
             "name": "Launch 2_1_oop_05",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "dotnet build",
+            "preLaunchTask": "build 2_1_oop_05",
             "program": "${workspaceFolder}/2_1_oop_05/bin/Debug/netcoreapp2.1/2_1_oop_05.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
