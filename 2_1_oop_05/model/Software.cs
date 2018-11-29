@@ -5,22 +5,23 @@ namespace ns_2_1_oop_05 {
         Windows = 1, MacOS, Linux, Android, iOS
     }
 
-    public class Software {
-        public string Name { get; }
+    public class Software : AbstractSoftware {
+        public Platform[] TargetPlatforms { get; set; }
 
-        public string Version { get; }
+        public Developer Developer { get; set; }
 
-        public DateTime ReleaseDate { get; }
+        public Software(string name, string version, DateTime releaseDate) : base(name, version, releaseDate) {}
 
-        public Platform[] targetPlatforms { get; set; }
+        public virtual bool isFree() {
+            return true;
+        }
 
-        public Developer developer { get; set; }
-
-
-        public Software(string name, string version, DateTime releaseDate) {
-            Name	= name;
-            Version	= version;
-            ReleaseDate = releaseDate;
+        public override string getCreator() {
+            if (Developer == null) {
+                return "unknown";
+            } else {
+                return Developer.Name;
+            }
         }
     }
 }
