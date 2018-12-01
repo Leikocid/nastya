@@ -12,11 +12,11 @@ namespace ns_2_1_oop_05 {
 
         public Software(string name, string version, DateTime releaseDate) : base(name, version, releaseDate) {}
 
-        public virtual bool isFree() {
+        public virtual bool IsFree() {
             return true;
         }
 
-        public override string getCreator() {
+        public override string GetCreator() {
             if (Developer == null) {
                 return "unknown";
             } else {

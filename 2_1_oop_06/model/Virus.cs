@@ -9,7 +9,7 @@ namespace ns_2_1_oop_05 {
             Type = type;
         }
 
-        public override bool isFree() {
+        public override bool IsFree() {
             return true;
         }
 

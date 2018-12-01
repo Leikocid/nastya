@@ -2,7 +2,7 @@ using System;
 using System.Text;
 
 namespace ns_2_1_oop_05 {
-    public abstract class AbstractSoftware : AbstractObject {
+    public abstract class AbstractSoftware : AbstractObject, IComparable<AbstractSoftware> {
         public string Name { get; }
 
         public string Version { get; }
@@ -49,6 +49,14 @@ namespace ns_2_1_oop_05 {
             }
             result.Append("}");
             return result.ToString();
+        }
+
+        public int CompareTo(AbstractSoftware other) {
+            int result = this.Name.CompareTo(other.Name);
+            if (result == 0) {
+                result = this.Version.CompareTo(other.Version);
+            }
+            return result;
         }
     }
 }
