@@ -75,7 +75,7 @@ namespace ns_2_1_oop_05 {
             List<Game> games	  = cc.FindGames(c1, Genre.Strategy);
             Console.WriteLine($"Found {games.Count} games in computer");
             TextProcessor textProcessor = cc.FindTextProcessor(c1, "Word", "2016");
-            if (textProcessor != null) {
+            if (textProcessor == null) {
                 Console.WriteLine($"TextProcessor not Found");
             } else {
                 Console.WriteLine($"Found {textProcessor.ToString()}");

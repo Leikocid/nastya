@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ns_2_1_oop_05 {
     class Program {
@@ -32,7 +33,6 @@ namespace ns_2_1_oop_05 {
             allObjects.Add(t2);
 
             Virus v1 = new Virus("MyDoom", "1", new DateTime(2011, 1, 1), "worm");
-            c1.AddSoftware(v1);
             allObjects.Add(v1);
             Console.WriteLine("[OK]");
 
@@ -68,19 +68,39 @@ namespace ns_2_1_oop_05 {
                 }
             }
 
-            c1.RemoveSoftwareAt(3);
             c1.PrintSoftware();
 
             ComputerController cc = new ComputerController();
             List<Game> games	  = cc.FindGames(c1, Genre.Strategy);
             Console.WriteLine($"Found {games.Count} games in computer");
             TextProcessor textProcessor = cc.FindTextProcessor(c1, "Word", "2016");
-            if (textProcessor != null) {
+            if (textProcessor == null) {
                 Console.WriteLine($"TextProcessor not Found");
             } else {
                 Console.WriteLine($"Found {textProcessor.ToString()}");
             }
             cc.PrintSoftwareAlphabetically(c1);
+
+            try {
+                c1.AddSoftware(v1);
+            } catch (ModelException e) {
+                Console.WriteLine($"EXCEPTION {e.GetType()}: {e.Message}\n{e.StackTrace}");
+            }
+            try {
+                c1.AddSoftware(t1);
+            } catch (DuplicateSoftwareException e) {
+                Console.WriteLine($"EXCEPTION {e.GetType()}: {e.Message}\n{e.StackTrace}");
+            }
+            try {
+                new Virus("MyDoom", "2", new DateTime(2011, 1, 1), "");
+            } catch (Exception e) {
+                Console.WriteLine($"EXCEPTION {e.GetType()}: {e.Message}\n{e.StackTrace}");
+            }
+            try {
+                new Developer(null);
+            } catch (ModelException e) {
+                Console.WriteLine($"EXCEPTION {e.GetType()}: {e.Message}\n{e.StackTrace}");
+            }
         }
     }
 }

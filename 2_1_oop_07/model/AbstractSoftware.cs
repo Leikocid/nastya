@@ -9,7 +9,6 @@ namespace ns_2_1_oop_05 {
 
         public DateTime ReleaseDate { get; }
 
-
         public AbstractSoftware(string name, string version, DateTime releaseDate) {
             if (name == null) {
                 throw new ArgumentException("Name must be specified");

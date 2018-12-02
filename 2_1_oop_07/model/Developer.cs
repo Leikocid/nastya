@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace ns_2_1_oop_05 {
     public class Developer : AbstractObject, IHasHTMLPresentation {
@@ -7,6 +8,7 @@ namespace ns_2_1_oop_05 {
         public Contact contact = new Contact();
 
         public Developer(string name) {
+            Debug.Assert(name != null, "Developer name is null");
             Name = name;
         }
 

@@ -6,6 +6,12 @@ namespace ns_2_1_oop_05 {
         private List<AbstractSoftware> softwares = new List<AbstractSoftware>();
 
         public void AddSoftware(AbstractSoftware software) {
+            if (software is Virus) {
+                throw new InvalidSoftwareException("Can't put Virus to Computer");
+            }
+            if (softwares.Contains(software)) {
+                throw new DuplicateSoftwareException();
+            }
             softwares.Add(software);
         }
 
@@ -14,15 +20,23 @@ namespace ns_2_1_oop_05 {
         }
 
         public void RemoveSoftwareAt(int index) {
-            if ((index >= 0) && (index < softwares.Count)) {
-                softwares.RemoveAt(index);
+            if ((index < 0) || (index >= softwares.Count)) {
+                throw new IndexOutOfRangeException();
             }
+            softwares.RemoveAt(index);
         }
 
         public void SetSoftwareAt(AbstractSoftware software, int index) {
-            if ((index >= 0) && (index < softwares.Count)) {
-                softwares[index] = software;
+            if (software is Virus) {
+                throw new InvalidSoftwareException("Can't put Virus to Computer");
             }
+            if (softwares.Contains(software)) {
+                throw new DuplicateSoftwareException();
+            }
+            if ((index < 0) || (index >= softwares.Count)) {
+                throw new IndexOutOfRangeException();
+            }
+            softwares[index] = software;
         }
 
         public int GetSoftwareCount() {
@@ -31,7 +45,7 @@ namespace ns_2_1_oop_05 {
 
         public AbstractSoftware GetSoftwareAt(int index) {
             if ((index < 0) || (index >= softwares.Count)) {
-                return null;
+                throw new IndexOutOfRangeException();
             }
             return softwares[index];
         }
