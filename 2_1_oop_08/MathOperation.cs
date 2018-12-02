@@ -23,7 +23,7 @@ namespace ns_2_1_oop {
         }
 
         public static int count<T>(Array<T> a) {
-            return (int)a;
+            return a.Count();
         }
 
         public static bool Contains(this string str, char c) {
@@ -39,7 +39,7 @@ namespace ns_2_1_oop {
             int i = 0;
             while (i < count(a)) {
                 if (a[i] < 0) {
-                    a.removeElement(i);
+                    a.removeAt(i);
                 }
                 i++;
             }

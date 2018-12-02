@@ -17,13 +17,7 @@ namespace ns_2_1_oop {
             Console.WriteLine($"a222_2: {a222_2}");
             Console.WriteLine($"a_neg: {a_neg}");
 
-            Console.WriteLine($"(int)a111 = {(int)a111}");
             Console.WriteLine($"a222 == a222_2 ? = {(a222==a222_2?true:false)}");
-
-            Array<int>.Owner o = new Array<int>.Owner();
-            Console.WriteLine($"Array.Owner o.Id = {o.Id}");
-            Array<int>.Date d = new Array<int>. Date();
-            Console.WriteLine($"Array.Owner d = {d.CreationDate}");
 
             Console.WriteLine($"MathOperation.count(a111) = {MathOperation.count(a111)}");
             Console.WriteLine($"MathOperation.max(a11) = {MathOperation.max(a11)}");
@@ -32,6 +26,11 @@ namespace ns_2_1_oop {
             Console.WriteLine($"\"Text\".Contains(\"T\") = {"Text".Contains("T")}");
             a_neg.RemoveNegative();
             Console.WriteLine($"a_neg after a_neg.RemoveNegative(): {a_neg}");
+
+            Array<string> sa1 = new Array<string>("aa", "bb", "ccc");
+            sa1.Remove("ccc");
+            sa1.Add("cc");
+            Console.WriteLine($"sa1: {sa1}");
         }
     }
 }

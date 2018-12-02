@@ -21,10 +21,6 @@ namespace ns_2_1_oop {
             data.AddRange(values);
         }
 
-        public static explicit operator int(Array<T> a) {
-            return a.data.Count;
-        }
-
         public override string ToString() {
             StringBuilder result = new StringBuilder();
             result.Append("Array [size = ").Append(data.Count).Append("]: {");
@@ -38,32 +34,23 @@ namespace ns_2_1_oop {
             return result.ToString();
         }
 
-        public class Owner {
-            private static int counter = 0;
-            public int Id { get; set; }		= ++counter;
-            public string Name { get; }		= "Name";
-            public string Organization { get; } = "Organization";
+        public void removeAt(int index) {
+            data.RemoveAt(index);
         }
 
-        public  class Date {
-            public  DateTime CreationDate { get; } = DateTime.Now;
-        }
-
-        public void removeElement(int index) {
-            if ((index >= 0) && (index < data.Count)) {
-                data.RemoveAt(index);
-            }
-        }
-
-        void Add(T element) {
+        public void Add(T element) {
             data.Add(element);
         }
 
-        void Remove(T element) {
+        public void Remove(T element) {
             data.Remove(element);
         }
 
-        IEnumerator<T> GetEnumerator() {
+        public int Count() {
+            return data.Count;
+        }
+
+        public IEnumerator<T> GetEnumerator() {
             return data.GetEnumerator();
         }
     }
