@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch 2_1_oop_08",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build 2_1_oop_08",
+            "program": "${workspaceFolder}/2_1_oop_08/bin/Debug/netcoreapp2.1/2_1_oop_08.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch 2_1_oop_07",
             "type": "coreclr",
             "request": "launch",

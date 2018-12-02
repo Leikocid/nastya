@@ -77,6 +77,7 @@ namespace ns_2_1_oop_04 {
             Console.WriteLine($"a111 * a222 = {a111 * a222}");
             Console.WriteLine($"a111 ? = {(a111?true:false)}");
             Console.WriteLine($"a_neg ? = {(a_neg?true:false)}");
+            Console.WriteLine($"(int)a111 = {(int)a111}");
             Console.WriteLine($"a222 == a222_2 ? = {(a222==a222_2?true:false)}");
             Console.WriteLine($"a111 > a_neg ? = {(a111>a_neg?true:false)}");
 

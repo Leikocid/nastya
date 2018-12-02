@@ -38,8 +38,9 @@ namespace ns_2_1_oop_05 {
             Console.WriteLine("HTML Catalog:");
             foreach (object o in allObjects) {
                 if (o is IHasHTMLPresentation) {
-                    Console.WriteLine((o as IHasHTMLPresentation).getHTML() +
-                                      " - html created by " + (o as IHasHTMLPresentation).getCreator());
+                    IHasHTMLPresentation presentation = o as IHasHTMLPresentation;
+                    Console.WriteLine(presentation.getHTML() +
+                                      " - html created by " + presentation.getCreator());
                 } else {
                     Console.WriteLine($"<div>{o.ToString()}</div>");
                 }
