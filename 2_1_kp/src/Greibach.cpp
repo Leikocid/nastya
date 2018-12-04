@@ -11,14 +11,14 @@ namespace GR {
 
         grammar->rules.reserve(6);
 
-        // S -> m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};
-        grammar->rules.push_back(*new Rule('S', "m{NrE;}; | tfi(F){NrE;};S | m{NrE;};S | tfi(F){NrE;};",
+        // S -> fi(F):t{NrE;};S | m{NrE;};
+        grammar->rules.push_back(*new Rule('S', "fi(F):t{NrE;};S | m{NrE;};",
                                            600 // Неверная структура программы
                                            ));
 
-        // N -> dti; | dti=E; | rE; | i=E; | dtfi(F); | i(W); | pE; | dti;N | dti=E;N | rE;N | i=E;N | dtfi(F);N | i(W);N | pE;N
+        // N -> vi:t;N | vi:t=E;N | rE;N | i=E;N | ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE;
         grammar->rules.push_back(*new Rule('N',
-                                           "dti; | dti=E; | rE; | i=E; | dtfi(F); | i(W); | pE; | dti;N | dti=E;N | rE;N | i=E;N | dtfi(F);N | i(W);N | pE;N",
+                                           "vi:t;N | vi:t=E;N | rE;N | i=E;N | ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE;",
                                            601 // Ошибочный оператор
                                            ));
 
@@ -32,8 +32,8 @@ namespace GR {
                                            602 // Ошибка в выражении
                                            ));
 
-        // F -> ti | ti,F
-        grammar->rules.push_back(*new Rule('F', "ti | ti,F",
+        // F -> i:t | i:t,F
+        grammar->rules.push_back(*new Rule('F', "i:t | i:t,F",
                                            603 // Ошибка в параметрах функции
                                            ));
 
