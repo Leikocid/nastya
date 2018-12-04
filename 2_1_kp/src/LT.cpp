@@ -17,15 +17,8 @@ namespace LT {
         if (this->table.size() <= this->maxsize) {
             this->table.push_back(entry);
         } else {
-            throw ERROR_THROW(21);
+            throw ERROR_THROW(221);
         }
-    }
-
-    Entry LexTable::GetEntry(int n) {
-        if ((n < 0) || (n >= this->table.size())) {
-            throw ERROR_THROW(24);
-        }
-        return this->table[n];
     }
 
     // удалить таблицу лексем (освободить память)

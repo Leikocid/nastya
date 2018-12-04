@@ -1,7 +1,7 @@
 #ifndef IT_H
 #define IT_H
 
-#define ID_MAXSIZE      5         // максимальное количество сиволов в идентификаторе
+#define ID_MAXSIZE      15        // максимальное количество сиволов в идентификаторе
 #define IT_MAXSIZE      4096      // максимальное количество строк в таблице идентификаторов
 #define IT_INT_DEFAULT 0x00000000 // значение по умолчанию для типа integer
 #define IT_STR_DEFAULT 0x00       // значение по умолчанию для типа string
@@ -43,10 +43,7 @@ namespace IT {
         std::vector<Entry> table;   // массив строк таблицы идентификаторов
 
         // добавить строку в таблицу идентификаторов
-        void  Add(Entry entry);
-
-        // получить строку таблицы идентификаторов по номеру
-        Entry GetEntry(int п);
+        void Add(Entry entry);
 
         // возврат: номер строки если есть, IT_NULLIDX eсли нет
         int  IsId(char id[ID_MAXSIZE * 3 + 3]);

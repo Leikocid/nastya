@@ -54,12 +54,13 @@ namespace LA {
 
         Recognizers() {
             recognizers.reserve(10);
-            recognizers.push_back(new Recognizer(LEX_INTEGER, LT_INTEGER_DATATYPE, new FST("integer")));
-            recognizers.push_back(new Recognizer(LEX_STRING, LT_STRING_DATATYPE, new FST("string")));
-            recognizers.push_back(new Recognizer(LEX_DECLARE, LT_KEYWORD, new FST("declare")));
+            recognizers.push_back(new Recognizer(LEX_DATATYPE, LT_INTEGER_DATATYPE, new FST("integer")));
+            recognizers.push_back(new Recognizer(LEX_DATATYPE, LT_STRING_DATATYPE, new FST("string")));
+            recognizers.push_back(new Recognizer(LEX_USE, LT_KEYWORD, new FST("use")));
+            recognizers.push_back(new Recognizer(LEX_VAR, LT_KEYWORD, new FST("var")));
             recognizers.push_back(new Recognizer(LEX_FUNCTION, LT_KEYWORD, new FST("function")));
             recognizers.push_back(new Recognizer(LEX_MAIN, LT_MAIN, new FST("main")));
-            recognizers.push_back(new Recognizer(LEX_PRINT, LT_IDENTIFIER, new FST("print")));
+            recognizers.push_back(new Recognizer(LEX_OUT, LT_IDENTIFIER, new FST("out")));
             recognizers.push_back(new Recognizer(LEX_RETURN, LT_KEYWORD,  new FST("return")));
             recognizers.push_back(new Recognizer(LEX_LITERAL, LT_INTEGER_LITERAL,
                                                  new FST("", 2,

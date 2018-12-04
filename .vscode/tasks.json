@@ -111,9 +111,9 @@
             }
         },
         {
-            "label": "compile 2_1_lab_14",
+            "label": "compile 2_1_kp",
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/2_1_kp/src"
             },
             "type": "shell",
             "command": "g++",
@@ -130,11 +130,14 @@
                 "FST.cpp",
                 "Utils.MacOS.cpp",
                 "LexicalAnalyzer.cpp",
+                "PolishNotation.cpp",
                 "LT.cpp",
                 "IT.cpp",
+                "Greibach.cpp",
+                "SyntaxAnalyzer.cpp",
                 "main.cpp",
                 "-o",
-                "../bin/2_1_lab_14"
+                "../bin/2_1_kp"
             ],
             "group": {
                 "kind": "build",

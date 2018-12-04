@@ -3,15 +3,16 @@
 
 #define LT_MAXSIZE      4096       // максимальное количество строк в таблице лексем
 #define LT_TI_NULLIDX   0xffffffff // нет элемента в таблице идентификаторов
-#define LEX_INTEGER     't'        // лексема для integer
-#define LEX_STRING      't'        // лексема для string
+#define LEX_DATATYPE    't'        // лексема для integer/string
 #define LEX_ID          'i'        // лексема для идентификатора
 #define LEX_LITERAL     'l'        // лексема для литерала
 #define LEX_FUNCTION    'f'        // лексема для function
-#define LEX_DECLARE     'd'        // лексема для declare
+#define LEX_USE         'u'        // лексема для use
+#define LEX_VAR         'v'        // лексема для var
 #define LEX_RETURN      'r'        // лексема для return
-#define LEX_PRINT       'p'        // лексема для print
+#define LEX_OUT         'o'        // лексема для out
 #define LEX_SEMICOLON   ';'        // лексема для ;
+#define LEX_COLON       ':'        // лексема для :
 #define LEX_COMMA       ','        // лексема для ,
 #define LEX_LEFTBRACE   '{'        // лексема для {
 #define LEX_RIGTHBRACE  '}'        // лексема для }
@@ -42,13 +43,10 @@ namespace LT {
         std::vector<Entry> table;   // массив строк таблицы лексем
 
         // добавить строку в таблицу лексем
-        void  Add(Entry entry);
-
-        // получить строку таблицы лексем по номеру строки
-        Entry GetEntry(int n);
+        void Add(Entry entry);
 
         // удалить таблицу лексем (освободить память)
-        void  Delete();
+        void Delete();
     };
 
     // создать таблицу лексем (емкость таблицы лексем < LT_MAXSIZE)

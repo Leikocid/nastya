@@ -5,10 +5,10 @@ function fi(x:integer, y:integer):integer
  return z; 
 };  
 
-function fs (a:string, b:integer):integer
+function fs(a:string, b:integer):integer
 {
- var c:integr;
- def function strlen(p:string);
+ var c:integer;
+ use function strlen(p:string):integer;
  c = strlen(a) + b;
  return c; 
 };  
@@ -20,16 +20,18 @@ main
  var z:integer;
  var sa:string = '1234567890';
  var sb:string;
- var sc:string;
- def function strlen(p:string);
+ use function strlen(p:string):integer;
+ use function fact(x:integer):integer;
+ use function min(x:integer, y:integer):integer;
+ use function max(x:integer, y:integer):integer;
  x = 1;
  y = 5;
  sa = '1234567890';
  sb = '1234567890'; 
  var w:integer;
  w = fi(x,y);
- y = fs(sa,sb);
- out 'РєРѕРЅС‚СЂРѕР»СЊРЅС‹Р№ РїСЂРёРјРµСЂ';
+ y = fs(sa,x);
+ out 'контрольный пример';
  out w;
  z = fact(y);
  out z;
@@ -37,7 +39,8 @@ main
  out z;
  z = min(x, y);
  out z;
- out sc;
- out strlen(sc);
+ out strlen(sb);
  return 0;
 };
+
+

@@ -17,15 +17,8 @@ namespace IT {
         if (this->table.size() <= this->maxsize) {
             this->table.push_back(entry);
         } else {
-            throw ERROR_THROW(22);
+            throw ERROR_THROW(222);
         }
-    }
-
-    Entry IdTable::GetEntry(int n) {
-        if ((n < 0) || (n >= this->table.size())) {
-            throw ERROR_THROW(25);
-        }
-        return this->table[n];
     }
 
     int  IdTable::IsId(char id[ID_MAXSIZE * 3 + 3]) {

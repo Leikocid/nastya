@@ -105,6 +105,29 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "Launch 2_1_kp",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/2_1_kp/bin/2_1_kp",
+            "args": [
+                "-in:/Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt",
+                "-logToConsole"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/2_1_kp/bin",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "compile 2_1_kp",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
         }
     ]
 }
