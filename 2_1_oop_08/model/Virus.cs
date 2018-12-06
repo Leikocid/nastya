@@ -2,8 +2,10 @@ using System;
 using System.Text;
 
 namespace ns_2_1_oop {
+    [Serializable]
     public class Virus : Software {
         public string Type { get; }
+
 
         public Virus(string name, string version, DateTime releaseDate, string type) : base(name, version, releaseDate) {
             Type = type;

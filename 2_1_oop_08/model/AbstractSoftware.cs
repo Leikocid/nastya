@@ -2,6 +2,7 @@ using System;
 using System.Text;
 
 namespace ns_2_1_oop {
+    [Serializable]
     public abstract class AbstractSoftware : AbstractObject {
         public string Name { get; }
 

@@ -1,8 +1,10 @@
 using System;
 using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ns_2_1_oop {
+    [Serializable]
     public class Array<T>: IAccessable<T> {
         protected List<T> data = new List<T>();
         public T this[int i] {
@@ -34,8 +36,17 @@ namespace ns_2_1_oop {
             return result.ToString();
         }
 
-        public void removeAt(int index) {
-            data.RemoveAt(index);
+        public bool removeAt(int index) {
+            bool result = true;
+            try {
+                data.RemoveAt(index);
+            } catch (ArgumentOutOfRangeException e) {
+                result = false;
+                throw e;
+            } finally {
+                Console.WriteLine($"результат операции удаления: {result}");
+            }
+            return result;
         }
 
         public void Add(T element) {
@@ -52,6 +63,10 @@ namespace ns_2_1_oop {
 
         public IEnumerator<T> GetEnumerator() {
             return data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }

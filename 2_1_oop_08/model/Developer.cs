@@ -1,6 +1,7 @@
 using System;
 
 namespace ns_2_1_oop {
+    [Serializable]
     public class Developer : AbstractObject, IHasHTMLPresentation {
         public string Name { get; }
 

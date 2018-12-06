@@ -5,6 +5,7 @@ namespace ns_2_1_oop {
         Windows = 1, MacOS, Linux, Android, iOS
     }
 
+    [Serializable]
     public class Software : AbstractSoftware {
         public Platform[] TargetPlatforms { get; set; }
 

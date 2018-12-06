@@ -11,51 +11,7 @@
             "preLaunchTask": "build 2_1_oop_08",
             "program": "${workspaceFolder}/2_1_oop_08/bin/Debug/netcoreapp2.1/2_1_oop_08.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_07",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_07",
-            "program": "${workspaceFolder}/2_1_oop_07/bin/Debug/netcoreapp2.1/2_1_oop_07.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_06",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_06",
-            "program": "${workspaceFolder}/2_1_oop_06/bin/Debug/netcoreapp2.1/2_1_oop_06.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_05",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_05",
-            "program": "${workspaceFolder}/2_1_oop_05/bin/Debug/netcoreapp2.1/2_1_oop_05.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_04",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "dotnet build",
-            "program": "${workspaceFolder}/2_1_oop_04/bin/Debug/netcoreapp2.1/2_1_oop_04.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/2_1_oop_08/bin/Debug/netcoreapp2.1",
             "stopAtEntry": false,
             "console": "internalConsole"
         },
