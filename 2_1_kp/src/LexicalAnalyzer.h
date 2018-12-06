@@ -57,6 +57,9 @@ namespace LA {
             recognizers.push_back(new Recognizer(LEX_DATATYPE, LT_INTEGER_DATATYPE, new FST("integer")));
             recognizers.push_back(new Recognizer(LEX_DATATYPE, LT_STRING_DATATYPE, new FST("string")));
             recognizers.push_back(new Recognizer(LEX_USE, LT_KEYWORD, new FST("use")));
+            recognizers.push_back(new Recognizer(LEX_WHILE, LT_KEYWORD, new FST("while")));
+            recognizers.push_back(new Recognizer(LEX_IF, LT_KEYWORD, new FST("if")));
+            recognizers.push_back(new Recognizer(LEX_ELSE, LT_KEYWORD, new FST("else")));
             recognizers.push_back(new Recognizer(LEX_VAR, LT_KEYWORD, new FST("var")));
             recognizers.push_back(new Recognizer(LEX_FUNCTION, LT_KEYWORD, new FST("function")));
             recognizers.push_back(new Recognizer(LEX_MAIN, LT_MAIN, new FST("main")));

@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 
 namespace ns_2_1_oop {
-    public class Array<T> {
+    public class Array<T>: IAccessable<T> {
         protected List<T> data = new List<T>();
         public T this[int i] {
             get {

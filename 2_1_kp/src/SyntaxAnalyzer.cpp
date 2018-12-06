@@ -160,21 +160,44 @@ namespace SA {
         return true;
     }
 
-    void SyntaxAnalyzer::printRules() {
+    GR::ParseTreeNode* createParseTreeNode(TranslationContext ctx, stack<MfstState>* stack) {
+        MfstState s = stack->top();
+        stack->pop();
+        Rule* rule = ctx.grammar->getRule(s.ruleIdx);
+
+        *ctx.logger << setw(4) << left << s.lentaPosition << ": " << setw(40) << left
+                    << info(rule->ruleSymbol, rule->getChain(s.chainIdx)) << endl;
+
+        return new GR::ParseTreeNode(s.lentaPosition, rule, rule->getChain(s.chainIdx));
+    }
+
+    void buildParseTreeNode(TranslationContext ctx, GR::ParseTreeNode* parent, stack<MfstState>* stack) {
+        int len = 0;
+        for (int i = 0; i < parent->chain->symbols.size(); i++) {
+            if (GR::isN(parent->chain->symbols[i])) {
+                len++;
+            }
+        }
+        for (int i = 0; i < len; i++) {
+            GR::ParseTreeNode* node = createParseTreeNode(ctx, stack);
+            parent->child.push_back(node);
+            buildParseTreeNode(ctx, node, stack);
+        }
+    }
+
+    ParseTreeNode* SyntaxAnalyzer::buildParseTree() {
         stack<MfstState> temp;
         while (!statesStack.empty()) {
             MfstState s = statesStack.top();
             temp.push(s);
             statesStack.pop();
         }
-        while (!temp.empty()) {
-            MfstState s	   = temp.top();
-            Rule*     rule = ctx.grammar->getRule(s.ruleIdx);
-            *ctx.logger << setw(4) << left << s.lentaPosition << ": " << setw(40) << left
-                        << info(rule->ruleSymbol, rule->getChain(s.chainIdx)) << endl;
-            statesStack.push(s);
-            temp.pop();
+        ParseTreeNode* tree = nullptr;
+        if (!temp.empty()) {
+            tree = createParseTreeNode(ctx, &temp);
+            buildParseTreeNode(ctx, tree, &temp);
         }
+        return tree;
     }
 
     bool SyntaxAnalyzer::saveDiagnosis(RC_STEP rc_step) {

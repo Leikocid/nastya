@@ -66,12 +66,11 @@ namespace SA {
             chainIdx = -1;
         }
 
-        bool	    start();                          // запустить автомат
-        void	    printRules();                     // вывести последовательность правил
-        bool	    saveDeduction();                  // сохранить дерево вывода
+        bool	       start();                       // запустить автомат
+        ParseTreeNode* buildParseTree();              // построить дерево разбора и вывести последовательность правил
 
         private:
-            RC_STEP step();                           // выполнить шаг автомата
+            RC_STEP    step();                        // выполнить шаг автомата
             void logRow(const char* message);         // вывести строку отладки
             bool saveState();                         // сохранить состояние автомата
             bool restoreState();                      // восстановить состояние автомата

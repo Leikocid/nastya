@@ -16,6 +16,22 @@ using namespace std;
 
 TranslationContext ctx;
 
+void showParseTree(GR::ParseTreeNode* node) {
+    if (node->child.size() > 0) {
+        for (int i = 0; i < node->child.size(); i++) {
+            showParseTree(node->child[i]);
+        }
+        cout << "NODE: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
+             << info(node->rule->ruleSymbol, node->chain) << endl;
+    } else {
+        cout << "LIST: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
+             << info(node->rule->ruleSymbol, node->chain) << endl;
+    }
+
+
+    // TODO: precess node here;
+}
+
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "rus");
 
@@ -42,15 +58,19 @@ int main(int argc, char* argv[]) {
         ctx.grammar = GR::getGrammar();
 
         SA::SyntaxAnalyzer syntaxAnalyzer(ctx);
-        syntaxAnalyzer.start();
-        syntaxAnalyzer.printRules(); // отладка: вывести правила вывода
+        if (syntaxAnalyzer.start()) {
+            ctx.parseTree = syntaxAnalyzer.buildParseTree();
 
-        // применение польской нотации
-        PolishNotation::testPolishNotations(ctx);
+            showParseTree(ctx.parseTree);
 
+
+            // применение польской нотации
+            PolishNotation::testPolishNotations(ctx);
+        }
         ctx.lexTable.Delete();
         ctx.idTable.Delete();
-    } catch (ERROR e) {
+    }
+    catch (ERROR e) {
         ctx.logger->logError(e);
     }
     ctx.logger->closeLog();

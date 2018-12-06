@@ -105,6 +105,18 @@ namespace GR {
     };
 
     Grammar*  getGrammar();
+
+    struct ParseTreeNode {
+        short		       lentaPosition; // позиция на ленте
+        Rule*		       rule;          // индекс текущего правила
+        Chain*		       chain;         // индекс текущей цепочки текущего правила
+        vector<ParseTreeNode*> child;         // ветви
+        ParseTreeNode(short lentaPosition, Rule* rule, Chain* chain) {
+            this->lentaPosition = lentaPosition;
+            this->rule		= rule;
+            this->chain		= chain;
+        }
+    };
 }
 
 #endif // !GREIBACH_H

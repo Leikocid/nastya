@@ -2,6 +2,11 @@ function fi(x:integer, y:integer):integer
 {
  var z:integer;
  z = x * (x + y);
+ if [z < 100] {
+     z = z + 1000;
+ } else {
+     z = z + 2000;
+ };
  return z; 
 };  
 
@@ -40,6 +45,16 @@ main
  z = min(x, y);
  out z;
  out strlen(sb);
+
+ while [x < 10] {
+     if [x <= 6] {
+        out x;
+     } else {
+        out x * x;
+     };
+     x = x + 1;
+ };
+
  return 0;
 };
 

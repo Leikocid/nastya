@@ -27,6 +27,9 @@ struct TranslationContext {
 
     // грамматика для синтаксического анализатора
     GR::Grammar* grammar;
+
+    // дерево рвзбора
+    GR::ParseTreeNode* parseTree;
 };
 
 #endif // !TRANSTATION_CONTEXT_H

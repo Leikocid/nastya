@@ -24,6 +24,14 @@
 #define LEX_DIRSLASH    '/'        // лексема для /
 #define LEX_COMPARE     '='        // лексема для =
 #define LEX_MAIN        'm'        // лексема для main
+#define LEX_WHILE       'w'        // лексема для while
+#define LEX_ELSE        'e'        // лексема для else
+#define LEX_IF          'c'        // лексема для if
+#define LEX_LESS        '<'        // лексема для <
+#define LEX_MORE        '>'        // лексема для >
+#define LEX_EXCLAMATION '!'        // лексема для !
+#define LEX_LEFT_SQ_BR  '['        // лексема для [
+#define LEX_RIGTH_SQ_BR ']'        // лексема для ]
 
 #include <vector>
 

@@ -90,6 +90,11 @@ namespace LA {
                     case LEX_SEMICOLON:
                     case LEX_COLON:
                     case LEX_COMMA:
+                    case LEX_EXCLAMATION:
+                    case LEX_LESS:
+                    case LEX_MORE:
+                    case LEX_LEFT_SQ_BR:
+                    case LEX_RIGTH_SQ_BR:
                     case LEX_LEFTBRACE:
                     case LEX_RIGTHBRACE:
                     case LEX_LEFTHESIS:
@@ -118,11 +123,12 @@ namespace LA {
         }
     }
 
-    // терминальные символы: space : ; , . { } ( ) + - * / \n \t ` ' =
+    // терминальные символы: space : ; , . { } ( ) + - * / \n \t ` ' = ! [ ] < >
     bool isTerminalSymbol(const char c) {
         return c == ' ' || c == ';' || c == ',' || c == '.'  || c == '\'' || c == ':' ||
                c == '{' || c == '}' || c == '(' || c == ')' || c == '+' || c == '=' ||
-               c == '-' || c == '*' || c == '/' || c == '\n' || c == '\t';
+               c == '-' || c == '*' || c == '/' || c == '\n' || c == '\t' || c == '!' ||
+               c == '[' || c == ']' || c == '<' || c == '>';
     }
 
     void analyzeFragment(TranslationContext &ctx, const int begin, const int end, const int line, const int col) {

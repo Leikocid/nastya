@@ -16,9 +16,10 @@ namespace GR {
                                            600 // Неверная структура программы
                                            ));
 
-        // N -> vi:t;N | vi:t=E;N | rE;N | i=E;N | ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE;
+        // N -> i=E;N | vi:t;N | vi:t=E;N | rE;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE; |
+        // c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N
         grammar->rules.push_back(*new Rule('N',
-                                           "vi:t;N | vi:t=E;N | rE;N | i=E;N | ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE;",
+                                           "i=E;N | vi:t;N | vi:t=E;N | rE;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N",
                                            601 // Ошибочный оператор
                                            ));
 
@@ -42,6 +43,13 @@ namespace GR {
                                            "i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W",
                                            604 // Ошибка в параметрах вызываемой функции
                                            ));
+
+        // C -> <E | >E | <=E | >=E | ==E | !=E
+        grammar->rules.push_back(*new Rule('C', "<E | >E | <=E | >=E | ==E | !=E",
+                                           605 // Ошибка в условии ветвления или цикла
+                                           ));
+
+
         return grammar;
     }
 
