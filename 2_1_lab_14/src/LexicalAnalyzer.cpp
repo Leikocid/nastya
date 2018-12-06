@@ -141,7 +141,6 @@ namespace LA {
         LT::Entry lexemaEntry = { lexema, lexemaType, line, (int)LT_TI_NULLIDX };
         int lexemaIndex	      = ctx.lexTable.table.size();
 
-        // TODO: добавление записей
         switch (lexema) {
             case LEX_MAIN: {
                 if ((nestingLevel != 0) || (prefixFunction.size() > 0)) {
