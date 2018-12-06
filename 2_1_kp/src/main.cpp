@@ -9,28 +9,13 @@
 #include "LexicalAnalyzer.h"
 #include "PolishNotation.h"
 #include "SyntaxAnalyzer.h"
+#include "SemanticAnalyzer.h"
 
 // using namespace Out;
 using namespace Log;
 using namespace std;
 
 TranslationContext ctx;
-
-void showParseTree(GR::ParseTreeNode* node) {
-    if (node->child.size() > 0) {
-        for (int i = 0; i < node->child.size(); i++) {
-            showParseTree(node->child[i]);
-        }
-        cout << "NODE: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
-             << info(node->rule->ruleSymbol, node->chain) << endl;
-    } else {
-        cout << "LIST: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
-             << info(node->rule->ruleSymbol, node->chain) << endl;
-    }
-
-
-    // TODO: precess node here;
-}
 
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "rus");
@@ -60,8 +45,7 @@ int main(int argc, char* argv[]) {
         SA::SyntaxAnalyzer syntaxAnalyzer(ctx);
         if (syntaxAnalyzer.start()) {
             ctx.parseTree = syntaxAnalyzer.buildParseTree();
-
-            showParseTree(ctx.parseTree);
+            SEM::semanticAnalysis(ctx);
 
 
             // применение польской нотации

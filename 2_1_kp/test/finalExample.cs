@@ -30,6 +30,11 @@ namespace main {
         static int fi(int x, int y) {
             int z;
             z = x * (x + y);
+            if (z < 100) {
+                z = z + 1000;
+            } else {
+                z = z + 2000;
+            }
             return z;
         }
 
@@ -61,6 +66,14 @@ namespace main {
             z = min(x, y);
             Console.WriteLine(z);
             Console.WriteLine(sb.Length);
+            while (x < 10) {
+                if (x <= 6) {
+                    Console.WriteLine(x);
+                } else {
+                    Console.WriteLine(x * x);
+                }
+                x = x + 1;
+            }
         }
     }
 }

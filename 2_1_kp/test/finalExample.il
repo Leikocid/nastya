@@ -39,7 +39,7 @@
   .hash algorithm 0x00008004
   .ver  1:0:0:0
 }
-.module 2_1_kp.dll // GUID = {DDF8A2FE-2371-465E-BC2B-5E69C700B3BB}
+.module 2_1_kp.dll // GUID = {D300D8FB-D1A0-4450-B917-32AF5FC4576C}
 
 
 .namespace main
@@ -154,11 +154,12 @@
            default int32 fi (int32 x, int32 y)  cil managed 
     {
         // Method begins at RVA 0x20c4
-	// Code size 13 (0xd)
+	// Code size 44 (0x2c)
 	.maxstack 3
 	.locals init (
 		int32	V_0,
-		int32	V_1)
+		bool	V_1,
+		int32	V_2)
 	IL_0000:  nop 
 	IL_0001:  ldarg.0 
 	IL_0002:  ldarg.0 
@@ -167,18 +168,39 @@
 	IL_0005:  mul 
 	IL_0006:  stloc.0 
 	IL_0007:  ldloc.0 
-	IL_0008:  stloc.1 
-	IL_0009:  br.s IL_000b
+	IL_0008:  ldc.i4.s 0x64
+	IL_000a:  clt 
+	IL_000c:  stloc.1 
+	IL_000d:  ldloc.1 
+	IL_000e:  brfalse.s IL_001c
 
-	IL_000b:  ldloc.1 
-	IL_000c:  ret 
+	IL_0010:  nop 
+	IL_0011:  ldloc.0 
+	IL_0012:  ldc.i4 1000
+	IL_0017:  add 
+	IL_0018:  stloc.0 
+	IL_0019:  nop 
+	IL_001a:  br.s IL_0026
+
+	IL_001c:  nop 
+	IL_001d:  ldloc.0 
+	IL_001e:  ldc.i4 2000
+	IL_0023:  add 
+	IL_0024:  stloc.0 
+	IL_0025:  nop 
+	IL_0026:  ldloc.0 
+	IL_0027:  stloc.2 
+	IL_0028:  br.s IL_002a
+
+	IL_002a:  ldloc.2 
+	IL_002b:  ret 
     } // end of method Program::fi
 
     // method line 5
     .method private static hidebysig 
            default int32 fs (string a, int32 b)  cil managed 
     {
-        // Method begins at RVA 0x20e0
+        // Method begins at RVA 0x20fc
 	// Code size 16 (0x10)
 	.maxstack 2
 	.locals init (
@@ -202,9 +224,9 @@
     .method private static hidebysig 
            default void Main (string[] args)  cil managed 
     {
-        // Method begins at RVA 0x20fc
+        // Method begins at RVA 0x2118
 	.entrypoint
-	// Code size 118 (0x76)
+	// Code size 172 (0xac)
 	.maxstack 2
 	.locals init (
 		int32	V_0,
@@ -212,7 +234,9 @@
 		int32	V_2,
 		string	V_3,
 		string	V_4,
-		int32	V_5)
+		int32	V_5,
+		bool	V_6,
+		bool	V_7)
 	IL_0000:  nop 
 	IL_0001:  ldstr "1234567890"
 	IL_0006:  stloc.3 
@@ -266,14 +290,52 @@
 	IL_006a:  callvirt instance int32 string::get_Length()
 	IL_006f:  call void class [mscorlib]System.Console::WriteLine(int32)
 	IL_0074:  nop 
-	IL_0075:  ret 
+	IL_0075:  br.s IL_00a0
+
+	IL_0077:  nop 
+	IL_0078:  ldloc.0 
+	IL_0079:  ldc.i4.6 
+	IL_007a:  cgt 
+	IL_007c:  ldc.i4.0 
+	IL_007d:  ceq 
+	IL_007f:  stloc.s 6
+	IL_0081:  ldloc.s 6
+	IL_0083:  brfalse.s IL_0090
+
+	IL_0085:  nop 
+	IL_0086:  ldloc.0 
+	IL_0087:  call void class [mscorlib]System.Console::WriteLine(int32)
+	IL_008c:  nop 
+	IL_008d:  nop 
+	IL_008e:  br.s IL_009b
+
+	IL_0090:  nop 
+	IL_0091:  ldloc.0 
+	IL_0092:  ldloc.0 
+	IL_0093:  mul 
+	IL_0094:  call void class [mscorlib]System.Console::WriteLine(int32)
+	IL_0099:  nop 
+	IL_009a:  nop 
+	IL_009b:  ldloc.0 
+	IL_009c:  ldc.i4.1 
+	IL_009d:  add 
+	IL_009e:  stloc.0 
+	IL_009f:  nop 
+	IL_00a0:  ldloc.0 
+	IL_00a1:  ldc.i4.s 0x0a
+	IL_00a3:  clt 
+	IL_00a5:  stloc.s 7
+	IL_00a7:  ldloc.s 7
+	IL_00a9:  brtrue.s IL_0077
+
+	IL_00ab:  ret 
     } // end of method Program::Main
 
     // method line 7
     .method public hidebysig specialname rtspecialname 
            instance default void '.ctor' ()  cil managed 
     {
-        // Method begins at RVA 0x217e
+        // Method begins at RVA 0x21d0
 	// Code size 8 (0x8)
 	.maxstack 8
 	IL_0000:  ldarg.0 
