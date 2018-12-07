@@ -1,9 +1,9 @@
 using System;
 
-namespace ns_2_1_oop_05 {
+namespace ns_2_1_oop {
     public interface IHasHTMLPresentation  {
-        string getHTML();
+        string GetHTML();
 
-        string getCreator();
+        string GetCreator();
     }
 }

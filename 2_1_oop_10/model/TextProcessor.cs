@@ -1,30 +1,20 @@
 using System;
 using System.Text;
 
-namespace ns_2_1_oop_05 {
-    public sealed class TextProcessor : Software, IHasHTMLPresentation {
+namespace ns_2_1_oop {
+    public sealed partial class TextProcessor : Software, IHasHTMLPresentation {
         public string[] WorkExtensions { get; }
-
-        private bool freeStatus = true;
 
 
         public TextProcessor(string name, string version, DateTime releaseDate, string[] workExtensions) : base(name, version, releaseDate) {
             WorkExtensions = workExtensions;
         }
 
-        public string getHTML() {
+        public string GetHTML() {
             return $"<div class=\"text_precessor\">{Name} - {Version}</div>";
         }
 
-        public void setFree(bool isFree) {
-            this.freeStatus = isFree;
-        }
-
-        public override bool isFree() {
-            return freeStatus;
-        }
-
-        string IHasHTMLPresentation.getCreator() {
+        string IHasHTMLPresentation.GetCreator() {
             return "HTML publisher";
         }
 

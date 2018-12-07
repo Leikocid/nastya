@@ -1,6 +1,6 @@
 using System;
 
-namespace ns_2_1_oop_05 {
+namespace ns_2_1_oop {
     public enum Platform {
         Windows = 1, MacOS, Linux, Android, iOS
     }
@@ -12,11 +12,11 @@ namespace ns_2_1_oop_05 {
 
         public Software(string name, string version, DateTime releaseDate) : base(name, version, releaseDate) {}
 
-        public virtual bool isFree() {
+        public virtual bool IsFree() {
             return true;
         }
 
-        public override string getCreator() {
+        public override string GetCreator() {
             if (Developer == null) {
                 return "unknown";
             } else {

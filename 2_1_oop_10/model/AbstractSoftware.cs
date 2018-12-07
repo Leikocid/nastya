@@ -1,14 +1,13 @@
 using System;
 using System.Text;
 
-namespace ns_2_1_oop_05 {
-    public abstract class AbstractSoftware : AbstractObject {
+namespace ns_2_1_oop {
+    public abstract class AbstractSoftware : AbstractObject, IComparable<AbstractSoftware> {
         public string Name { get; }
 
         public string Version { get; }
 
         public DateTime ReleaseDate { get; }
-
 
         public AbstractSoftware(string name, string version, DateTime releaseDate) {
             if (name == null) {
@@ -49,6 +48,14 @@ namespace ns_2_1_oop_05 {
             }
             result.Append("}");
             return result.ToString();
+        }
+
+        public int CompareTo(AbstractSoftware other) {
+            int result = this.Name.CompareTo(other.Name);
+            if (result == 0) {
+                result = this.Version.CompareTo(other.Version);
+            }
+            return result;
         }
     }
 }
