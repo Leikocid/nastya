@@ -40,65 +40,40 @@ namespace ns_2_1_oop {
             }
         }
 
-        public class StringProcessor {
-            private string s;
-            public StringProcessor(string s) {
-                this.s = s;
-            }
+        public static string removeComma(string str) {
+            return str.Replace(",", "");
+        }
 
-            public  string removeComma(string str) {
-                return str.Replace(",", "");
-            }
+        public static string star(string str) {
+            return "*" + str + "*";
+        }
 
-            public string star(string str) {
-                return "*" + str + "*";
-            }
+        public static string upper(string str) {
+            return str.ToUpper();
+        }
 
-            public string upper(string str) {
-                return str.ToUpper();
-            }
+        public static string trim(string str) {
+            return str.Trim();
+        }
 
-            public string trim(string str) {
-                return str.Trim();
-            }
+        public static string lower(string str) {
+            return str.ToLower();
+        }
 
-            public string lower(string str) {
-                return str.ToLower();
-            }
+        public static string concat(string str1, string str2) {
+            return str1 + str2;
+        }
 
-            public string concat(string str1, string str2) {
-                return str1 + str2;
+        public static string multiply(string str, int number) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < number; i++) {
+                sb.Append(str);
             }
-
-            public string multiply(string str, int number) {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 1; i < number; i++) {
-                    sb.Append(str);
-                }
-                return sb.ToString();
-            }
-
-            public StringProcessor envoke(Func<string, string> f) {
-                s = f(s);
-                return this;
-            }
-
-            public StringProcessor envoke(Func<string, string, string> f, string str) {
-                s = f(s, str);
-                return this;
-            }
-
-            public StringProcessor envoke(Func<string, int, string> f, int number) {
-                s = f(s, number);
-                return this;
-            }
-
-            public string toString() {
-                return s;
-            }
+            return sb.ToString();
         }
 
         static void Main(string[] args) {
+            // первое задание
             User u = new User();
 
             MoveSubscriber ms1	   = new MoveSubscriber("ms1");
@@ -118,16 +93,15 @@ namespace ns_2_1_oop {
             u.compress(0.5);
             u.move(10);
 
-            StringProcessor sp = new StringProcessor(
-                "Мой дядя самых честных правил,\nКогда не в шутку занемог,\nОн уважать себя заставил\nИ лучше выдумать не мог.");
-            string res = sp.envoke(sp.trim)
-                         .envoke(sp.star)
-                         .envoke(sp.removeComma)
-                         .envoke(s => s.ToLower())
-                         .envoke(sp.concat,   "\n")
-                         .envoke(sp.multiply, 3)
-                         .toString();
-            Console.WriteLine(res);
+            // второе задание. Mетод envoke добавлен к string (см. StringUtils)
+            string ss = "Мой дядя самых честных правил,\nКогда не в шутку занемог,\nОн уважать себя заставил\nИ лучше выдумать не мог.";
+            ss = ss.envoke(trim)
+                 .envoke(star)
+                 .envoke(removeComma)
+                 .envoke(s => s.ToLower())
+                 .envoke(concat,   "\n")
+                 .envoke(multiply, 3);
+            Console.WriteLine(ss);
         }
     }
 }
