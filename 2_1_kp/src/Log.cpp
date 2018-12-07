@@ -195,7 +195,7 @@ namespace Log {
                     }
                 }
 
-                switch (idtable.table[i].iddatatype) {
+                switch (idtable.table[i].datatype) {
                     case IT::DT_STR: {
                         *this << "str";
                         break;
@@ -216,9 +216,9 @@ namespace Log {
                     case IT::T_P:
                     case IT::T_V:
                     case IT::T_L: {
-                        if (idtable.table[i].iddatatype == IT::DT_STR) {
+                        if (idtable.table[i].datatype == IT::DT_STR) {
                             *this << "= <" << idtable.table[i].value.vstr.str << "> lenght = " << (int)idtable.table[i].value.vstr.len;
-                        } else if (idtable.table[i].iddatatype == IT::DT_INT) {
+                        } else if (idtable.table[i].datatype == IT::DT_INT) {
                             *this << "= <" << (int)idtable.table[i].value.vint << ">";
                         }
                         break;

@@ -5,7 +5,7 @@
 
 namespace SEM {
     // семантический анализ
-    void semanticAnalysis(TranslationContext ctx);
+    void semanticAnalysis(TranslationContext &ctx);
 }
 
 #endif // !SEM_H

@@ -3,11 +3,13 @@
 
 #include <vector>
 #include "Utils.h"
+#include "IT.h"
 
 typedef short TN_SYMBOL; //  символы алфавита грамматики. терминалы > 0 а нетерминалы < 0
 
 using namespace std;
 using namespace Utils;
+using namespace IT;
 
 namespace GR {
     TN_SYMBOL charToT(char c);           // char -> терминал
@@ -110,11 +112,16 @@ namespace GR {
         short		       lentaPosition; // позиция на ленте
         Rule*		       rule;          // индекс текущего правила
         Chain*		       chain;         // индекс текущей цепочки текущего правила
+        ParseTreeNode*	       parent;
         vector<ParseTreeNode*> child;         // ветви
+        DATATYPE	       datatype;
+
         ParseTreeNode(short lentaPosition, Rule* rule, Chain* chain) {
             this->lentaPosition = lentaPosition;
             this->rule		= rule;
             this->chain		= chain;
+            this->parent	= nullptr;
+            this->datatype	= DT_UNKNOWN;
         }
     };
 }

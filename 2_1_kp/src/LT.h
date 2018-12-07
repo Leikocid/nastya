@@ -42,6 +42,7 @@ namespace LT {
         char lexema;     //	лексема
         int  lexemaType; // тип лексемы
         int  line;       //	номер строки в исходном тексте
+        int  col;        // номер столбца
         int  idxTI;      //	индекс в таблице идентификаторов или LT_TI_NULLIDX
     };
 

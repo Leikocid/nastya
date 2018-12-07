@@ -11,15 +11,15 @@ namespace GR {
 
         grammar->rules.reserve(6);
 
-        // S -> fi(F):t{NrE;};S | m{NrE;};
-        grammar->rules.push_back(*new Rule('S', "fi(F):t{NrE;};S | m{NrE;};",
+        // S -> fi(F):t{NrE;};S | m{N};
+        grammar->rules.push_back(*new Rule('S', "fi(F):t{NrE;};S | m{N};",
                                            600 // Неверная структура программы
                                            ));
 
-        // N -> i=E;N | vi:t;N | vi:t=E;N | rE;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE; |
-        // c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N
+        // N -> i=E;N | vi:t;N | vi:t=E;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; |
+        // c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N"
         grammar->rules.push_back(*new Rule('N',
-                                           "i=E;N | vi:t;N | vi:t=E;N | rE;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | rE; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N",
+                                           "i=E;N | vi:t;N | vi:t=E;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N",
                                            601 // Ошибочный оператор
                                            ));
 

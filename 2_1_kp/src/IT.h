@@ -13,7 +13,7 @@
 // таблица идентификаторов
 namespace IT {
     // типы данных идентификаторов: integer, string
-    enum IDDATATYPE {
+    enum DATATYPE {
         DT_UNKNOWN = 0, DT_INT = 1, DT_STR = 2
     };
 
@@ -24,10 +24,10 @@ namespace IT {
 
     // строка таблицы
     struct Entry {
-        int	   idxfirstLE;                 // индекс первой строки в таблице лексем
-        char	   id[ID_MAXSIZE * 3 + 3];     // резервируем в 3 раза больше места так как может добавляться 2 префикса и разделители (.)
-        IDDATATYPE iddatatype;                 // тип данных
-        IDTYPE	   idtype;                     // тип идентификатора
+        int	 idxfirstLE;                   // индекс первой строки в таблице лексем
+        char	 id[ID_MAXSIZE * 3 + 3];       // резервируем в 3 раза больше места так как может добавляться 2 префикса и разделители (.)
+        DATATYPE datatype;                     // тип данных
+        IDTYPE	 idtype;                       // тип идентификатора
         union {
             int vint;                          // значение integer
             struct {

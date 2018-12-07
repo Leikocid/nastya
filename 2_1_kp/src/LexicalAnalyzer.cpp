@@ -148,7 +148,7 @@ namespace LA {
     void addLexema(TranslationContext &ctx, const int begin, const int end, const int line, const int col, const char lexema,
                    const int lexemaType) {
         char* fullFragment    = subString(ctx.in.text, begin, end - begin + 1);
-        LT::Entry lexemaEntry = { lexema, lexemaType, line, (int)LT_TI_NULLIDX };
+        LT::Entry lexemaEntry = { lexema, lexemaType, line, col, (int)LT_TI_NULLIDX };
         int lexemaIndex	      = ctx.lexTable.table.size();
 
         switch (lexema) {
@@ -165,7 +165,7 @@ namespace LA {
                     identifacator.idxfirstLE = lexemaIndex;
                     appendChars(identifacator.id, id);
                     identifacator.idtype     = T_F;
-                    identifacator.iddatatype = DT_INT;
+                    identifacator.datatype   = DT_INT;
                     identifacator.value.vint = 0;
                     ctx.idTable.Add(identifacator);
                     lexemaEntry.idxTI = idIndex;
@@ -234,9 +234,9 @@ namespace LA {
                     appendChars(identifacator.id, id);      // id
 
                     // вычисляем тип идентификатора
-                    identifacator.idtype     = T_P;
-                    identifacator.iddatatype = DT_UNKNOWN;
-                    lIndex		     = lexemaIndex - 1;
+                    identifacator.idtype   = T_P;
+                    identifacator.datatype = DT_UNKNOWN;
+                    lIndex		   = lexemaIndex - 1;
                     if (lIndex >= 0) {
                         if (ctx.lexTable.table[lIndex].lexema == LEX_FUNCTION) {
                             identifacator.idtype = T_F;
@@ -281,14 +281,14 @@ namespace LA {
                 literal.idxfirstLE = lexemaIndex;
                 literal.idtype	   = T_L;
                 if (lexemaType == LT_INTEGER_LITERAL) {
-                    literal.iddatatype = DT_INT;
+                    literal.datatype = DT_INT;
                     long long int value = atoll(fullFragment);
                     if ((value > LONG_MAX) || (value < LONG_MIN)) {
                         throw ERROR_THROW_IN(235, line, col); // превышение лимитов целочичленного литерала
                     }
                     literal.value.vint = atoi(fullFragment);
                 } else if (lexemaType == LT_STRING_LITERAL) {
-                    literal.iddatatype = DT_STR;
+                    literal.datatype = DT_STR;
                     if (strlen(fullFragment) > 256) {
                         throw ERROR_THROW_IN(234, line, col); // превышение длины строки
                     }
@@ -327,15 +327,15 @@ namespace LA {
 
                         // устанавливаем тип данных
                         if (lexemaType == LT_INTEGER_DATATYPE) {
-                            identifacator->iddatatype = DT_INT;
+                            identifacator->datatype = DT_INT;
                         } else if (lexemaType == LT_STRING_DATATYPE) {
-                            identifacator->iddatatype = DT_STR;
+                            identifacator->datatype = DT_STR;
                         }
 
                         // устанавливаем начальные значения для идентификатора
-                        if (identifacator->iddatatype == DT_INT) {
+                        if (identifacator->datatype == DT_INT) {
                             identifacator->value.vint = 0;
-                        } else if (identifacator->iddatatype == DT_STR) {
+                        } else if (identifacator->datatype == DT_STR) {
                             identifacator->value.vstr.len    = 0;
                             identifacator->value.vstr.str[0] = 0;
                         }

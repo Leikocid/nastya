@@ -135,6 +135,7 @@
                 "IT.cpp",
                 "Greibach.cpp",
                 "SyntaxAnalyzer.cpp",
+                "SemanticAnalyzer.cpp",
                 "main.cpp",
                 "-o",
                 "../bin/2_1_kp"

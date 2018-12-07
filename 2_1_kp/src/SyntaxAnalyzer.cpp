@@ -181,11 +181,13 @@ namespace SA {
         for (int i = 0; i < len; i++) {
             GR::ParseTreeNode* node = createParseTreeNode(ctx, stack);
             parent->child.push_back(node);
+            node->parent = parent;
             buildParseTreeNode(ctx, node, stack);
         }
     }
 
     ParseTreeNode* SyntaxAnalyzer::buildParseTree() {
+        *ctx.logger << "\nДерево разбора:" << endl;
         stack<MfstState> temp;
         while (!statesStack.empty()) {
             MfstState s = statesStack.top();
