@@ -40,7 +40,7 @@ main
  out w;
  z = fact(y);
  out z;
- z = max(x, y);
+ z = max(x+1, y+1);
  out z;
  z = min(x, y);
  out z;

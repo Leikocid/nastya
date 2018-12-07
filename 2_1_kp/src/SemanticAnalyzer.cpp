@@ -30,7 +30,7 @@ namespace SEM {
                     } else {
                         // отладка
                         cout << " CHECK: " << node->lentaPosition + 1 << " == " << node->child[2]->lentaPosition << " (" << node->datatype <<
-                        ")" << endl;
+                            ")" << endl;
                     }
                 }
                 break;
@@ -149,7 +149,7 @@ namespace SEM {
                 int j	   = -1;
                 for (int i = 0; i < node->chain->symbols.size(); i++) {
                     char lexema = GR::symbolToChar(node->chain->symbols[i]);
-                    if (GR::isN(lexema)) {
+                    if (GR::isN(node->chain->symbols[i])) {
                         j++;
                     }
                     if (lexema == 'M') {
@@ -198,22 +198,22 @@ namespace SEM {
             }
         }
 
-        *ctx.logger << "NODE: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
-                    << info(node->rule->ruleSymbol, node->chain) << " : ";
+        // *ctx.logger << "NODE: " << setw(4) << left << node->lentaPosition << ": " << setw(40) << left
+        //             << info(node->rule->ruleSymbol, node->chain) << " : ";
 
-        switch (node->datatype) {
-            case DT_STR: {
-                *ctx.logger << "str";
-                break;
-            }; case DT_INT: {
-                *ctx.logger << "int";
-                break;
-            }; case DT_UNKNOWN: {
-                *ctx.logger << "<unknown>";
-                break;
-            };
-        }
-        *ctx.logger << endl;
+        // switch (node->datatype) {
+        //     case DT_STR: {
+        //         *ctx.logger << "str";
+        //         break;
+        //     }; case DT_INT: {
+        //         *ctx.logger << "int";
+        //         break;
+        //     }; case DT_UNKNOWN: {
+        //         *ctx.logger << "<unknown>";
+        //         break;
+        //     };
+        // }
+        // *ctx.logger << endl;
     }
 
     // семантический анализ
