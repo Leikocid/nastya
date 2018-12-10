@@ -193,7 +193,7 @@ namespace LA {
                 break;
             };
             case LEX_ID: {
-                char* fragment = subString(fullFragment, 0, 5);
+                char* fragment = subString(fullFragment, 0, ID_MAXSIZE);
 
                 // строим id учитывая префиксы
                 char id[ID_MAXSIZE * 3 + 3];
@@ -230,8 +230,9 @@ namespace LA {
 
                     // создаем новую запись для идентификатора и заполняем значения
                     IT::Entry identifacator = *new IT::Entry();
-                    identifacator.idxfirstLE = lexemaIndex; // ссылка на первую лексему
-                    appendChars(identifacator.id, id);      // id
+                    identifacator.idxfirstLE = lexemaIndex;    // ссылка на первую лексему
+                    appendChars(identifacator.id,   id);       // id
+                    appendChars(identifacator.name, fragment); // name
 
                     // вычисляем тип идентификатора
                     identifacator.idtype   = T_P;

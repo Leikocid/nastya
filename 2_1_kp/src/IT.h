@@ -26,6 +26,7 @@ namespace IT {
     struct Entry {
         int	 idxfirstLE;                   // индекс первой строки в таблице лексем
         char	 id[ID_MAXSIZE * 3 + 3];       // резервируем в 3 раза больше места так как может добавляться 2 префикса и разделители (.)
+        char	 name[ID_MAXSIZE + 1];         // имя идентификатора
         DATATYPE datatype;                     // тип данных
         IDTYPE	 idtype;                       // тип идентификатора
         union {

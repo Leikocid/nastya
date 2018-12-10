@@ -1,6 +1,6 @@
------ Протокол -----  Дата: 08.12.2018 01:54:46 ----- 
+----- Протокол -----  Дата: 10.12.2018 18:36:06 ----- 
 -log: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt.log
--out: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt.out
+-out: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.il
 -in: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt
 ----- Исходные данные -----
 Количество символов: 988
@@ -81,8 +81,8 @@
 08: p str fs.a [61] = <> lenght = 0
 09: p int fs.b [65] = <0>
 10: v int fs.c [73] = <0>
-11: f int fs.strle [79] 
-12: p str fs.strle.p [81] = <> lenght = 0
+11: f int fs.strlen [79] 
+12: p str fs.strlen.p [81] = <> lenght = 0
 13: f int main [102] 
 14: v int x [105] = <0>
 15: v int y [110] = <0>
@@ -90,8 +90,8 @@
 17: v str sa [120] = <> lenght = 0
 18: l str  [124] = <'1234567890'> lenght = 12
 19: v str sb [127] = <> lenght = 0
-20: f int strle [133] 
-21: p str strle.p [135] = <> lenght = 0
+20: f int strlen [133] 
+21: p str strlen.p [135] = <> lenght = 0
 22: f int fact [144] 
 23: p int fact.x [146] = <0>
 24: f int min [155] 
@@ -2770,43 +2770,168 @@
 304 : E -> l                                  
 
 Семантический анализ:
+Process node: 7   :F -> i:t                                 : int
+Process node: 3   :F -> i:t,F                               : int
+Process node: 26  :E -> i                                   : int
+Process node: 25  :M -> +E                                  : int
+Process node: 24  :E -> iM                                  :
+              Check (700)         24   == 25                : int
+Process node: 23  :E -> (E)                                 : int
+Process node: 22  :M -> *E                                  : int
+Process node: 21  :E -> iM                                  :
+              Check (700)         21   == 22                : int
+Process node: 31  :E -> i                                   : int
+Process node: 33  :E -> l                                   : int
+Process node: 32  :C -> <E                                  : int
+Process node: 40  :E -> l                                   : int
+Process node: 39  :M -> +E                                  : int
+Process node: 38  :E -> iM                                  :
+              Check (700)         38   == 39                : int
+Process node: 36  :N -> i=E;                                :
+              Check (702)         36   == 38                : int
+Process node: 49  :E -> l                                   : int
+Process node: 48  :M -> +E                                  : int
+Process node: 47  :E -> iM                                  :
+              Check (700)         47   == 48                : int
+Process node: 45  :N -> i=E;                                :
+              Check (702)         45   == 47                : int
+Process node: 29  :N -> c[EC]{N}e{N};                       :
+              Check (701)         31   == 33                : int
+Process node: 19  :N -> i=E;N                               :
+              Check (702)         19   == 21                : int
+Process node: 14  :N -> vi:t;N                              : int
+Process node: 54  :E -> i                                   : int
+Process node: 65  :F -> i:t                                 : int
+Process node: 61  :F -> i:t,F                               : str
+Process node: 81  :F -> i:t                                 : str
+Process node: 92  :W -> i                                   :
+              Check (703)         92   == 90   [1]          : str
+Process node: 95  :E -> i                                   : int
+Process node: 94  :M -> +E                                  : int
+Process node: 90  :E -> i(W)M                               :
+              Check (700)         90   == 94                : int
+Process node: 88  :N -> i=E;                                :
+              Check (702)         88   == 90                : int
+Process node: 77  :N -> ufi(F):t;N                          :
+              Check (705)         79   == -1                : int
+Process node: 72  :N -> vi:t;N                              : int
+Process node: 98  :E -> i                                   : int
+Process node: 124 :E -> l                                   : str
+Process node: 135 :F -> i:t                                 : str
+Process node: 146 :F -> i:t                                 : int
+Process node: 161 :F -> i:t                                 : int
+Process node: 157 :F -> i:t,F                               : int
+Process node: 176 :F -> i:t                                 : int
+Process node: 172 :F -> i:t,F                               : int
+Process node: 185 :E -> l                                   : int
+Process node: 189 :E -> l                                   : int
+Process node: 193 :E -> l                                   : str
+Process node: 197 :E -> l                                   : str
+Process node: 210 :W -> i                                   :
+              Check (703)         210  == 206  [2]          : int
+Process node: 208 :W -> i,W                                 :
+              Check (703)         208  == 206  [1]          : int
+Process node: 206 :E -> i(W)                                : int
+Process node: 219 :W -> i                                   :
+              Check (703)         219  == 215  [2]          : int
+Process node: 217 :W -> i,W                                 :
+              Check (703)         217  == 215  [1]          : str
+Process node: 215 :E -> i(W)                                : int
+Process node: 223 :E -> l                                   : str
+Process node: 226 :E -> i                                   : int
+Process node: 232 :W -> i                                   :
+              Check (703)         232  == 230  [1]          : int
+Process node: 230 :E -> i(W)                                : int
+Process node: 236 :E -> i                                   : int
+Process node: 244 :E -> l                                   : int
+Process node: 243 :M -> +E                                  : int
+Process node: 248 :E -> l                                   : int
+Process node: 247 :M -> +E                                  : int
+Process node: 246 :W -> iM                                  :
+              Check (700)         246  == 247               :
+              Check (703)         246  == 240  [2]          : int
+Process node: 242 :W -> iM,W                                :
+              Check (700)         242  == 243               :
+              Check (703)         242  == 240  [1]          : int
+Process node: 240 :E -> i(W)                                : int
+Process node: 252 :E -> i                                   : int
+Process node: 260 :W -> i                                   :
+              Check (703)         260  == 256  [2]          : int
+Process node: 258 :W -> i,W                                 :
+              Check (703)         258  == 256  [1]          : int
+Process node: 256 :E -> i(W)                                : int
+Process node: 264 :E -> i                                   : int
+Process node: 269 :W -> i                                   :
+              Check (703)         269  == 267  [1]          : str
+Process node: 267 :E -> i(W)                                : int
+Process node: 274 :E -> i                                   : int
+Process node: 276 :E -> l                                   : int
+Process node: 275 :C -> <E                                  : int
+Process node: 281 :E -> i                                   : int
+Process node: 284 :E -> l                                   : int
+Process node: 282 :C -> <=E                                 : int
+Process node: 288 :E -> i                                   : int
+Process node: 287 :N -> oE;                                 : int
+Process node: 296 :E -> i                                   : int
+Process node: 295 :M -> *E                                  : int
+Process node: 294 :E -> iM                                  :
+              Check (700)         294  == 295               : int
+Process node: 293 :N -> oE;                                 : int
+Process node: 304 :E -> l                                   : int
+Process node: 303 :M -> +E                                  : int
+Process node: 302 :E -> iM                                  :
+              Check (700)         302  == 303               : int
+Process node: 300 :N -> i=E;                                :
+              Check (702)         300  == 302               : int
+Process node: 279 :N -> c[EC]{N}e{N};N                      :
+              Check (701)         281  == 284               : int
+Process node: 272 :N -> w[EC]{N};                           :
+              Check (701)         274  == 276               : int
+Process node: 266 :N -> oE;N                                : int
+Process node: 263 :N -> oE;N                                : int
+Process node: 254 :N -> i=E;N                               :
+              Check (702)         254  == 256               : int
+Process node: 251 :N -> oE;N                                : int
+Process node: 238 :N -> i=E;N                               :
+              Check (702)         238  == 240               : int
+Process node: 235 :N -> oE;N                                : int
+Process node: 228 :N -> i=E;N                               :
+              Check (702)         228  == 230               : int
+Process node: 225 :N -> oE;N                                : int
+Process node: 222 :N -> oE;N                                : str
+Process node: 213 :N -> i=E;N                               :
+              Check (702)         213  == 215               : int
+Process node: 204 :N -> i=E;N                               :
+              Check (702)         204  == 206               : int
+Process node: 199 :N -> vi:t;N                              : int
+Process node: 195 :N -> i=E;N                               :
+              Check (702)         195  == 197               : str
+Process node: 191 :N -> i=E;N                               :
+              Check (702)         191  == 193               : str
+Process node: 187 :N -> i=E;N                               :
+              Check (702)         187  == 189               : int
+Process node: 183 :N -> i=E;N                               :
+              Check (702)         183  == 185               : int
+Process node: 168 :N -> ufi(F):t;N                          :
+              Check (705)         170  == -1                : int
+Process node: 153 :N -> ufi(F):t;N                          :
+              Check (705)         155  == -1                : int
+Process node: 142 :N -> ufi(F):t;N                          :
+              Check (705)         144  == -1                : int
+Process node: 131 :N -> ufi(F):t;N                          :
+              Check (705)         133  == -1                : int
+Process node: 126 :N -> vi:t;N                              : str
+Process node: 119 :N -> vi:t=E;N                            :
+              Check (702)         120  == 124               : str
+Process node: 114 :N -> vi:t;N                              : int
+Process node: 109 :N -> vi:t;N                              : int
+Process node: 104 :N -> vi:t;N                              : int
+Process node: 102 :S -> m{N};                               : <unknown>
+Process node: 58  :S -> fi(F):t{NrE;};S                     :
+              Check (704)         59   == 98                : int
+Process node: 0   :S -> fi(F):t{NrE;};S                     :
+              Check (704)         1    == 54                : int
 
-Try to build polish notation from 17 position:
-17: t
-----------------------------------
-t:           
- :             
-----------------------------------
-польская запиcь не построена
-=================================
+Генерирование кода:
 
-Try to build polish notation from 62 position:
-62: :
-63: t
-64: ,
-65: i9
-66: :
-67: t
-68: )
-69: :
-70: t
-71: {
-72: v
-73: i10
-74: :
-75: t
-----------------------------------
-::           
- :             
-----------------------------------
-польская запиcь не построена
-=================================
-
-Try to build polish notation from 151 position:
-151: t
-----------------------------------
-t:           
- :             
-----------------------------------
-польская запиcь не построена
-=================================
+Генерирование кода выполнено успешно.

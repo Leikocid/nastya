@@ -7,9 +7,9 @@
 
 #include "TranslationContext.h"
 #include "LexicalAnalyzer.h"
-#include "PolishNotation.h"
 #include "SyntaxAnalyzer.h"
 #include "SemanticAnalyzer.h"
+#include "CILGenerator.h"
 
 // using namespace Out;
 using namespace Log;
@@ -41,20 +41,21 @@ int main(int argc, char* argv[]) {
 
         // синтаксический анализ
         ctx.grammar = GR::getGrammar();
-
         SA::SyntaxAnalyzer syntaxAnalyzer(ctx);
-        if (syntaxAnalyzer.start()) {
-            ctx.parseTree = syntaxAnalyzer.buildParseTree();
-            SEM::semanticAnalysis(ctx);
-
-
-            // применение польской нотации
-            PolishNotation::testPolishNotations(ctx);
+        if (!syntaxAnalyzer.syntaxAnalysis()) {
+            throw ERROR_THROW(600);
         }
+
+        // семантический анализ
+        ctx.parseTree = syntaxAnalyzer.buildParseTree();
+        SEM::semanticAnalysis(ctx);
+
+        // генерирование кода
+        CG::generate(ctx);
+
         ctx.lexTable.Delete();
         ctx.idTable.Delete();
-    }
-    catch (ERROR e) {
+    } catch (ERROR e) {
         ctx.logger->logError(e);
     }
     ctx.logger->closeLog();

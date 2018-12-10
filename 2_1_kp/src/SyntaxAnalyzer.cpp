@@ -32,7 +32,7 @@ namespace SA {
     }
 
     // запуск процедуры синтаксического анализа
-    bool SyntaxAnalyzer::start() {
+    bool SyntaxAnalyzer::syntaxAnalysis() {
         *ctx.logger << endl << "--------------------------------------------------------------" << endl;
         *ctx.logger << "Шаг : Правило                      " \
                     << "  Входная лента                           Стек" << endl;

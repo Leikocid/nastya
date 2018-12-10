@@ -27,6 +27,7 @@
         "stack": "cpp",
         "algorithm": "cpp",
         "chrono": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "limits": "cpp"
     }
 }

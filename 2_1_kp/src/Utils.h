@@ -29,4 +29,4 @@ namespace Utils {
     void     getCurrentTime(tm &tm);
 }
 
-#endif // !UTILS_H
+#endif // UTILS_H

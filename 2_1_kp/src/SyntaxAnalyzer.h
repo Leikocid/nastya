@@ -66,7 +66,7 @@ namespace SA {
             chainIdx = -1;
         }
 
-        bool	       start();                       // запустить автомат
+        bool	       syntaxAnalysis();              // запустить автомат
         ParseTreeNode* buildParseTree();              // построить дерево разбора и вывести последовательность правил
 
         private:

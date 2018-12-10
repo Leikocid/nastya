@@ -136,6 +136,7 @@
                 "Greibach.cpp",
                 "SyntaxAnalyzer.cpp",
                 "SemanticAnalyzer.cpp",
+                "CILGenerator.cpp",
                 "main.cpp",
                 "-o",
                 "../bin/2_1_kp"
