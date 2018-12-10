@@ -42,8 +42,22 @@ IL_000e: nop
 IL_0013: nop
 	ret
 }
-.method public static void main() cil managed {
-	.entrypoint
-
-    ret
- }
+.method private static int32 fi(int32 x, int32 y) cil managed {
+.locals init(int32 z)
+stloc i
+CONDret
+}
+.method private static int32 fs(string a, int32 b) cil managed {
+.locals init(int32 c)
+ret
+}
+.method private static void main() cil managed {
+.entrypoint
+.locals init(int32 x)
+.locals init(int32 y)
+.locals init(int32 z)
+.locals init(string sa)
+stloc sa
+.locals init(string sb)
+ret
+}

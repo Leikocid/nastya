@@ -45,10 +45,13 @@ IL_0013: nop
 .method public static void main() cil managed {
 	.entrypoint
 	// локальные переменные
-	.locals init(float32 Total)
-	ldloc Total
+	.locals init(float32 Total1)
+	ldloc Total1
 	//ldloc.0
 	//ldloc 0
+	stloc Total1
+	.locals init(float32 Total)
+	ldloc Total
 	stloc Total
 
 	ldstr "контрольный пример"

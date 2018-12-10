@@ -115,6 +115,7 @@ namespace GR {
         ParseTreeNode*	       parent;
         vector<ParseTreeNode*> child;         // ветви
         DATATYPE	       datatype;
+        int		       notationSize;
 
         ParseTreeNode(short lentaPosition, Rule* rule, Chain* chain) {
             this->lentaPosition = lentaPosition;
@@ -122,6 +123,7 @@ namespace GR {
             this->chain		= chain;
             this->parent	= nullptr;
             this->datatype	= DT_UNKNOWN;
+            this->notationSize	= 0;
         }
     };
 }

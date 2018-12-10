@@ -1,10 +1,12 @@
 #include "SemanticAnalyzer.h"
+#include "PolishNotation.h"
 #include "IT.h"
 
 #include <iomanip>
 
 using namespace std;
 using namespace IT;
+using namespace PolishNotation;
 
 namespace SEM {
     void log(TranslationContext &ctx, const char* message, int firstIndex, int secondIndex) {
@@ -17,15 +19,15 @@ namespace SEM {
                     << " == " << setw(4) << left << secondIndex << " [" << paramIndex << setw(11) << left << "]" << ":";
     }
 
-    void processNode(TranslationContext &ctx, GR::ParseTreeNode* node) {
+    void verifyDataType(TranslationContext &ctx, GR::ParseTreeNode* node) {
         // обход дерева снизу-вверх
         if (node->child.size() > 0) {
             for (int i = 0; i < node->child.size(); i++) {
-                processNode(ctx, node->child[i]);
+                verifyDataType(ctx, node->child[i]);
             }
         }
 
-        *ctx.logger << "Process node: " << setw(4) << left << node->lentaPosition << ":" << setw(40) << left
+        *ctx.logger << "Verify node: " << setw(4) << left << node->lentaPosition << ":" << setw(40) << left
                     << info(node->rule->ruleSymbol, node->chain) << " :";
 
         switch (GR::symbolToChar(node->rule->ruleSymbol)) {
@@ -40,7 +42,7 @@ namespace SEM {
                         throw ERROR_THROW_IN(704, ctx.lexTable.table[node->child[2]->lentaPosition].line,
                                              ctx.lexTable.table[node->child[2]->lentaPosition].col);
                     } else {
-                        log(ctx, "Check (704)", node->lentaPosition + 1, node->child[2]->lentaPosition);
+                        log(ctx, "Checked (704)", node->lentaPosition + 1, node->child[2]->lentaPosition);
                     }
                 }
                 break;
@@ -56,7 +58,7 @@ namespace SEM {
                         throw ERROR_THROW_IN(701, ctx.lexTable.table[node->child[0]->lentaPosition].line,
                                              ctx.lexTable.table[node->child[0]->lentaPosition].col);
                     } else {
-                        log(ctx, "Check (701)", node->child[0]->lentaPosition, node->child[1]->child[0]->lentaPosition);
+                        log(ctx, "Checked (701)", node->child[0]->lentaPosition, node->child[1]->child[0]->lentaPosition);
                     }
                 } else {
                     // проверка присваивания
@@ -89,7 +91,7 @@ namespace SEM {
                                                      ctx.lexTable.table[node->lentaPosition].line,
                                                      ctx.lexTable.table[node->lentaPosition].col);
                             } else {
-                                log(ctx, "Check (702)", node->lentaPosition + iIndex, node->child[0]->lentaPosition);
+                                log(ctx, "Checked (702)", node->lentaPosition + iIndex, node->child[0]->lentaPosition);
                             }
                         }
                     }
@@ -127,7 +129,7 @@ namespace SEM {
                                                  ctx.lexTable.table[node->lentaPosition + 2].line,
                                                  ctx.lexTable.table[node->lentaPosition + 2].col);
                         } else {
-                            log(ctx, "Check (705)", node->lentaPosition + 2, -1);
+                            log(ctx, "Checked (705)", node->lentaPosition + 2, -1);
                         }
                     }
                 }
@@ -148,7 +150,7 @@ namespace SEM {
                     if (lastDataType != node->datatype) {
                         throw ERROR_THROW_IN(700, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
                     } else {
-                        log(ctx, "Check (700)", node->lentaPosition, node->lentaPosition + node->chain->symbols.size() - 1);
+                        log(ctx, "Checked (700)", node->lentaPosition, node->lentaPosition + node->chain->symbols.size() - 1);
                     }
                 }
                 break;
@@ -163,7 +165,7 @@ namespace SEM {
                     if (lastDataType != node->datatype) {
                         throw ERROR_THROW_IN(700, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
                     } else {
-                        log(ctx, "Check (700): ", node->lentaPosition, node->lentaPosition + node->chain->symbols.size() - 1);
+                        log(ctx, "Checked (700): ", node->lentaPosition, node->lentaPosition + node->chain->symbols.size() - 1);
                     }
                 }
                 break;
@@ -178,7 +180,6 @@ namespace SEM {
             case 'W': {
                 // i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W
                 // параметр вызова функции
-                // обработка выражений
                 if (ctx.lexTable.table[node->lentaPosition].lexema != '(') {
                     int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
                     node->datatype = ctx.idTable.table[idIndex].datatype;
@@ -201,7 +202,7 @@ namespace SEM {
                     if (mDataType != node->datatype) {
                         throw ERROR_THROW_IN(700, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
                     } else {
-                        log(ctx, "Check (700)", node->lentaPosition, node->child[mIndex]->lentaPosition);
+                        log(ctx, "Checked (700)", node->lentaPosition, node->child[mIndex]->lentaPosition);
                     }
                 }
                 int paramIndex		= 1;
@@ -222,7 +223,7 @@ namespace SEM {
                 if (paramDataType != node->datatype) {
                     throw ERROR_THROW_IN(703, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
                 } else {
-                    log(ctx, "Check (703)", node->lentaPosition, temp->lentaPosition, paramIndex);
+                    log(ctx, "Checked (703)", node->lentaPosition, temp->lentaPosition, paramIndex);
                 }
                 break;
             }
@@ -249,9 +250,48 @@ namespace SEM {
         *ctx.logger << endl;
     }
 
+    void buildPolishNotations(TranslationContext &ctx, GR::ParseTreeNode* node) {
+        switch (GR::symbolToChar(node->rule->ruleSymbol)) {
+            case 'E': {
+                // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
+                // обработка выражений
+                int result = buildRPN(node->lentaPosition, ctx);
+                if (result < 0) {
+                    throw ERROR_THROW_IN(706, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                } else {
+                    node->notationSize = result;
+                }
+                break;
+            }
+            case 'W': {
+                int result = buildRPN(node->lentaPosition, ctx);
+                if (result < 0) {
+                    throw ERROR_THROW_IN(706, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                } else {
+                    node->notationSize = result;
+                }
+                char lastSymbol = GR::symbolToChar(node->chain->symbols[node->chain->symbols.size() - 1]);
+                if (lastSymbol == 'W') {
+                    buildPolishNotations(ctx, node->child[node->chain->symbols.size() - 1]);
+                }
+                break;
+            }
+            default: {
+                if (node->child.size() > 0) {
+                    for (int i = 0; i < node->child.size(); i++) {
+                        buildPolishNotations(ctx, node->child[i]);
+                    }
+                }
+            }
+        }
+    }
+
     // семантический анализ
     void  semanticAnalysis(TranslationContext &ctx) {
-        *ctx.logger << "\nСемантический анализ:" << endl;
-        processNode(ctx, ctx.parseTree);
+        *ctx.logger << "\nСемантический анализ. Проверка типов данных:" << endl;
+        verifyDataType(ctx, ctx.parseTree);
+        *ctx.logger << "\nСемантический анализ. Проверка выражений:" << endl;
+        buildPolishNotations(ctx, ctx.parseTree);
+        ctx.logger->logLexemTables(ctx.lexTable, ctx.idTable);
     }
 }

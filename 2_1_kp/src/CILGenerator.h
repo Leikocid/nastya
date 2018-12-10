@@ -48,12 +48,9 @@ IL_000e: nop\n\
 	ldarg.0\n\
 IL_0013: nop\n\
 	ret\n\
-}\n\
-.method public static void main() cil managed {\n\
-	.entrypoint\n";
-    static const char* END_TEMPLATE = "\n\
-    ret\n\
- }\n";
+}\n";
+
+    static const char* END_TEMPLATE = "";
 
     // генерирование кода
     void generate(TranslationContext &ctx);

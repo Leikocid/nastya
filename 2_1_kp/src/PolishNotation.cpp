@@ -8,7 +8,8 @@ using namespace std;
 namespace PolishNotation {
     void printExpression(Log::LOG &logger, int start, LT::LexTable &lexTable) {
         int i = start;
-        while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON) {
+        while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON && lexTable.table[i].lexema != LEX_COMPARE &&
+               lexTable.table[i].lexema != LEX_MORE && lexTable.table[i].lexema != LEX_LESS && lexTable.table[i].lexema != LEX_RIGTH_SQ_BR) {
             logger << i << ": " << lexTable.table[i].lexema;
             if ((lexTable.table[i].lexema == LEX_ID) || (lexTable.table[i].lexema == LEX_FUNCTION_REF)) {
                 logger << lexTable.table[i].idxTI;
@@ -58,18 +59,20 @@ namespace PolishNotation {
         return 0;
     }
 
-    bool PolishNotation(int start, TranslationContext &ctx) {
+    int buildRPN(const int start, TranslationContext &ctx) {
         LT::LexTable lexTable = ctx.lexTable;
         IT::IdTable  idTable  = ctx.idTable;
         *ctx.logger << "\nTry to build polish notation from " << start << " position:" << endl;
         printExpression(*ctx.logger, start, lexTable);
         *ctx.logger << "----------------------------------" << endl;
 
-        bool result = true;
+        bool ok = true;
         stack<char> stack;
         int i = start;
         int r = start; // result index
-        while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON && result) {
+        while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON && lexTable.table[i].lexema != LEX_COMPARE &&
+               lexTable.table[i].lexema != LEX_MORE && lexTable.table[i].lexema != LEX_LESS && lexTable.table[i].lexema != LEX_RIGTH_SQ_BR &&
+               ok) {
             char c = lexTable.table[i].lexema;
 
             switch (c) {
@@ -156,7 +159,7 @@ namespace PolishNotation {
                         r++;
                     } else {
                         if (paramsCount > 1) {
-                            result = false; // found comma inside paranthesys => stop parsing (syntax error)
+                            ok = false; // found comma inside paranthesys => stop parsing (syntax error)
                         }
                     }
                     break;
@@ -165,7 +168,7 @@ namespace PolishNotation {
                     break;
                 }
                 default: {
-                    result = false; // found wrong lexema => stop parsing (syntax error)
+                    ok = false; // found wrong lexema => stop parsing (syntax error)
                 }
             }
             i++;
@@ -189,19 +192,13 @@ namespace PolishNotation {
         printStep(*ctx.logger, ' ', start, r, lexTable, stack);
 
         *ctx.logger << "----------------------------------" << endl;
-        if (result) {
+        if (ok) {
             *ctx.logger << "польская запись построена:" << endl;
             printExpression(*ctx.logger, start, lexTable);
         } else {
             *ctx.logger << "польская запиcь не построена" << endl;
         }
         *ctx.logger << "=================================" << endl;
-        return result;
-    }
-
-    void testPolishNotations(TranslationContext &ctx) {
-        PolishNotation(EXP1, ctx);
-        PolishNotation(EXP2, ctx);
-        PolishNotation(EXP3, ctx);
+        return ok ? (i - start) : (start - i);
     }
 }
