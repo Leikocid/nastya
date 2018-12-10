@@ -45,6 +45,8 @@ main
  z = min(x, y);
  out z;
  out strlen(sb);
+ x=x*(y+fi(strlen(sa)+y,z))-z/fi(x,y);
+ out x;
 
  while [x < 10] {
      if [x <= 6] {

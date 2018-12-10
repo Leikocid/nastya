@@ -19,6 +19,27 @@ namespace SEM {
                     << " == " << setw(4) << left << secondIndex << " [" << paramIndex << setw(11) << left << "]" << ":";
     }
 
+    int symbolIndexInParent(GR::ParseTreeNode* node) {
+        int r = -1;
+        for (int i = 0; i < node->parent->child.size() && r == -1; i++) {
+            if (node->parent->child[i] == node) {
+                r = i;
+            }
+        }
+        r++;
+        if (r > 0) {
+            for (int i = 0; i < node->parent->chain->symbols.size(); i++) {
+                if (GR::isN(node->parent->chain->symbols[i])) {
+                    r--;
+                    if (r == 0) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
     void verifyDataType(TranslationContext &ctx, GR::ParseTreeNode* node) {
         // обход дерева снизу-вверх
         if (node->child.size() > 0) {
@@ -137,7 +158,7 @@ namespace SEM {
             }
             case 'E': {
                 // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
-                // обработка выражений
+                // обработка в��ражений
                 if (ctx.lexTable.table[node->lentaPosition].lexema != '(') {
                     int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
                     node->datatype = ctx.idTable.table[idIndex].datatype;
@@ -205,11 +226,15 @@ namespace SEM {
                         log(ctx, "Checked (700)", node->lentaPosition, node->child[mIndex]->lentaPosition);
                     }
                 }
+
                 int paramIndex		= 1;
                 GR::ParseTreeNode* temp = node->parent;
-                while (temp != nullptr && GR::symbolToChar(temp->rule->ruleSymbol) == 'W') {
+                int childIndex		= symbolIndexInParent(node);
+                while (temp != nullptr && GR::symbolToChar(temp->rule->ruleSymbol) == 'W'
+                       && temp->chain->symbols[childIndex - 1] == ',') { // считаем только W -> ... ,W
                     paramIndex++;
-                    temp = temp->parent;
+                    childIndex = symbolIndexInParent(temp);
+                    temp       = temp->parent;
                 }
                 int iIndex = -1;
                 for (int i = 0; i < temp->chain->symbols.size(); i++) {

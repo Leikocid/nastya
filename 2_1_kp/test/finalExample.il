@@ -134,6 +134,25 @@ LAB_3: nop
 	ldloc sb
 	callvirt instance int32 string::get_Length()
 	call void [mscorlib]System.Console::WriteLine(int32)
+	ldloc x
+	ldloc y
+	ldloc sa
+	callvirt instance int32 string::get_Length()
+	ldloc y
+	ldloc z
+	add
+	call int32 fi(int32, int32)
+	add
+	mul
+	ldloc z
+	ldloc x
+	ldloc y
+	call int32 fi(int32, int32)
+	div
+	sub
+	stloc x
+	ldloc x
+	call void [mscorlib]System.Console::WriteLine(int32)
 LAB_4: nop
 	ldloc x
 	ldc.i4 10
