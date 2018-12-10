@@ -169,6 +169,7 @@ namespace CG {
                         *out << "LAB_" << labelOk << ": nop\n";
                         processNode(ctx, node->child[2]);
                         *out << "LAB_" << labelExit << ": nop\n";
+
                         if (node->child.size() > postIndex) {
                             processNode(ctx, node->child[postIndex]);
                         }
@@ -187,6 +188,7 @@ namespace CG {
                         processNode(ctx, node->child[2]);
                         *out << "\tbr.s " << "LAB_" << labelStart << "\n";
                         *out << "LAB_" << labelExit << ": nop\n";
+
                         if (node->child.size() > 3) {
                             processNode(ctx, node->child[3]);
                         }
@@ -198,6 +200,7 @@ namespace CG {
                         *out << "\tcall void [mscorlib]System.Console::WriteLine(";
                         writeDataType(node->child[0]->datatype);
                         *out << ")\n";
+
                         if (node->child.size() > 1) {
                             processNode(ctx, node->child[1]);
                         }
@@ -218,7 +221,7 @@ namespace CG {
                         *out << " " << ctx.idTable.table[idIndex].name << ")\n";
                         if (node->child.size() > 0) {
                             if (GR::symbolToChar(node->child[0]->rule->ruleSymbol) == 'E') {
-                                processNode(ctx, node->child[0]);     // E - в��чис��ени�� знечения
+                                processNode(ctx, node->child[0]);     // E - вычисление знечения
                                 *out << "\tstloc " << ctx.idTable.table[idIndex].name << "\n";
                                 if (node->child.size() > 1) {
                                     processNode(ctx, node->child[1]); // N
@@ -230,37 +233,17 @@ namespace CG {
                         break;
                     };
                     default: {
-                        if (GR::symbolToChar(node->child[0]->rule->ruleSymbol) == 'W') {
-                            // вызов функции  i(W);N | i(W);
-                            processNode(ctx, node->child[0]); // W
-                            int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
-                            if (strcmp("strlen", ctx.idTable.table[idIndex].name) == 0) {
-                                *out << "\tcallvirt instance int32 string::get_Length()";
-                            } else {
-                                *out << "\tcall ";
-                                writeDataType(ctx.idTable.table[idIndex].datatype);
-                                *out << " " << ctx.idTable.table[idIndex].name << "(";
-                                int i = 1;
-                                while (ctx.idTable.table[idIndex + i].idtype == T_P) {
-                                    if (i > 1) {
-                                        *out << ", ";
-                                    }
-                                    writeDataType(ctx.idTable.table[idIndex + i].datatype);
-                                }
-                                *out << ")\n";
-                            }
+                        // i=E;N | i=E;
+                        int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
+                        processNode(ctx, node->child[0]); // E - calculate
+                        *out << "\tst";
+                        if (ctx.idTable.table[idIndex].idtype == T_P) {
+                            *out << "arg";
                         } else {
-                            // i=E;N | i=E;
-                            int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
-                            processNode(ctx, node->child[0]); // E - calculate
-                            *out << "\tst";
-                            if (ctx.idTable.table[idIndex].idtype == T_P) {
-                                *out << "arg";
-                            } else {
-                                *out << "loc";
-                            }
-                            *out << " " << ctx.idTable.table[idIndex].name << "\n";
+                            *out << "loc";
                         }
+                        *out << " " << ctx.idTable.table[idIndex].name << "\n";
+
                         if (node->child.size() > 1) {
                             processNode(ctx, node->child[1]); // N
                         }
@@ -270,9 +253,6 @@ namespace CG {
             }
             case 'E': {
                 writeEquation(ctx, node);
-                break;
-            }
-            case 'M': {
                 break;
             }
             case 'F': {
@@ -292,10 +272,6 @@ namespace CG {
                     *out << ", " << node->notationSize;
                     processNode(ctx, node->child[node->child.size() - 1]); // W
                 }
-                break;
-            }
-            case 'C': {
-                // <E | >E | <=E | >=E | ==E | !=E
                 break;
             }
         }

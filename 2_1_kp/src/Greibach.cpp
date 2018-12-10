@@ -19,7 +19,7 @@ namespace GR {
         // N -> i=E;N | vi:t;N | vi:t=E;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; |
         // c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N"
         grammar->rules.push_back(*new Rule('N',
-                                           "i=E;N | vi:t;N | vi:t=E;N |  ufi(F):t;N | i(W);N | oE;N | vi:t; | vi:t=E; | i=E; | ufi(F):t; | i(W); | oE; | c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N",
+                                           "i=E;N | vi:t;N | vi:t=E;N | ufi(F):t;N | oE;N | vi:t; | vi:t=E; | i=E; | ufi(F):t; | oE; | c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N | w[EC]{N}; | w[EC]{N};N",
                                            601 // Ошибочный оператор
                                            ));
 
