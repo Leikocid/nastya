@@ -12,7 +12,7 @@ namespace main {
         }
 
         static int max(int x, int y) {
-            if (x > y) {
+            if (x >= y) {
                 return x;
             } else {
                 return y;
@@ -20,7 +20,7 @@ namespace main {
         }
 
         static int min(int x, int y) {
-            if (x > y) {
+            if (x >= y) {
                 return y;
             } else {
                 return x;
@@ -30,7 +30,7 @@ namespace main {
         static int fi(int x, int y) {
             int z;
             z = x * (x + y);
-            if (z < 100) {
+            if ((z < 100) && (z != x)) {
                 z = z + 1000;
             } else {
                 z = z + 2000;

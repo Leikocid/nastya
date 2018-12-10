@@ -32,6 +32,7 @@
 #define LEX_EXCLAMATION '!'        // лексема для !
 #define LEX_LEFT_SQ_BR  '['        // лексема для [
 #define LEX_RIGTH_SQ_BR ']'        // лексема для ]
+#define LEX_FUNCTION_REF '@'       // лексема для вызова функции
 
 #include <vector>
 

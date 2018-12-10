@@ -295,7 +295,7 @@ namespace LA {
                     }
                     literal.value.vstr.len    = strlen(fullFragment);
                     literal.value.vstr.str[0] = 0;
-                    appendChars(literal.value.vstr.str, fullFragment);
+                    appendChars(literal.value.vstr.str, subString(fullFragment, 1, strlen(fullFragment) - 2));
                 }
                 int idIndex = ctx.idTable.table.size();
                 ctx.idTable.Add(literal);

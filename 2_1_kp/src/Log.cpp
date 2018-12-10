@@ -165,7 +165,7 @@ namespace Log {
                     }
                 }
                 *this << e.lexema;
-                if (e.lexema == 'i') {
+                if ((e.lexema == 'i') || (e.lexema == '@')) {
                     *this << "[" << e.idxTI << "]";
                 }
             }

@@ -39,7 +39,7 @@
   .hash algorithm 0x00008004
   .ver  1:0:0:0
 }
-.module test_2_1_kp.dll // GUID = {D300D8FB-D1A0-4450-B917-32AF5FC4576C}
+.module 2_1_kp.dll // GUID = {11E71BFE-72F2-42B3-BB19-C9AC4F796E7A}
 
 
 .namespace main
@@ -90,7 +90,7 @@
            default int32 max (int32 x, int32 y)  cil managed 
     {
         // Method begins at RVA 0x207c
-	// Code size 21 (0x15)
+	// Code size 24 (0x18)
 	.maxstack 2
 	.locals init (
 		bool	V_0,
@@ -98,23 +98,25 @@
 	IL_0000:  nop 
 	IL_0001:  ldarg.0 
 	IL_0002:  ldarg.1 
-	IL_0003:  cgt 
-	IL_0005:  stloc.0 
-	IL_0006:  ldloc.0 
-	IL_0007:  brfalse.s IL_000e
+	IL_0003:  clt 
+	IL_0005:  ldc.i4.0 
+	IL_0006:  ceq 
+	IL_0008:  stloc.0 
+	IL_0009:  ldloc.0 
+	IL_000a:  brfalse.s IL_0011
 
-	IL_0009:  nop 
-	IL_000a:  ldarg.0 
-	IL_000b:  stloc.1 
-	IL_000c:  br.s IL_0013
+	IL_000c:  nop 
+	IL_000d:  ldarg.0 
+	IL_000e:  stloc.1 
+	IL_000f:  br.s IL_0016
 
-	IL_000e:  nop 
-	IL_000f:  ldarg.1 
-	IL_0010:  stloc.1 
-	IL_0011:  br.s IL_0013
+	IL_0011:  nop 
+	IL_0012:  ldarg.1 
+	IL_0013:  stloc.1 
+	IL_0014:  br.s IL_0016
 
-	IL_0013:  ldloc.1 
-	IL_0014:  ret 
+	IL_0016:  ldloc.1 
+	IL_0017:  ret 
     } // end of method Program::max
 
     // method line 3
@@ -122,7 +124,7 @@
            default int32 min (int32 x, int32 y)  cil managed 
     {
         // Method begins at RVA 0x20a0
-	// Code size 21 (0x15)
+	// Code size 24 (0x18)
 	.maxstack 2
 	.locals init (
 		bool	V_0,
@@ -130,23 +132,25 @@
 	IL_0000:  nop 
 	IL_0001:  ldarg.0 
 	IL_0002:  ldarg.1 
-	IL_0003:  cgt 
-	IL_0005:  stloc.0 
-	IL_0006:  ldloc.0 
-	IL_0007:  brfalse.s IL_000e
+	IL_0003:  clt 
+	IL_0005:  ldc.i4.0 
+	IL_0006:  ceq 
+	IL_0008:  stloc.0 
+	IL_0009:  ldloc.0 
+	IL_000a:  brfalse.s IL_0011
 
-	IL_0009:  nop 
-	IL_000a:  ldarg.1 
-	IL_000b:  stloc.1 
-	IL_000c:  br.s IL_0013
+	IL_000c:  nop 
+	IL_000d:  ldarg.1 
+	IL_000e:  stloc.1 
+	IL_000f:  br.s IL_0016
 
-	IL_000e:  nop 
-	IL_000f:  ldarg.0 
-	IL_0010:  stloc.1 
-	IL_0011:  br.s IL_0013
+	IL_0011:  nop 
+	IL_0012:  ldarg.0 
+	IL_0013:  stloc.1 
+	IL_0014:  br.s IL_0016
 
-	IL_0013:  ldloc.1 
-	IL_0014:  ret 
+	IL_0016:  ldloc.1 
+	IL_0017:  ret 
     } // end of method Program::min
 
     // method line 4
@@ -154,7 +158,7 @@
            default int32 fi (int32 x, int32 y)  cil managed 
     {
         // Method begins at RVA 0x20c4
-	// Code size 44 (0x2c)
+	// Code size 54 (0x36)
 	.maxstack 3
 	.locals init (
 		int32	V_0,
@@ -169,38 +173,47 @@
 	IL_0006:  stloc.0 
 	IL_0007:  ldloc.0 
 	IL_0008:  ldc.i4.s 0x64
-	IL_000a:  clt 
-	IL_000c:  stloc.1 
-	IL_000d:  ldloc.1 
-	IL_000e:  brfalse.s IL_001c
+	IL_000a:  bge.s IL_0015
 
-	IL_0010:  nop 
-	IL_0011:  ldloc.0 
-	IL_0012:  ldc.i4 1000
-	IL_0017:  add 
-	IL_0018:  stloc.0 
-	IL_0019:  nop 
-	IL_001a:  br.s IL_0026
+	IL_000c:  ldloc.0 
+	IL_000d:  ldarg.0 
+	IL_000e:  ceq 
+	IL_0010:  ldc.i4.0 
+	IL_0011:  ceq 
+	IL_0013:  br.s IL_0016
 
-	IL_001c:  nop 
-	IL_001d:  ldloc.0 
-	IL_001e:  ldc.i4 2000
-	IL_0023:  add 
-	IL_0024:  stloc.0 
-	IL_0025:  nop 
-	IL_0026:  ldloc.0 
-	IL_0027:  stloc.2 
-	IL_0028:  br.s IL_002a
+	IL_0015:  ldc.i4.0 
+	IL_0016:  stloc.1 
+	IL_0017:  ldloc.1 
+	IL_0018:  brfalse.s IL_0026
 
-	IL_002a:  ldloc.2 
-	IL_002b:  ret 
+	IL_001a:  nop 
+	IL_001b:  ldloc.0 
+	IL_001c:  ldc.i4 1000
+	IL_0021:  add 
+	IL_0022:  stloc.0 
+	IL_0023:  nop 
+	IL_0024:  br.s IL_0030
+
+	IL_0026:  nop 
+	IL_0027:  ldloc.0 
+	IL_0028:  ldc.i4 2000
+	IL_002d:  add 
+	IL_002e:  stloc.0 
+	IL_002f:  nop 
+	IL_0030:  ldloc.0 
+	IL_0031:  stloc.2 
+	IL_0032:  br.s IL_0034
+
+	IL_0034:  ldloc.2 
+	IL_0035:  ret 
     } // end of method Program::fi
 
     // method line 5
     .method private static hidebysig 
            default int32 fs (string a, int32 b)  cil managed 
     {
-        // Method begins at RVA 0x20fc
+        // Method begins at RVA 0x2108
 	// Code size 16 (0x10)
 	.maxstack 2
 	.locals init (
@@ -224,7 +237,7 @@
     .method private static hidebysig 
            default void Main (string[] args)  cil managed 
     {
-        // Method begins at RVA 0x2118
+        // Method begins at RVA 0x2124
 	.entrypoint
 	// Code size 172 (0xac)
 	.maxstack 2
@@ -335,7 +348,7 @@
     .method public hidebysig specialname rtspecialname 
            instance default void '.ctor' ()  cil managed 
     {
-        // Method begins at RVA 0x21d0
+        // Method begins at RVA 0x21dc
 	// Code size 8 (0x8)
 	.maxstack 8
 	IL_0000:  ldarg.0 

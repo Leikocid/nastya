@@ -60,14 +60,14 @@ namespace PolishNotation {
     }
 
     int buildRPN(const int start, TranslationContext &ctx) {
-        LT::LexTable lexTable = ctx.lexTable;
-        IT::IdTable  idTable  = ctx.idTable;
+        LT::LexTable &lexTable = ctx.lexTable;
         *ctx.logger << "\nTry to build polish notation from " << start << " position:" << endl;
         printExpression(*ctx.logger, start, lexTable);
         *ctx.logger << "----------------------------------" << endl;
 
         bool ok = true;
-        stack<char> stack;
+        std::stack<char> stack;
+        std::stack<int>	 functionStack;
         int i = start;
         int r = start; // result index
         while (i < lexTable.table.size() && lexTable.table[i].lexema != LEX_SEMICOLON && lexTable.table[i].lexema != LEX_COMPARE &&
@@ -111,6 +111,7 @@ namespace PolishNotation {
                     if ((i + 1 < lexTable.table.size()) && (lexTable.table[i + 1].lexema == LEX_LEFTHESIS)) {
                         // start of function. push "["
                         stack.push(LEX_LEFT_BRACKET);
+                        functionStack.push(lexTable.table[i].idxTI);
                     } else {
                         // move operand to result position
                         lexTable.table[r] = lexTable.table[i];
@@ -155,7 +156,9 @@ namespace PolishNotation {
                     if (o == LEX_LEFT_BRACKET) {
                         lexTable.table[r].lexema     = LEX_FUNCTION_REF;
                         lexTable.table[r].lexemaType = LA::LT_SIGN;
-                        lexTable.table[r].idxTI	     = paramsCount;
+                        int functionIdx = functionStack.top();
+                        functionStack.pop();
+                        lexTable.table[r].idxTI = functionIdx; // нужен индекс ид объявления функции
                         r++;
                     } else {
                         if (paramsCount > 1) {
@@ -199,6 +202,6 @@ namespace PolishNotation {
             *ctx.logger << "польская запиcь не построена" << endl;
         }
         *ctx.logger << "=================================" << endl;
-        return ok ? (i - start) : (start - i);
+        return ok ? (r - start) : (start - r);
     }
 }

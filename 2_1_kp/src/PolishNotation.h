@@ -7,7 +7,6 @@
 #define EXP2 62
 #define EXP3 151
 
-#define LEX_FUNCTION_REF '@'
 #define LEX_LEFT_BRACKET '['
 #define LEX_EMPTY ' '
 

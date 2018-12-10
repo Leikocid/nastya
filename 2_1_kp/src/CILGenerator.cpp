@@ -9,6 +9,7 @@ using namespace Utils;
 namespace CG {
     // поток для вывода
     ofstream* out;
+    int labelId = 1;
 
     void writeDataType(DATATYPE datatype) {
         switch (datatype) {
@@ -21,7 +22,105 @@ namespace CG {
                 break;
             };
             case DT_UNKNOWN: {
-                *out << " string";
+                *out << "object";
+                break;
+            };
+        }
+    }
+
+    void writeEquation(TranslationContext &ctx, GR::ParseTreeNode* node) {
+        for (int i = node->lentaPosition; i < node->lentaPosition + node->notationSize; i++) {
+            char lexema = ctx.lexTable.table[i].lexema;
+
+            switch (lexema) {
+                case LEX_ID: {
+                    int idIndex = ctx.lexTable.table[i].idxTI;
+                    if (ctx.idTable.table[idIndex].idtype == T_P) {
+                        *out << "\tldarg ";
+                    } else {
+                        *out << "\tldloc ";
+                    }
+                    *out << ctx.idTable.table[idIndex].name << "\n";
+                    break;
+                }
+                case LEX_LITERAL: {
+                    int idIndex = ctx.lexTable.table[i].idxTI;
+                    if (ctx.idTable.table[idIndex].datatype == DT_STR) {
+                        *out << "\tldstr \"" << ctx.idTable.table[idIndex].value.vstr.str << "\"\n";
+                    } else {
+                        *out << "\tldc.i4 " <<  ctx.idTable.table[idIndex].value.vint << "\n";
+                    }
+                    break;
+                }
+                case LEX_FUNCTION_REF: {
+                    int idIndex = ctx.lexTable.table[i].idxTI;
+                    if (strcmp("strlen", ctx.idTable.table[idIndex].name) == 0) {
+                        *out << "\tcallvirt instance int32 string::get_Length()\n";
+                    } else {
+                        *out << "\tcall ";
+                        writeDataType(ctx.idTable.table[idIndex].datatype);
+                        *out << " " << ctx.idTable.table[idIndex].name << "(";
+                        int i = 1;
+                        while (ctx.idTable.table[idIndex + i].idtype == T_P) {
+                            if (i > 1) {
+                                *out << ", ";
+                            }
+                            writeDataType(ctx.idTable.table[idIndex + i].datatype);
+                            i++;
+                        }
+                        *out << ")\n";
+                    }
+                    break;
+                }
+                case LEX_PLUS: {
+                    *out << "\tadd\n";
+                    break;
+                }
+                case LEX_MINUS: {
+                    *out << "\tsub\n";
+                    break;
+                }
+                case LEX_STAR: {
+                    *out << "\tmul\n";
+                    break;
+                }
+                case LEX_DIRSLASH: {
+                    *out << "\tdiv\n";
+                    break;
+                }
+            }
+        }
+    }
+
+    void writeCompairing(TranslationContext &ctx, GR::ParseTreeNode* node) {
+        writeEquation(ctx, node->child[0]);
+        writeEquation(ctx, node->child[1]->child[0]);
+        char firstSymbol = GR::symbolToChar(node->child[1]->chain->symbols[0]);
+
+        switch (firstSymbol) {
+            case '<': {
+                if (GR::symbolToChar(node->child[1]->chain->symbols[1] == '=')) {
+                    *out << "\tble.s ";
+                } else {
+                    *out << "\tblt.s ";
+                }
+                break;
+            };
+            case '>': {
+                if (GR::symbolToChar(node->child[1]->chain->symbols[1] == '=')) {
+                    *out << "\tbge.s ";
+                } else {
+                    *out << "\tbgt.s ";
+                }
+                break;
+            };
+            case '=': {
+                *out << "\tbeq.s ";
+                break;
+            };
+            case '!': {
+                *out << "\tceq";
+                *out << "\tbrtrue.s";
                 break;
             };
         }
@@ -38,16 +137,16 @@ namespace CG {
                     writeDataType(ctx.idTable.table[idIndex].datatype);
                     *out << " " << ctx.idTable.table[idIndex].name << "(";
                     processNode(ctx, node->child[0]); // F- парметры
-                    *out << ") cil managed {\n";
+                    *out << ") cil managed {\n\t.maxstack 100\n";
                     processNode(ctx, node->child[1]); // N - тело
                     processNode(ctx, node->child[2]); // E - положить возвращяемое значение на вершину стека
-                    *out << "ret\n}\n";
+                    *out << "\tret\n}\n";
                     processNode(ctx, node->child[3]); // S
                 } else {
                     // main m{N};
-                    *out << ".method private static void main() cil managed {\n.entrypoint\n";
+                    *out << ".method private static void main() cil managed {\n\t.entrypoint\n\t.maxstack 100\n";
                     processNode(ctx, node->child[0]); // N - тело
-                    *out << "ret\n}\n";
+                    *out << "\tret\n}\n";
                 }
                 break;
             }
@@ -57,36 +156,70 @@ namespace CG {
                 switch (firstSymbol) {
                     case 'c': {
                         // c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N
-                        // TODO:
-                        *out << "COND";
+                        int labelOk   = (++labelId);
+                        int labelExit = (++labelId);
+                        writeCompairing(ctx, node);
+                        *out << " LAB_" << labelOk << "\n";
+                        int postIndex = 3;
+                        if (GR::symbolToChar(node->chain->symbols[8]) == 'e') {
+                            processNode(ctx, node->child[3]);
+                            postIndex = 4;
+                        }
+                        *out << "\tbr.s " << "LAB_" << labelExit << "\n";
+                        *out << "LAB_" << labelOk << ": nop\n";
+                        processNode(ctx, node->child[2]);
+                        *out << "LAB_" << labelExit << ": nop\n";
+                        if (node->child.size() > postIndex) {
+                            processNode(ctx, node->child[postIndex]);
+                        }
                         break;
                     };
                     case 'w': {
                         // w[EC]{N}; | w[EC]{N};N
-                        // TODO:
-
-                        *out << "LOOP";
+                        int labelStart = (++labelId);
+                        int labelOk    = (++labelId);
+                        int labelExit  = (++labelId);
+                        *out << "LAB_" << labelStart << ": nop\n";
+                        writeCompairing(ctx, node);
+                        *out << " LAB_" << labelOk << "\n";
+                        *out << "\tbr.s " << "LAB_" << labelExit << "\n";
+                        *out << "LAB_" << labelOk << ": nop\n";
+                        processNode(ctx, node->child[2]);
+                        *out << "\tbr.s " << "LAB_" << labelStart << "\n";
+                        *out << "LAB_" << labelExit << ": nop\n";
+                        if (node->child.size() > 3) {
+                            processNode(ctx, node->child[3]);
+                        }
                         break;
                     };
                     case 'o': {
                         // oE;N | oE;
-                        // TODO:
-                        *out << "OUT";
+                        writeEquation(ctx, node->child[0]);
+                        *out << "\tcall void [mscorlib]System.Console::WriteLine(";
+                        writeDataType(node->child[0]->datatype);
+                        *out << ")\n";
+                        if (node->child.size() > 1) {
+                            processNode(ctx, node->child[1]);
+                        }
                         break;
                     };
                     case 'u': {
+                        // ufi(F):t;N | ufi(F):t;
+                        if (node->child.size() > 1) {
+                            processNode(ctx, node->child[1]);
+                        }
                         break;
                     };
                     case 'v': {
                         // vi:t;N | vi:t=E;N | vi:t; | vi:t=E;
-                        *out << ".locals init(";
+                        *out << "\t.locals init(";
                         int idIndex = ctx.lexTable.table[node->lentaPosition + 1].idxTI;
                         writeDataType(ctx.idTable.table[idIndex].datatype);
                         *out << " " << ctx.idTable.table[idIndex].name << ")\n";
                         if (node->child.size() > 0) {
                             if (GR::symbolToChar(node->child[0]->rule->ruleSymbol) == 'E') {
-                                processNode(ctx, node->child[0]);     // E - вычисление знечения
-                                *out << "stloc " << ctx.idTable.table[idIndex].name << "\n";
+                                processNode(ctx, node->child[0]);     // E - в��чис��ени�� знечения
+                                *out << "\tstloc " << ctx.idTable.table[idIndex].name << "\n";
                                 if (node->child.size() > 1) {
                                     processNode(ctx, node->child[1]); // N
                                 }
@@ -102,9 +235,9 @@ namespace CG {
                             processNode(ctx, node->child[0]); // W
                             int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
                             if (strcmp("strlen", ctx.idTable.table[idIndex].name) == 0) {
-                                *out << "callvirt instance int32 string::get_Length()";
+                                *out << "\tcallvirt instance int32 string::get_Length()";
                             } else {
-                                *out << "call ";
+                                *out << "\tcall ";
                                 writeDataType(ctx.idTable.table[idIndex].datatype);
                                 *out << " " << ctx.idTable.table[idIndex].name << "(";
                                 int i = 1;
@@ -118,9 +251,15 @@ namespace CG {
                             }
                         } else {
                             // i=E;N | i=E;
-                            int idIndex = ctx.lexTable.table[node->lentaPosition + 1].idxTI;
-                            processNode(ctx, node->child[0]); // E - вычисление знечения
-                            *out << "stloc " << ctx.idTable.table[idIndex].name << "\n";
+                            int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
+                            processNode(ctx, node->child[0]); // E - calculate
+                            *out << "\tst";
+                            if (ctx.idTable.table[idIndex].idtype == T_P) {
+                                *out << "arg";
+                            } else {
+                                *out << "loc";
+                            }
+                            *out << " " << ctx.idTable.table[idIndex].name << "\n";
                         }
                         if (node->child.size() > 1) {
                             processNode(ctx, node->child[1]); // N
@@ -130,27 +269,14 @@ namespace CG {
                 break;
             }
             case 'E': {
-                // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
-
-
-                // TODO:
-                // обработка выражений
-
-
-                // применение польской нотации и генегирование кода
-                // PolishNotation::testPolishNotations(ctx);
-
+                writeEquation(ctx, node);
                 break;
             }
             case 'M': {
-                // +E | +EM | -E | -EM | *E | *EM | /E | /EM
-                // TODO:
-                // обработка выражений
-
                 break;
             }
             case 'F': {
-                // параметры i:t | i:t,F
+                // i:t | i:t,F
                 int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
                 writeDataType(ctx.idTable.table[idIndex].datatype);
                 *out << " " << ctx.idTable.table[idIndex].name;
@@ -161,24 +287,20 @@ namespace CG {
                 break;
             }
             case 'W': {
-                // i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W
-                // TODO:
-                // параметр вызова функции
-                // обработка выражений
-                // применение польской нотации и генегирование кода
-
+                writeEquation(ctx, node);
+                if (GR::symbolToChar(node->child[node->child.size() - 1]->rule->ruleSymbol) == 'W') {
+                    *out << ", " << node->notationSize;
+                    processNode(ctx, node->child[node->child.size() - 1]); // W
+                }
                 break;
             }
             case 'C': {
                 // <E | >E | <=E | >=E | ==E | !=E
-                // правая часть в сравнении
-
                 break;
             }
         }
     }
 
-    // семантический анализ
     void  generate(TranslationContext &ctx) {
         *ctx.logger << "\nГенерирование кода:" << endl;
 
