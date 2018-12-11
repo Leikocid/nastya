@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch 2_1_oop_12",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build 2_1_oop_12",
+            "program": "${workspaceFolder}/2_1_oop_12/bin/Debug/netcoreapp2.1/2_1_oop_12.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/2_1_oop_12/bin/Debug/netcoreapp2.1",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch 2_1_oop_11",
             "type": "coreclr",
             "request": "launch",
@@ -25,51 +36,6 @@
             "cwd": "${workspaceFolder}/2_1_oop_10/bin/Debug/netcoreapp2.1",
             "stopAtEntry": false,
             "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_09",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_09",
-            "program": "${workspaceFolder}/2_1_oop_09/bin/Debug/netcoreapp2.1/2_1_oop_09.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/2_1_oop_09/bin/Debug/netcoreapp2.1",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_08",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_08",
-            "program": "${workspaceFolder}/2_1_oop_08/bin/Debug/netcoreapp2.1/2_1_oop_08.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/2_1_oop_08/bin/Debug/netcoreapp2.1",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_lab_14",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/../bin/2_1_lab_14",
-            "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/2_1_lab_14/test/finalExample.txt"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}/../bin",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
-            "preLaunchTask": "compile 2_1_lab_14",
-            //"miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
         },
         {
             "name": "Launch 2_1_lab_16",
