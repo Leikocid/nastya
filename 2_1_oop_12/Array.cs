@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ns_2_1_oop {
     [Serializable]
-    public class Array<T>: IAccessable<T> {
+    public class Array<T> {
         protected List<T> data = new List<T>();
         public T this[int i] {
             get {
@@ -59,14 +59,6 @@ namespace ns_2_1_oop {
 
         public int Count() {
             return data.Count;
-        }
-
-        public IEnumerator<T> GetEnumerator() {
-            return data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() {
-            return GetEnumerator();
         }
     }
 }
