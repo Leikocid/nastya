@@ -10,6 +10,8 @@ namespace ns_2_1_oop {
             reflector.printClass(typeof(Array).ToString(),			  "Array.txt");
             reflector.printClass(typeof(System.Collections.ArrayList).ToString(), "ArrayList.txt");
             reflector.printClass(typeof(System.String).ToString(),		  "String.txt");
+
+            reflector.callMethod(string className, string methodName, string fileName)
         }
     }
 }
