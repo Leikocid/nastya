@@ -8,14 +8,24 @@ using namespace Utils;
 using namespace std;
 
 namespace Out {
-    void writeResult(const wchar_t outfile[], const unsigned char* text) {
-        string fileName	 = toChars(outfile);
+    // Используется для создания и открытия потокового вывода результирующего файла.
+    OUT* createOut(Parm::PARM params) {
+        string fileName	 = toChars(params.out);
         ofstream* stream = new ofstream();
         stream->open(fileName);
         if (!stream->is_open()) {
-            throw ERROR_THROW(112);
+            throw ERROR_THROW(113);
         }
-        *(stream) << text;
-        stream->close();
+
+        // stream->imbue(locale("ru_RU.CP1251"));
+        return new OUT(stream, params.logToConsole);
+    }
+
+    // закрыть файл
+    void OUT::close() {
+        if (stream) {
+            stream->close();
+            stream = nullptr;
+        }
     }
 }

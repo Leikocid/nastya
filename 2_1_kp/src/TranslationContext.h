@@ -7,6 +7,7 @@
 #include "LT.h"
 #include "IT.h"
 #include "Greibach.h"
+#include "Out.h"
 
 // контекст работы транслятора
 struct TranslationContext {
@@ -30,6 +31,9 @@ struct TranslationContext {
 
     // дерево рвзбора
     GR::ParseTreeNode* parseTree;
+
+    // запись файла результата
+    Out::OUT* result;
 };
 
 #endif // !TRANSTATION_CONTEXT_H

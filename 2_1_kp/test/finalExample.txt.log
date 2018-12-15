@@ -1,4 +1,4 @@
------ Протокол -----  Дата: 11.12.2018 02:08:41 ----- 
+----- Протокол -----  Дата: 16.12.2018 00:25:10 ----- 
 -log: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt.log
 -out: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.il
 -in: /Users/alexey_astakhov/Work/nastya_yp/2_1_kp/test/finalExample.txt
@@ -4925,197 +4925,197 @@
 336 : E -> l                                  
 
 Семантический анализ. Проверка типов данных:
-Verify node: 7   :F -> i:t                                 : int
-Verify node: 3   :F -> i:t,F                               : int
-Verify node: 26  :E -> i                                   : int
-Verify node: 25  :M -> +E                                  : int
-Verify node: 24  :E -> iM                                  :
+Verify node: 7   :F -> i:t                                  : int
+Verify node: 3   :F -> i:t,F                                : int
+Verify node: 26  :E -> i                                    : int
+Verify node: 25  :M -> +E                                   : int
+Verify node: 24  :E -> iM                                   :
               Checked (700)       24   == 25                : int
-Verify node: 23  :E -> (E)                                 : int
-Verify node: 22  :M -> *E                                  : int
-Verify node: 21  :E -> iM                                  :
+Verify node: 23  :E -> (E)                                  : int
+Verify node: 22  :M -> *E                                   : int
+Verify node: 21  :E -> iM                                   :
               Checked (700)       21   == 22                : int
-Verify node: 31  :E -> i                                   : int
-Verify node: 33  :E -> l                                   : int
-Verify node: 32  :C -> <E                                  : int
-Verify node: 40  :E -> l                                   : int
-Verify node: 39  :M -> +E                                  : int
-Verify node: 38  :E -> iM                                  :
+Verify node: 31  :E -> i                                    : int
+Verify node: 33  :E -> l                                    : int
+Verify node: 32  :C -> <E                                   : int
+Verify node: 40  :E -> l                                    : int
+Verify node: 39  :M -> +E                                   : int
+Verify node: 38  :E -> iM                                   :
               Checked (700)       38   == 39                : int
-Verify node: 36  :N -> i=E;                                :
+Verify node: 36  :N -> i=E;                                 :
               Checked (702)       36   == 38                : int
-Verify node: 49  :E -> l                                   : int
-Verify node: 48  :M -> +E                                  : int
-Verify node: 47  :E -> iM                                  :
+Verify node: 49  :E -> l                                    : int
+Verify node: 48  :M -> +E                                   : int
+Verify node: 47  :E -> iM                                   :
               Checked (700)       47   == 48                : int
-Verify node: 45  :N -> i=E;                                :
+Verify node: 45  :N -> i=E;                                 :
               Checked (702)       45   == 47                : int
-Verify node: 29  :N -> c[EC]{N}e{N};                       :
+Verify node: 29  :N -> c[EC]{N}e{N};                        :
               Checked (701)       31   == 33                : int
-Verify node: 19  :N -> i=E;N                               :
+Verify node: 19  :N -> i=E;N                                :
               Checked (702)       19   == 21                : int
-Verify node: 14  :N -> vi:t;N                              : int
-Verify node: 54  :E -> i                                   : int
-Verify node: 65  :F -> i:t                                 : int
-Verify node: 61  :F -> i:t,F                               : str
-Verify node: 81  :F -> i:t                                 : str
-Verify node: 92  :W -> i                                   :
+Verify node: 14  :N -> vi:t;N                               : int
+Verify node: 54  :E -> i                                    : int
+Verify node: 65  :F -> i:t                                  : int
+Verify node: 61  :F -> i:t,F                                : str
+Verify node: 81  :F -> i:t                                  : str
+Verify node: 92  :W -> i                                    :
               Checked (703)       92   == 90   [1]          : str
-Verify node: 95  :E -> i                                   : int
-Verify node: 94  :M -> +E                                  : int
-Verify node: 90  :E -> i(W)M                               :
+Verify node: 95  :E -> i                                    : int
+Verify node: 94  :M -> +E                                   : int
+Verify node: 90  :E -> i(W)M                                :
               Checked (700)       90   == 94                : int
-Verify node: 88  :N -> i=E;                                :
+Verify node: 88  :N -> i=E;                                 :
               Checked (702)       88   == 90                : int
-Verify node: 77  :N -> ufi(F):t;N                          :
+Verify node: 77  :N -> ufi(F):t;N                           :
               Checked (705)       79   == -1                : int
-Verify node: 72  :N -> vi:t;N                              : int
-Verify node: 98  :E -> i                                   : int
-Verify node: 124 :E -> l                                   : str
-Verify node: 135 :F -> i:t                                 : str
-Verify node: 146 :F -> i:t                                 : int
-Verify node: 161 :F -> i:t                                 : int
-Verify node: 157 :F -> i:t,F                               : int
-Verify node: 176 :F -> i:t                                 : int
-Verify node: 172 :F -> i:t,F                               : int
-Verify node: 185 :E -> l                                   : int
-Verify node: 189 :E -> l                                   : int
-Verify node: 193 :E -> l                                   : str
-Verify node: 197 :E -> l                                   : str
-Verify node: 210 :W -> i                                   :
+Verify node: 72  :N -> vi:t;N                               : int
+Verify node: 98  :E -> i                                    : int
+Verify node: 124 :E -> l                                    : str
+Verify node: 135 :F -> i:t                                  : str
+Verify node: 146 :F -> i:t                                  : int
+Verify node: 161 :F -> i:t                                  : int
+Verify node: 157 :F -> i:t,F                                : int
+Verify node: 176 :F -> i:t                                  : int
+Verify node: 172 :F -> i:t,F                                : int
+Verify node: 185 :E -> l                                    : int
+Verify node: 189 :E -> l                                    : int
+Verify node: 193 :E -> l                                    : str
+Verify node: 197 :E -> l                                    : str
+Verify node: 210 :W -> i                                    :
               Checked (703)       210  == 206  [2]          : int
-Verify node: 208 :W -> i,W                                 :
+Verify node: 208 :W -> i,W                                  :
               Checked (703)       208  == 206  [1]          : int
-Verify node: 206 :E -> i(W)                                : int
-Verify node: 219 :W -> i                                   :
+Verify node: 206 :E -> i(W)                                 : int
+Verify node: 219 :W -> i                                    :
               Checked (703)       219  == 215  [2]          : int
-Verify node: 217 :W -> i,W                                 :
+Verify node: 217 :W -> i,W                                  :
               Checked (703)       217  == 215  [1]          : str
-Verify node: 215 :E -> i(W)                                : int
-Verify node: 223 :E -> l                                   : str
-Verify node: 226 :E -> i                                   : int
-Verify node: 232 :W -> i                                   :
+Verify node: 215 :E -> i(W)                                 : int
+Verify node: 223 :E -> l                                    : str
+Verify node: 226 :E -> i                                    : int
+Verify node: 232 :W -> i                                    :
               Checked (703)       232  == 230  [1]          : int
-Verify node: 230 :E -> i(W)                                : int
-Verify node: 236 :E -> i                                   : int
-Verify node: 244 :E -> l                                   : int
-Verify node: 243 :M -> +E                                  : int
-Verify node: 248 :E -> l                                   : int
-Verify node: 247 :M -> +E                                  : int
-Verify node: 246 :W -> iM                                  :
+Verify node: 230 :E -> i(W)                                 : int
+Verify node: 236 :E -> i                                    : int
+Verify node: 244 :E -> l                                    : int
+Verify node: 243 :M -> +E                                   : int
+Verify node: 248 :E -> l                                    : int
+Verify node: 247 :M -> +E                                   : int
+Verify node: 246 :W -> iM                                   :
               Checked (700)       246  == 247               :
               Checked (703)       246  == 240  [2]          : int
-Verify node: 242 :W -> iM,W                                :
+Verify node: 242 :W -> iM,W                                 :
               Checked (700)       242  == 243               :
               Checked (703)       242  == 240  [1]          : int
-Verify node: 240 :E -> i(W)                                : int
-Verify node: 252 :E -> i                                   : int
-Verify node: 260 :W -> i                                   :
+Verify node: 240 :E -> i(W)                                 : int
+Verify node: 252 :E -> i                                    : int
+Verify node: 260 :W -> i                                    :
               Checked (703)       260  == 256  [2]          : int
-Verify node: 258 :W -> i,W                                 :
+Verify node: 258 :W -> i,W                                  :
               Checked (703)       258  == 256  [1]          : int
-Verify node: 256 :E -> i(W)                                : int
-Verify node: 264 :E -> i                                   : int
-Verify node: 269 :W -> i                                   :
+Verify node: 256 :E -> i(W)                                 : int
+Verify node: 264 :E -> i                                    : int
+Verify node: 269 :W -> i                                    :
               Checked (703)       269  == 267  [1]          : str
-Verify node: 267 :E -> i(W)                                : int
-Verify node: 283 :W -> i                                   :
+Verify node: 267 :E -> i(W)                                 : int
+Verify node: 283 :W -> i                                    :
               Checked (703)       283  == 281  [1]          : str
-Verify node: 286 :E -> i                                   : int
-Verify node: 285 :M -> +E                                  : int
-Verify node: 288 :W -> i                                   :
+Verify node: 286 :E -> i                                    : int
+Verify node: 285 :M -> +E                                   : int
+Verify node: 288 :W -> i                                    :
               Checked (703)       288  == 279  [2]          : int
-Verify node: 281 :W -> i(W)M,W                             :
+Verify node: 281 :W -> i(W)M,W                              :
               Checked (700)       281  == 285               :
               Checked (703)       281  == 279  [1]          : int
-Verify node: 279 :E -> i(W)                                : int
-Verify node: 278 :M -> +E                                  : int
-Verify node: 277 :E -> iM                                  :
+Verify node: 279 :E -> i(W)                                 : int
+Verify node: 278 :M -> +E                                   : int
+Verify node: 277 :E -> iM                                   :
               Checked (700)       277  == 278               : int
-Verify node: 298 :W -> i                                   :
+Verify node: 298 :W -> i                                    :
               Checked (703)       298  == 294  [2]          : int
-Verify node: 296 :W -> i,W                                 :
+Verify node: 296 :W -> i,W                                  :
               Checked (703)       296  == 294  [1]          : int
-Verify node: 294 :E -> i(W)                                : int
-Verify node: 293 :M -> /E                                  : int
-Verify node: 292 :E -> iM                                  :
+Verify node: 294 :E -> i(W)                                 : int
+Verify node: 293 :M -> /E                                   : int
+Verify node: 292 :E -> iM                                   :
               Checked (700)       292  == 293               : int
-Verify node: 291 :M -> -E                                  : int
-Verify node: 276 :E -> (E)M                                :
+Verify node: 291 :M -> -E                                   : int
+Verify node: 276 :E -> (E)M                                 :
               Checked (700)       276  == 279               : int
-Verify node: 275 :M -> *E                                  : int
-Verify node: 274 :E -> iM                                  :
+Verify node: 275 :M -> *E                                   : int
+Verify node: 274 :E -> iM                                   :
               Checked (700)       274  == 275               : int
-Verify node: 302 :E -> i                                   : int
-Verify node: 306 :E -> i                                   : int
-Verify node: 308 :E -> l                                   : int
-Verify node: 307 :C -> <E                                  : int
-Verify node: 313 :E -> i                                   : int
-Verify node: 316 :E -> l                                   : int
-Verify node: 314 :C -> <=E                                 : int
-Verify node: 320 :E -> i                                   : int
-Verify node: 319 :N -> oE;                                 : int
-Verify node: 328 :E -> i                                   : int
-Verify node: 327 :M -> *E                                  : int
-Verify node: 326 :E -> iM                                  :
+Verify node: 302 :E -> i                                    : int
+Verify node: 306 :E -> i                                    : int
+Verify node: 308 :E -> l                                    : int
+Verify node: 307 :C -> <E                                   : int
+Verify node: 313 :E -> i                                    : int
+Verify node: 316 :E -> l                                    : int
+Verify node: 314 :C -> <=E                                  : int
+Verify node: 320 :E -> i                                    : int
+Verify node: 319 :N -> oE;                                  : int
+Verify node: 328 :E -> i                                    : int
+Verify node: 327 :M -> *E                                   : int
+Verify node: 326 :E -> iM                                   :
               Checked (700)       326  == 327               : int
-Verify node: 325 :N -> oE;                                 : int
-Verify node: 336 :E -> l                                   : int
-Verify node: 335 :M -> +E                                  : int
-Verify node: 334 :E -> iM                                  :
+Verify node: 325 :N -> oE;                                  : int
+Verify node: 336 :E -> l                                    : int
+Verify node: 335 :M -> +E                                   : int
+Verify node: 334 :E -> iM                                   :
               Checked (700)       334  == 335               : int
-Verify node: 332 :N -> i=E;                                :
+Verify node: 332 :N -> i=E;                                 :
               Checked (702)       332  == 334               : int
-Verify node: 311 :N -> c[EC]{N}e{N};N                      :
+Verify node: 311 :N -> c[EC]{N}e{N};N                       :
               Checked (701)       313  == 316               : int
-Verify node: 304 :N -> w[EC]{N};                           :
+Verify node: 304 :N -> w[EC]{N};                            :
               Checked (701)       306  == 308               : int
-Verify node: 301 :N -> oE;N                                : int
-Verify node: 272 :N -> i=E;N                               :
+Verify node: 301 :N -> oE;N                                 : int
+Verify node: 272 :N -> i=E;N                                :
               Checked (702)       272  == 274               : int
-Verify node: 266 :N -> oE;N                                : int
-Verify node: 263 :N -> oE;N                                : int
-Verify node: 254 :N -> i=E;N                               :
+Verify node: 266 :N -> oE;N                                 : int
+Verify node: 263 :N -> oE;N                                 : int
+Verify node: 254 :N -> i=E;N                                :
               Checked (702)       254  == 256               : int
-Verify node: 251 :N -> oE;N                                : int
-Verify node: 238 :N -> i=E;N                               :
+Verify node: 251 :N -> oE;N                                 : int
+Verify node: 238 :N -> i=E;N                                :
               Checked (702)       238  == 240               : int
-Verify node: 235 :N -> oE;N                                : int
-Verify node: 228 :N -> i=E;N                               :
+Verify node: 235 :N -> oE;N                                 : int
+Verify node: 228 :N -> i=E;N                                :
               Checked (702)       228  == 230               : int
-Verify node: 225 :N -> oE;N                                : int
-Verify node: 222 :N -> oE;N                                : str
-Verify node: 213 :N -> i=E;N                               :
+Verify node: 225 :N -> oE;N                                 : int
+Verify node: 222 :N -> oE;N                                 : str
+Verify node: 213 :N -> i=E;N                                :
               Checked (702)       213  == 215               : int
-Verify node: 204 :N -> i=E;N                               :
+Verify node: 204 :N -> i=E;N                                :
               Checked (702)       204  == 206               : int
-Verify node: 199 :N -> vi:t;N                              : int
-Verify node: 195 :N -> i=E;N                               :
+Verify node: 199 :N -> vi:t;N                               : int
+Verify node: 195 :N -> i=E;N                                :
               Checked (702)       195  == 197               : str
-Verify node: 191 :N -> i=E;N                               :
+Verify node: 191 :N -> i=E;N                                :
               Checked (702)       191  == 193               : str
-Verify node: 187 :N -> i=E;N                               :
+Verify node: 187 :N -> i=E;N                                :
               Checked (702)       187  == 189               : int
-Verify node: 183 :N -> i=E;N                               :
+Verify node: 183 :N -> i=E;N                                :
               Checked (702)       183  == 185               : int
-Verify node: 168 :N -> ufi(F):t;N                          :
+Verify node: 168 :N -> ufi(F):t;N                           :
               Checked (705)       170  == -1                : int
-Verify node: 153 :N -> ufi(F):t;N                          :
+Verify node: 153 :N -> ufi(F):t;N                           :
               Checked (705)       155  == -1                : int
-Verify node: 142 :N -> ufi(F):t;N                          :
+Verify node: 142 :N -> ufi(F):t;N                           :
               Checked (705)       144  == -1                : int
-Verify node: 131 :N -> ufi(F):t;N                          :
+Verify node: 131 :N -> ufi(F):t;N                           :
               Checked (705)       133  == -1                : int
-Verify node: 126 :N -> vi:t;N                              : str
-Verify node: 119 :N -> vi:t=E;N                            :
+Verify node: 126 :N -> vi:t;N                               : str
+Verify node: 119 :N -> vi:t=E;N                             :
               Checked (702)       120  == 124               : str
-Verify node: 114 :N -> vi:t;N                              : int
-Verify node: 109 :N -> vi:t;N                              : int
-Verify node: 104 :N -> vi:t;N                              : int
-Verify node: 102 :S -> m{N};                               : <unknown>
-Verify node: 58  :S -> fi(F):t{NrE;};S                     :
+Verify node: 114 :N -> vi:t;N                               : int
+Verify node: 109 :N -> vi:t;N                               : int
+Verify node: 104 :N -> vi:t;N                               : int
+Verify node: 102 :S -> m{N};                                : <unknown>
+Verify node: 58  :S -> fi(F):t{NrE;};S                      :
               Checked (704)       59   == 98                : int
-Verify node: 0   :S -> fi(F):t{NrE;};S                     :
+Verify node: 0   :S -> fi(F):t{NrE;};S                      :
               Checked (704)       1    == 54                : int
 
 Семантический анализ. Проверка выражений:
