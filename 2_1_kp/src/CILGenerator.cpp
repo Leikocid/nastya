@@ -102,7 +102,7 @@ namespace CG {
     }
 
     // запись команджы условного перехода. в стек добавляются два значения (результаты двух выражений) и дальше записываем условный переход
-    void writeCompairing(TranslationContext &ctx, ParseTreeNode* node) {
+    void writeCompairing(TranslationContext &ctx, ParseTreeNode* node, const int label) {
         writeEquation(ctx, node->child[0]);
         writeEquation(ctx, node->child[1]->child[0]);
 
@@ -134,6 +134,7 @@ namespace CG {
                 break;
             }
         }
+        res << " LAB_" << label << "\n";
     }
 
     // обработка узла из дерева разбора
@@ -168,8 +169,7 @@ namespace CG {
                         // c[EC]{N}; | c[EC]{N};N | c[EC]{N}e{N}; | c[EC]{N}e{N};N - запись ветвления кода
                         int labelOk   = (++labelId);
                         int labelExit = (++labelId);
-                        writeCompairing(ctx, node);
-                        res << " LAB_" << labelOk << "\n";
+                        writeCompairing(ctx, node, labelOk);
 
                         int postIndex = 3;
                         if (symbolToChar(node->chain->symbols[8]) == 'e') {
@@ -194,8 +194,7 @@ namespace CG {
                         int labelExit  = (++labelId);
                         res << "LAB_" << labelStart << ": nop\n";
 
-                        writeCompairing(ctx, node);
-                        res << " LAB_" << labelOk << "\n";
+                        writeCompairing(ctx, node, labelOk);
 
                         res << "\tbr.s " << "LAB_" << labelExit << "\n";
                         res << "LAB_" << labelOk << ": nop\n";
@@ -274,7 +273,7 @@ namespace CG {
                 break;
             }
             case 'F': {
-                // i:t | i:t,F - запись переметра функции
+                // i:t | i:t,F - запись параметра функции
                 int idIndex = lexems[node->lentaPosition].idxTI;
                 writeDataType(ctx, ids[idIndex].datatype);
                 res << " " << ids[idIndex].name;
