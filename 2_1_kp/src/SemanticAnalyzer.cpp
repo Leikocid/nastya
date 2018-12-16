@@ -1,8 +1,10 @@
 #include "SemanticAnalyzer.h"
 #include "PolishNotation.h"
 #include "IT.h"
-
 #include <iomanip>
+
+#define lexems ctx.lexTable.table
+#define ids ctx.idTable.table
 
 using namespace std;
 using namespace IT;
@@ -64,14 +66,13 @@ namespace SEM {
             case 'S': {
                 if (firstSymbol == 'f') {
                     // fi(F):t{NrE;};S - обработка блока для функции
-                    int idIndex = ctx.lexTable.table[node->lentaPosition + 1].idxTI;
-                    node->datatype = ctx.idTable.table[idIndex].datatype;
+                    int idIndex = lexems[node->lentaPosition + 1].idxTI;
+                    node->datatype = ids[idIndex].datatype;
 
                     // тип данных в объявлении фунцкии должен соотвествовать типу в выражении после ключевого слова return
                     DATATYPE returnDataType = node->child[2]->datatype;
                     if (returnDataType != node->datatype) {
-                        throw ERROR_THROW_IN(704, ctx.lexTable.table[node->child[2]->lentaPosition].line,
-                                             ctx.lexTable.table[node->child[2]->lentaPosition].col);
+                        throw ERROR_THROW_IN(704, lexems[node->child[2]->lentaPosition].line, lexems[node->child[2]->lentaPosition].col);
                     } else {
                         log(ctx, "Checked (704)", node->lentaPosition + 1, node->child[2]->lentaPosition);
                     }
@@ -87,19 +88,18 @@ namespace SEM {
 
                         // типы данных в левом и правом выражении для сравнения должны совпадать
                         if (node->child[0]->datatype != node->child[1]->datatype) {
-                            throw ERROR_THROW_IN(701, ctx.lexTable.table[node->child[0]->lentaPosition].line,
-                                                 ctx.lexTable.table[node->child[0]->lentaPosition].col);
+                            throw ERROR_THROW_IN(701, lexems[node->child[0]->lentaPosition].line, lexems[node->child[0]->lentaPosition].col);
                         } else {
                             log(ctx, "Checked (701)", node->child[0]->lentaPosition, node->child[1]->child[0]->lentaPosition);
                         }
                         break;
-                    };
+                    }
                     case 'o': {
                         // oE;N | oE; - вывод в консоль, нету проверок
                         node->datatype = node->child[0]->datatype;
 
                         break;
-                    };
+                    }
                     default: {
                         // i=E;N | vi:t;N | vi:t=E;N | i(W);N | vi:t; | vi:t=E; | i=E; | i(W); | ufi(F):t;N | ufi(F):t;
                         int eqIndex = -1; // индекс =
@@ -113,15 +113,14 @@ namespace SEM {
                                 iIndex = i;
                             }
                         }
-                        int idIndex = ctx.lexTable.table[node->lentaPosition + iIndex].idxTI;
-                        node->datatype = ctx.idTable.table[idIndex].datatype;
+                        int idIndex = lexems[node->lentaPosition + iIndex].idxTI;
+                        node->datatype = ids[idIndex].datatype;
 
                         if (eqIndex != -1) {
                             // i=E;N | vi:t=E;N | vi:t=E; | i=E; - проверка присваивания
                             DATATYPE rigthDataType = node->child[0]->datatype;
                             if (rigthDataType != node->datatype) {
-                                throw ERROR_THROW_IN(702, ctx.lexTable.table[node->lentaPosition].line,
-                                                     ctx.lexTable.table[node->lentaPosition].col);
+                                throw ERROR_THROW_IN(702, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                             } else {
                                 log(ctx, "Checked (702)", node->lentaPosition + iIndex, node->child[0]->lentaPosition);
                             }
@@ -129,33 +128,32 @@ namespace SEM {
                         if (firstSymbol == 'u') {
                             // ufi(F):t;N | ufi(F):t; - проверка корректности вызова библиотечных функций
                             bool  found	  = false;
-                            int	  idIndex = ctx.lexTable.table[node->lentaPosition + 2].idxTI;
-                            char* idName  = ctx.idTable.table[idIndex].name;
+                            int	  idIndex = lexems[node->lentaPosition + 2].idxTI;
+                            char* idName  = ids[idIndex].name;
                             if (strcmp("fact", idName) == 0) {
-                                if ((ctx.idTable.table[idIndex].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 1].idtype == T_P) && (ctx.idTable.table[idIndex + 1].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 2].idtype != T_P)) {
+                                if ((ids[idIndex].datatype == DT_INT) &&
+                                    (ids[idIndex + 1].idtype == T_P) && (ids[idIndex + 1].datatype == DT_INT) &&
+                                    (ids[idIndex + 2].idtype != T_P)) {
                                     found = true;
                                 }
                             }
                             if (strcmp("strlen", idName) == 0) {
-                                if ((ctx.idTable.table[idIndex].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 1].idtype == T_P) && (ctx.idTable.table[idIndex + 1].datatype == DT_STR) &&
-                                    (ctx.idTable.table[idIndex + 2].idtype != T_P)) {
+                                if ((ids[idIndex].datatype == DT_INT) &&
+                                    (ids[idIndex + 1].idtype == T_P) && (ids[idIndex + 1].datatype == DT_STR) &&
+                                    (ids[idIndex + 2].idtype != T_P)) {
                                     found = true;
                                 }
                             }
                             if ((strcmp("min", idName) == 0) || (strcmp("max", idName) == 0)) {
-                                if ((ctx.idTable.table[idIndex].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 1].idtype == T_P) && (ctx.idTable.table[idIndex + 1].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 2].idtype == T_P) && (ctx.idTable.table[idIndex + 2].datatype == DT_INT) &&
-                                    (ctx.idTable.table[idIndex + 3].idtype != T_P)) {
+                                if ((ids[idIndex].datatype == DT_INT) &&
+                                    (ids[idIndex + 1].idtype == T_P) && (ids[idIndex + 1].datatype == DT_INT) &&
+                                    (ids[idIndex + 2].idtype == T_P) && (ids[idIndex + 2].datatype == DT_INT) &&
+                                    (ids[idIndex + 3].idtype != T_P)) {
                                     found = true;
                                 }
                             }
                             if (!found) { // если found == true то библиотечная успешно распознана и используется корректно
-                                throw ERROR_THROW_IN(705, ctx.lexTable.table[node->lentaPosition + 2].line,
-                                                     ctx.lexTable.table[node->lentaPosition + 2].col);
+                                throw ERROR_THROW_IN(705, lexems[node->lentaPosition + 2].line, lexems[node->lentaPosition + 2].col);
                             } else {
                                 log(ctx, "Checked (705)", node->lentaPosition + 2, -1);
                             }
@@ -166,11 +164,10 @@ namespace SEM {
             }
             case 'M':
             case 'E': {
-                // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M
-                // +E | +EM | -E | -EM | *E | *EM | /E | /EM - обработка выражений
+                // E -> i | l | (E) | i(W) | iM | lM | (E)M | i(W)M | +E | +EM | -E | -EM | *E | *EM | /E | /EM - обработка выражений
                 if ((firstSymbol == 'i') || (firstSymbol == 'l')) {
-                    int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
-                    node->datatype = ctx.idTable.table[idIndex].datatype;
+                    int idIndex = lexems[node->lentaPosition].idxTI;
+                    node->datatype = ids[idIndex].datatype;
                 } else {
                     node->datatype = node->child[0]->datatype;
                 }
@@ -180,7 +177,7 @@ namespace SEM {
                     // типы данных для переменных в одной операции должны совпадать
                     DATATYPE lastDataType = node->child[node->child.size() - 1]->datatype;
                     if (lastDataType != node->datatype) {
-                        throw ERROR_THROW_IN(700, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                        throw ERROR_THROW_IN(700, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                     } else {
                         log(ctx, "Checked (700)", node->lentaPosition, node->lentaPosition + node->chain->symbols.size() - 1);
                     }
@@ -189,8 +186,8 @@ namespace SEM {
             }
             case 'F': {
                 // i:t | i:t,F -параметры объявления функции
-                int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
-                node->datatype = ctx.idTable.table[idIndex].datatype;
+                int idIndex = lexems[node->lentaPosition].idxTI;
+                node->datatype = ids[idIndex].datatype;
 
                 break;
             }
@@ -198,8 +195,8 @@ namespace SEM {
                 // i | l | i,W | l,W | (E) | i(W) | iM | lM | (E)M | i(W)M | (E),W | i(W),W | iM,W | lM,W | (E)M,W | i(W)M,W - параметры
                 // вызова функции
                 if ((firstSymbol == 'i') || (firstSymbol == 'l')) {
-                    int idIndex = ctx.lexTable.table[node->lentaPosition].idxTI;
-                    node->datatype = ctx.idTable.table[idIndex].datatype;
+                    int idIndex = lexems[node->lentaPosition].idxTI;
+                    node->datatype = ids[idIndex].datatype;
                 } else {
                     node->datatype = node->child[0]->datatype;
                 }
@@ -220,7 +217,7 @@ namespace SEM {
                     // типы данных для переменных в одной операции должны совпадать
                     DATATYPE mDataType = node->child[mIndex]->datatype;
                     if (mDataType != node->datatype) {
-                        throw ERROR_THROW_IN(700, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                        throw ERROR_THROW_IN(700, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                     } else {
                         log(ctx, "Checked (700)", node->lentaPosition, node->child[mIndex]->lentaPosition);
                     }
@@ -243,10 +240,10 @@ namespace SEM {
                         iIndex = i;
                     }
                 }
-                int idIndex	       = ctx.lexTable.table[temp->lentaPosition + iIndex].idxTI;
-                DATATYPE paramDataType = ctx.idTable.table[idIndex + paramIndex].datatype;
+                int idIndex	       = lexems[temp->lentaPosition + iIndex].idxTI;
+                DATATYPE paramDataType = ids[idIndex + paramIndex].datatype;
                 if (paramDataType != node->datatype) {
-                    throw ERROR_THROW_IN(703, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                    throw ERROR_THROW_IN(703, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                 } else {
                     log(ctx, "Checked (703)", node->lentaPosition, temp->lentaPosition, paramIndex);
                 }
@@ -279,18 +276,18 @@ namespace SEM {
     void buildPolishNotations(TranslationContext &ctx, ParseTreeNode* node) {
         switch (symbolToChar(node->rule->ruleSymbol)) {
             case 'E': {
-                int result = buildRPN(node->lentaPosition, ctx);
+                int result = buildRPN(ctx, node->lentaPosition);
                 if (result < 0) {
-                    throw ERROR_THROW_IN(706, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                    throw ERROR_THROW_IN(706, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                 } else {
                     node->notationSize = result;
                 }
                 break;
             }
             case 'W': {
-                int result = buildRPN(node->lentaPosition, ctx);
+                int result = buildRPN(ctx, node->lentaPosition);
                 if (result < 0) {
-                    throw ERROR_THROW_IN(706, ctx.lexTable.table[node->lentaPosition].line, ctx.lexTable.table[node->lentaPosition].col);
+                    throw ERROR_THROW_IN(706, lexems[node->lentaPosition].line, lexems[node->lentaPosition].col);
                 } else {
                     node->notationSize = result;
                 }

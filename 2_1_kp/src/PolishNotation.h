@@ -15,7 +15,7 @@ namespace PolishNotation {
     // Построение польской записи в таблице лексем(позиция выражения в lextable, табл лексем, табл ид)
     // >0 - построение польской записи выполнено успешно - размер нотации
     // <0 - построение польской записи не выполнено
-    int buildRPN(const int start, TranslationContext &ctx);
+    int buildRPN(TranslationContext &ctx, const int start);
 }
 
 #endif // !POLISH_NOTATION_H

@@ -59,7 +59,7 @@ namespace PolishNotation {
         return 0;
     }
 
-    int buildRPN(const int start, TranslationContext &ctx) {
+    int buildRPN(TranslationContext &ctx, const int start) {
         LT::LexTable &lexTable = ctx.lexTable;
         *ctx.logger << "\nTry to build polish notation from " << start << " position:" << endl;
         printExpression(*ctx.logger, start, lexTable);
