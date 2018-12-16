@@ -51,10 +51,8 @@ namespace SEM {
     // обходим дерево снизу вверх, вычисляя тип данных для каждого узла. Делаем проверки.
     void verifyDataType(TranslationContext &ctx, ParseTreeNode* node) {
         // обход дерева снизу-вверх
-        if (node->child.size() > 0) {
-            for (int i = 0; i < node->child.size(); i++) {
-                verifyDataType(ctx, node->child[i]);
-            }
+        for (int i = 0; i < node->child.size(); i++) {
+            verifyDataType(ctx, node->child[i]);
         }
 
         // логирование
@@ -185,7 +183,7 @@ namespace SEM {
                 break;
             }
             case 'F': {
-                // i:t | i:t,F -параметры объявления функции
+                // i:t | i:t,F - параметры объявления функции
                 int idIndex = lexems[node->lentaPosition].idxTI;
                 node->datatype = ids[idIndex].datatype;
 
@@ -212,7 +210,6 @@ namespace SEM {
                         mIndex = j;
                     }
                 }
-
                 if (mIndex != -1) {
                     // типы данных для переменных в одной операции должны совпадать
                     DATATYPE mDataType = node->child[mIndex]->datatype;

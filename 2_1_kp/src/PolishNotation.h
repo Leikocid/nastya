@@ -3,10 +3,6 @@
 
 #include "TranslationContext.h"
 
-#define EXP1 17
-#define EXP2 62
-#define EXP3 151
-
 #define LEX_LEFT_BRACKET '['
 #define LEX_EMPTY ' '
 
