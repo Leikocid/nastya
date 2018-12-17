@@ -8,10 +8,10 @@ namespace ns_2_1_oop {
             Reflector reflector = new Reflector();
 
             // a.
-            reflector.writeClass(typeof(Vector).ToString(),	 "Vector.txt");
-            reflector.writeClass(typeof(Array<int>).ToString(),	 "Array.txt");
-            reflector.writeClass(typeof(System.Math).ToString(), "Math.txt");
-            eflector.writeClass(typeof(System.String).ToString(), "String.txt");
+            reflector.writeClass(typeof(Vector).ToString(),	   "Vector.txt");
+            reflector.writeClass(typeof(Array<int>).ToString(),	   "Array.txt");
+            reflector.writeClass(typeof(System.Math).ToString(),   "Math.txt");
+            reflector.writeClass(typeof(System.String).ToString(), "String.txt");
 
             // b.
             reflector.printPublicMethods(typeof(Vector).ToString());
