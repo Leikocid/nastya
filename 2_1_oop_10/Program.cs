@@ -105,8 +105,7 @@ namespace ns_2_1_oop {
             st2.Push(g);
 
             List<Software> l3 = new List<Software>();
-            Software soft;
-            while (st2.TryPop(out soft)) {
+            foreach (Software soft in st2) {
                 l3.Add(soft);
             }
 
