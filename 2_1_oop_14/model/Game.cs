@@ -1,21 +1,24 @@
 using System;
 using System.Text;
+using System.Runtime.Serialization;
+
 namespace ns_2_1_oop {
     public enum Genre {
         Strategy, Action, Puzzle
     }
     [Serializable]
-    public class Game : Software, IHasHTMLPresentation {
-        public Genre Genre { get; protected set; }
+    [DataContract]
+    public class Game : Software {
+        [DataMember]
+        public Genre Genre { get; set; }
 
+        [DataMember]
         public byte ageLimit { get; set; }
 
-        public Game(string name, string version, DateTime releaseDate, Genre genre) : base(name, version, releaseDate) {
-            Genre = genre;
-        }
+        public Game() {}
 
-        public string GetHTML() {
-            return $"<div class=\"game\">{Name}</div>";
+        public Game(string name, string version, int releaseYear, Genre genre) : base(name, version, releaseYear) {
+            Genre = genre;
         }
 
         public override string ToString() {

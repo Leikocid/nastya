@@ -1,22 +1,31 @@
 using System;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace ns_2_1_oop {
     [Serializable]
+    [DataContract]
     public abstract class AbstractSoftware : AbstractObject, IComparable<AbstractSoftware> {
-        public string Name { get; }
+        [DataMember]
+        public string Name { get; set; }
 
-        public string Version { get; }
 
-        public DateTime ReleaseDate { get; }
+        [DataMember]
+        public string Version { get; set; }
 
-        public AbstractSoftware(string name, string version, DateTime releaseDate) {
+
+        [DataMember]
+        public int ReleaseYear { get; set; }
+
+        public AbstractSoftware() {}
+
+        public AbstractSoftware(string name, string version, int releaseYear) {
             if (name == null) {
                 throw new ArgumentException("Name must be specified");
             }
-            Name	= name;
-            Version	= version;
-            ReleaseDate = releaseDate;
+            Name	     = name;
+            Version	     = version;
+            this.ReleaseYear = releaseYear;
         }
 
         public override bool Equals(object obj) {
@@ -44,8 +53,9 @@ namespace ns_2_1_oop {
             if (Version != null) {
                 result.Append(", Version = ").Append(Version);
             }
-            if (ReleaseDate != null) {
-                result.Append(", ReleaseDate = ").Append(ReleaseDate.Date);
+
+            if (ReleaseYear != 0) {
+                result.Append(", ReleaseDate = ").Append(ReleaseYear);
             }
             result.Append("}");
             return result.ToString();

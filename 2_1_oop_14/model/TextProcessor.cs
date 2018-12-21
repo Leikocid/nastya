@@ -1,22 +1,19 @@
 using System;
 using System.Text;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace ns_2_1_oop {
     [Serializable]
-    public sealed partial class TextProcessor : Software, IHasHTMLPresentation {
-        public string[] WorkExtensions { get; }
+    [DataContract]
+    public sealed  class TextProcessor : Software {
+        [DataMember]
+        public string[] WorkExtensions { get; set; }
 
+        public TextProcessor() {}
 
-        public TextProcessor(string name, string version, DateTime releaseDate, string[] workExtensions) : base(name, version, releaseDate) {
+        public TextProcessor(string name, string version, int releaseYear, string[] workExtensions) : base(name, version, releaseYear) {
             WorkExtensions = workExtensions;
-        }
-
-        public string GetHTML() {
-            return $"<div class=\"text_precessor\">{Name} - {Version}</div>";
-        }
-
-        string IHasHTMLPresentation.GetCreator() {
-            return "HTML publisher";
         }
 
         public override string ToString() {
@@ -25,6 +22,17 @@ namespace ns_2_1_oop {
                 result.Append(" (WorkExtensions = ").Append(string.Join(", ", WorkExtensions)).Append(")");
             }
             return result.ToString();
+        }
+
+        private bool freeStatus = true;
+
+
+        public void SetFree(bool isFree) {
+            this.freeStatus = isFree;
+        }
+
+        public override bool IsFree() {
+            return freeStatus;
         }
     }
 }

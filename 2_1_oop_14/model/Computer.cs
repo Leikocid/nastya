@@ -1,18 +1,21 @@
 using System;
+
 using System.Collections.Generic;
+using System.Collections;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+
 
 namespace ns_2_1_oop {
     [Serializable]
+    [DataContract]
     public class Computer {
-        private List<AbstractSoftware> softwares = new List<AbstractSoftware>();
+        public Computer() {}
+
+        [DataMember]
+        public List<AbstractSoftware> softwares = new List<AbstractSoftware>();
 
         public void AddSoftware(AbstractSoftware software) {
-            if (software is Virus) {
-                throw new InvalidSoftwareException("Can't put Virus to Computer");
-            }
-            if (softwares.Contains(software)) {
-                throw new DuplicateSoftwareException();
-            }
             softwares.Add(software);
         }
 
@@ -28,12 +31,6 @@ namespace ns_2_1_oop {
         }
 
         public void SetSoftwareAt(AbstractSoftware software, int index) {
-            if (software is Virus) {
-                throw new InvalidSoftwareException("Can't put Virus to Computer");
-            }
-            if (softwares.Contains(software)) {
-                throw new DuplicateSoftwareException();
-            }
             if ((index < 0) || (index >= softwares.Count)) {
                 throw new IndexOutOfRangeException();
             }
