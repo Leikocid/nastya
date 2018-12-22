@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch 2_1_oop_16",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build 2_1_oop_16",
+            "program": "${workspaceFolder}/2_1_oop_16/bin/Debug/netcoreapp2.1/2_1_oop_16.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/2_1_oop_16/bin/Debug/netcoreapp2.1",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Launch 2_1_oop_15",
             "type": "coreclr",
             "request": "launch",
@@ -58,41 +69,6 @@
             "cwd": "${workspaceFolder}/2_1_oop_11/bin/Debug/netcoreapp2.1",
             "stopAtEntry": false,
             "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_oop_10",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build 2_1_oop_10",
-            "program": "${workspaceFolder}/2_1_oop_10/bin/Debug/netcoreapp2.1/2_1_oop_10.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/2_1_oop_10/bin/Debug/netcoreapp2.1",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
-            "name": "Launch 2_1_lab_16",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/../bin/2_1_lab_16",
-            "args": [
-                "-in:/Users/alexey_astakhov/Work/nastya_yp/2_1_lab_16/test/polishNotation.txt",
-                "-logToConsole"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}/../bin",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "lldb",
-            "preLaunchTask": "compile 2_1_lab_16",
-            //"miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
         },
         {
             "name": "Launch 2_1_kp",
