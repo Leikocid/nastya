@@ -1,14 +1,6 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
-
-struct Address {
-    unsigned char b1;
-    unsigned char b2;
-    unsigned char b3;
-    unsigned char b4;
-};
 
 bool checkAddress(char* ip_) {
     int points	= 0,                              // количество точек
