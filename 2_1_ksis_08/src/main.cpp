@@ -3,10 +3,15 @@
 using namespace std;
 
 bool checkAddress(char* ip_) {
-    int points	= 0,                              // количество точек
-        numbers = 0;                              // значение октета
-    char* buff;                                   // буфер для одного октета
-    buff = new char[3];
+    int points	= 0, // количество точек
+        numbers = 0; // значение октета
+    char* buff;      // буфер для одного октета
+    buff    = new char[4];
+    buff[0] = 0;
+    buff[1] = 0;
+    buff[2] = 0;
+    buff[3] = 0;
+
     for (int i = 0; ip_[i] != '\0'; i++) {        // для строки IP-адреса
         if ((ip_[i] <= '9') && (ip_[i] >= '0')) { // если цифра
             if (numbers > 3) {
@@ -29,7 +34,11 @@ bool checkAddress(char* ip_) {
             numbers = 0;
             points++;
             delete[] buff;
-            buff = new char[4];
+            buff    = new char[4];
+            buff[0] = 0;
+            buff[1] = 0;
+            buff[2] = 0;
+            buff[3] = 0;
         } else {
             return false;
         }
