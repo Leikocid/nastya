@@ -2,16 +2,12 @@
 
 using namespace std;
 
-bool checkAddress(char* ip_) {
-    int points	= 0, // количество точек
-        numbers = 0; // значение октета
-    char* buff;      // буфер для одного октета
-    buff    = new char[4];
-    buff[0] = 0;
-    buff[1] = 0;
-    buff[2] = 0;
-    buff[3] = 0;
 
+bool checkAddress(char* ip_) {
+    int points	= 0,                              // количество точек
+        numbers = 0;                              // значение октета
+    char* buff;                                   // буфер для одного октета
+    buff = new char[4];
     for (int i = 0; ip_[i] != '\0'; i++) {        // для строки IP-адреса
         if ((ip_[i] <= '9') && (ip_[i] >= '0')) { // если цифра
             if (numbers > 3) {
@@ -19,26 +15,22 @@ bool checkAddress(char* ip_) {
             }
 
             // если больше трех чисел в октете – ошибка
-            numbers++;
             buff[numbers]     = ip_[i];
             buff[numbers + 1] = 0;
+            numbers++;
         } else if (ip_[i] == '.') { // если точка
-            if (atoi(buff) > 255) {
-                // проверить диапазон октета
-                return false;
-            }
             if (numbers == 0) {
                 // если числа нет - ошибка
+                return false;
+            }
+            if (atoi(buff) > 255) {
+                // проверить диапазон октета
                 return false;
             }
             numbers = 0;
             points++;
             delete[] buff;
-            buff    = new char[4];
-            buff[0] = 0;
-            buff[1] = 0;
-            buff[2] = 0;
-            buff[3] = 0;
+            buff = new char[4];
         } else {
             return false;
         }
@@ -136,7 +128,7 @@ unsigned long charToLong(char* ip_) {
             j = -1;
 
             delete[] buff;
-            buff    = new char[3];
+            buff    = new char[4];
             buff[0] = 0;
             buff[1] = 0;
             buff[2] = 0;
