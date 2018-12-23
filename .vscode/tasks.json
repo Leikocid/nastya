@@ -126,6 +126,27 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "compile 2_1_ksis_08",
+            "options": {
+                "cwd": "${workspaceFolder}/2_1_ksis_08/src"
+            },
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-Wall",
+                "-I",
+                "./",
+                "main.cpp",
+                "-o",
+                "../bin/2_1_ksis_08"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
