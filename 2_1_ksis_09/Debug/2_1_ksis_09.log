@@ -1,0 +1,5 @@
+﻿  stdafx.cpp
+  2_1_ksis_09.cpp
+z:\work\nastya_yp\2_1_ksis_09\2_1_ksis_09.cpp(70): warning C4101: ip_end_: неиспользованная локальная переменная
+z:\work\nastya_yp\2_1_ksis_09\2_1_ksis_09.cpp(71): warning C4101: ip_end: неиспользованная локальная переменная
+  2_1_ksis_09.vcxproj -> Z:\Work\nastya_yp\2_1_ksis_09\Debug\2_1_ksis_09.exe
